@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -183,7 +183,7 @@ namespace Ledybot
 					{
 						tradeDirection = 2;
 					}
-					Program.createGTSBot(pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, tradeQueue);
+					Program.createGTSBot(tb_IP.Text, pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, tradeQueue);
 					Task<int> Bot = Program.gtsBot.RunBot();
 					if (!button)
 					{
@@ -221,19 +221,13 @@ namespace Ledybot
 					botNumber = -1;
 					break;
 				case "stopgtsbot":
-                    if (btn_Start.Enabled == true)
-                    {
-                        Program.gtsBot.RequestStop();
-                        btn_Start.Enabled = true;
-                        btn_Stop.Enabled = false;
-                        botStop = true;
-                        SendConsoleMessage("Requested Bot Stop.");
-                        string msg6 = "command:stopgtsbot Requested to stop the bot.";
-                        Writer(stream, msg6);
-                    } else {
-                        string msg6 = "command:stopgtsbot Requested to stop the bot. But bot never started";
-                        Writer(stream, msg6);
-                    }
+					Program.gtsBot.RequestStop();
+                    btn_Start.Enabled = true;
+                    btn_Stop.Enabled = false;
+                    botStop = true;
+					SendConsoleMessage("Requested Bot Stop.");
+					string msg6 = "command:stopgtsbot Requested to stop the bot.";
+					Writer(stream, msg6);
 					break;
                 case "refresh":
                     switch (commStrings.Length)
