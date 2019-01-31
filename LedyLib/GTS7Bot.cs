@@ -151,8 +151,9 @@ namespace LedyLib
             }
         }
 
-        public GTSBot7(string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue, RemoteControl helper, LookupTable pkTable, Data data, ScriptHelper scriptHelper)
+        public GTSBot7(NTR ntr,string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue, RemoteControl helper, LookupTable pkTable, Data data, ScriptHelper scriptHelper)
         {
+            this._ntr = ntr;
             this.iPokemonToFind = iPtF;
             this.iPokemonToFindGender = iPtFGender;
             this.iPokemonToFindLevel = iPtFLevel;
