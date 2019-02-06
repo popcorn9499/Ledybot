@@ -50,6 +50,8 @@ namespace Ledybot
             btn_Disconnect.Enabled = false;
             this.combo_pkmnList.Items.AddRange(Program.PKTable.Species7);
 
+            btn_tradeQueueToggle.Text = tradeQueue.ToString();
+
             touchfrm = new Form()
             {
                 FormBorderStyle = FormBorderStyle.FixedSingle
@@ -976,7 +978,11 @@ namespace Ledybot
             rtb_Console.AppendText("\n" + message);
         }
 
-
+        private void btn_tradeQueueToggle_Click(object sender, EventArgs e)
+        {
+            ExecuteCommand("togglequeue", true, null);
+            btn_tradeQueueToggle.Text = tradeQueue.ToString();
+        }
     }
 
 
