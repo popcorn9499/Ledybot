@@ -932,9 +932,20 @@ namespace LedyLib
                     case (int)gtsbotstates.panic:
                         onChangeStatus?.Invoke("Recovery mode!");
                         //recover from weird state here
-                        if(!_ntr.isConnected)
+                        try
                         {
-                            _scriptHelper.connect(szIP, 8000);
+                            if (!_ntr.isConnected)
+                            {
+                                _scriptHelper.connect(szIP, 8000);
+                                await Task.Delay(5000);
+
+                            }
+                        }
+                        catch
+                        {
+                            await Task.Delay(5000);
+                            botState = (int)gtsbotstates.panic;
+                            break;
                         }
 
                         await _helper.waitNTRread(addr_currentScreen);
