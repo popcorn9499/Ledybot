@@ -151,8 +151,9 @@ namespace LedyLib
             }
         }
 
-        public GTSBot7(string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue, RemoteControl helper, LookupTable pkTable, Data data, ScriptHelper scriptHelper)
+        public GTSBot7(NTR ntr,string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue, RemoteControl helper, LookupTable pkTable, Data data, ScriptHelper scriptHelper)
         {
+            this._ntr = ntr;
             this.iPokemonToFind = iPtF;
             this.iPokemonToFindGender = iPtFGender;
             this.iPokemonToFindLevel = iPtFLevel;
@@ -931,9 +932,20 @@ namespace LedyLib
                     case (int)gtsbotstates.panic:
                         onChangeStatus?.Invoke("Recovery mode!");
                         //recover from weird state here
-                        if(!_ntr.isConnected)
+                        try
                         {
-                            _scriptHelper.connect(szIP, 8000);
+                            if (!_ntr.isConnected)
+                            {
+                                _scriptHelper.connect(szIP, 8000);
+                                await Task.Delay(5000);
+
+                            }
+                        }
+                        catch
+                        {
+                            await Task.Delay(5000);
+                            botState = (int)gtsbotstates.panic;
+                            break;
                         }
 
                         await _helper.waitNTRread(addr_currentScreen);
