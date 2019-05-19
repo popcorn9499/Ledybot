@@ -772,6 +772,8 @@ namespace LedyLib
 
                             //optional: grab some trainer data
                             string szTrainerName = Encoding.Unicode.GetString(block, 0x4C, 24).Trim('\0');
+                            File.WriteAllText(Directory.GetCurrentDirectory() + @"\LastTradedTrainer.txt", szTrainerName.ToString());
+
                             int countryIndex = BitConverter.ToInt16(block, 0x68);
                             string country = "-";
                             _data.countries.TryGetValue(countryIndex, out country);
@@ -931,6 +933,8 @@ namespace LedyLib
                         break;
                     case (int)gtsbotstates.panic:
                         onChangeStatus?.Invoke("Recovery mode!");
+                        _helper.quicktouch(0,0, commandtime);
+
                         //recover from weird state here
                         try
                         {
