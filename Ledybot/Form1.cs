@@ -908,7 +908,7 @@ namespace Ledybot
             try
             {
                 rtb_Console.AppendText("\n" + "Writing Start");
-                await stream.WriteAsync(str);
+                await stream.WriteAsync(str+"\r\n");
                 await stream.FlushAsync();
                 rtb_Console.AppendText("\n" + "Writing End");
             } catch
