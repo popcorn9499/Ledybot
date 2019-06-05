@@ -103,6 +103,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tb_Subreddit = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_removeConnection = new System.Windows.Forms.Button();
+            this.lv_ServerList = new System.Windows.Forms.ListView();
+            this.col_hostname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_port = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_connectionStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tb_Console = new System.Windows.Forms.TabPage();
             this.btn_SendCommand = new System.Windows.Forms.Button();
             this.tb_ConsoleCommand = new System.Windows.Forms.TextBox();
@@ -114,11 +120,12 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -132,8 +139,9 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).BeginInit();
-            this.tb_Console.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tb_Console.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -991,6 +999,65 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Subreddit:";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox4);
+            this.tabPage1.Controls.Add(this.btn_removeConnection);
+            this.tabPage1.Controls.Add(this.lv_ServerList);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(369, 536);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "API Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_removeConnection
+            // 
+            this.btn_removeConnection.Location = new System.Drawing.Point(33, 460);
+            this.btn_removeConnection.Name = "btn_removeConnection";
+            this.btn_removeConnection.Size = new System.Drawing.Size(102, 50);
+            this.btn_removeConnection.TabIndex = 20;
+            this.btn_removeConnection.Text = "Remove Connections checked";
+            this.btn_removeConnection.UseVisualStyleBackColor = true;
+            this.btn_removeConnection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button1_MouseClick);
+            // 
+            // lv_ServerList
+            // 
+            this.lv_ServerList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_ServerList.CheckBoxes = true;
+            this.lv_ServerList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.col_hostname,
+            this.col_port,
+            this.col_connectionStatus});
+            this.lv_ServerList.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lv_ServerList.FullRowSelect = true;
+            this.lv_ServerList.GridLines = true;
+            this.lv_ServerList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_ServerList.Location = new System.Drawing.Point(8, 6);
+            this.lv_ServerList.Name = "lv_ServerList";
+            this.lv_ServerList.Size = new System.Drawing.Size(353, 428);
+            this.lv_ServerList.TabIndex = 19;
+            this.lv_ServerList.UseCompatibleStateImageBehavior = false;
+            this.lv_ServerList.View = System.Windows.Forms.View.Details;
+            // 
+            // col_hostname
+            // 
+            this.col_hostname.Text = "Hostname";
+            this.col_hostname.Width = 150;
+            // 
+            // col_port
+            // 
+            this.col_port.Text = "Port";
+            this.col_port.Width = 80;
+            // 
+            // col_connectionStatus
+            // 
+            this.col_connectionStatus.Text = "Connection Status";
+            this.col_connectionStatus.Width = 120;
+            // 
             // tb_Console
             // 
             this.tb_Console.Controls.Add(this.btn_SendCommand);
@@ -1076,48 +1143,69 @@
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // tabPage1
+            // groupBox4
             // 
-            this.tabPage1.Controls.Add(this.listView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(369, 536);
-            this.tabPage1.TabIndex = 5;
-            this.tabPage1.Text = "API Settings";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
-            this.listView1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.Location = new System.Drawing.Point(6, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(353, 308);
-            this.listView1.TabIndex = 19;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.label17);
+            this.groupBox4.Location = new System.Drawing.Point(176, 440);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(197, 93);
+            this.groupBox4.TabIndex = 21;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "New Connection Settings";
+            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
-            // columnHeader1
+            // textBox1
             // 
-            this.columnHeader1.Text = "Hostname";
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(42, 43);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(148, 20);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.Text = "10000";
             // 
-            // columnHeader2
+            // textBox2
             // 
-            this.columnHeader2.Text = "Port";
-            this.columnHeader2.Width = 40;
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(42, 17);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(149, 20);
+            this.textBox2.TabIndex = 9;
+            this.textBox2.Text = "127.0.0.1";
             // 
-            // columnHeader3
+            // label16
             // 
-            this.columnHeader3.Text = "Connection status";
-            this.columnHeader3.Width = 100;
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 50);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(29, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Port:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 20);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(20, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "IP:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(42, 70);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Add Connection";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1156,9 +1244,11 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).EndInit();
+            this.tabPage1.ResumeLayout(false);
             this.tb_Console.ResumeLayout(false);
             this.tb_Console.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1251,10 +1341,17 @@
         private System.Windows.Forms.TextBox tb_ConsoleCommand;
         private System.Windows.Forms.CheckBox cb_Tradequeue;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ListView lv_ServerList;
+        private System.Windows.Forms.Button btn_removeConnection;
+        private System.Windows.Forms.ColumnHeader col_hostname;
+        private System.Windows.Forms.ColumnHeader col_port;
+        private System.Windows.Forms.ColumnHeader col_connectionStatus;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button button1;
     }
 }
 
