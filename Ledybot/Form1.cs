@@ -93,13 +93,13 @@ namespace Ledybot
                 Program.helper.freetouch();
         }
 
-        public async void ExecuteCommand(string command, bool button, NamedPipeServerStream stream)
+        public async void ExecuteCommand(string command, bool button, StreamWriter stream)
         {
-            if (InvokeRequired)
-            {
-                this.Invoke(new Action<string, bool, NamedPipeServerStream>(ExecuteCommand), command, button, stream);
-                return;
-            }
+            //if (InvokeRequired)
+            //{
+            //    this.Invoke(new Action<string, bool, NamedPipeServerStream>(ExecuteCommand), command, button, stream);
+            //    return;
+            //}
 
             string[] commStrings = command.Split(' ');
 			switch (commStrings[0].Trim('\0'))
@@ -376,7 +376,7 @@ namespace Ledybot
                     }
                     break;
                 default:
-                    string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended..";
+                    string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');
                     Writer(stream, msg201);
                     break;
             }
@@ -902,8 +902,16 @@ namespace Ledybot
             consolePress();
         }
 
+        public async void Writer(StreamWriter stream, String str)
+        {
+            rtb_Console.AppendText("\n" + "Writing Start");
+            await stream.WriteAsync(str);
+            await stream.FlushAsync();
+            rtb_Console.AppendText("\n" + "Writing End");
 
-        
+        }
+
+
 
         public void Writer(NamedPipeServerStream stream,String str)
         {
@@ -958,10 +966,17 @@ namespace Ledybot
                     case "connect":
                         if (comStrings.Length == 2)
                         {
-                            Program.createPipe(comStrings[1]);
+                            try
+                            {
+                                Int32 port = Int32.Parse(comStrings[1]);
+                                Program.createTcpClient(port);
+                            } catch (FormatException e)
+                            {
+                                rtb_Console.AppendText("\nInvalid Number");
+                            }
                         }
                         else
-                            rtb_Console.AppendText("\nCommand Usage: conect {pipename}");
+                            rtb_Console.AppendText("\nCommand Usage: conect {portNumber}");
                         break;
                 }
             }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Pipes;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 using LedyLib;
@@ -101,6 +103,31 @@ namespace Ledybot
 
         }
 
+        public static async void createTcpClient(Int32 port)
+        {
+            string host = "127.0.0.1";
+            int timeout = 5000;
+
+            TcpClient client = new TcpClient();
+            await client.ConnectAsync(host, port);
+            var netstream = client.GetStream();
+            StreamReader reader = new StreamReader(netstream);
+            StreamWriter writer = new StreamWriter(netstream);
+
+            writer.AutoFlush = true;
+
+            netstream.ReadTimeout = timeout;
+            f1.SendConsoleMessage("Connection Received.");
+            while (true)
+            {
+                String response = await reader.ReadLineAsync();
+                // string message = Encoding.Unicode.GetString(response).TrimEnd('\0').Trim(' ');
+                f1.ExecuteCommand(response, false, writer);
+                f1.SendConsoleMessage("Message Received.");
+            }
+
+        }
+
         public static void StartReadingAsync(NamedPipeServerStream PipeServer)
         {
             // Debug.WriteLine("Pipe " + FullPipeNameDebug() + " calling ReadAsync");
@@ -133,7 +160,7 @@ namespace Ledybot
 
                 string message = Encoding.Unicode.GetString(pBuffer).TrimEnd('\0').Trim(' ');
 
-                f1.ExecuteCommand(message, false, PipeServer);
+                //f1.ExecuteCommand(message, false, PipeServer);
 
             });
         }
