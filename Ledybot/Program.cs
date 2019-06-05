@@ -70,7 +70,7 @@ namespace Ledybot
         }
 
 
-        public static async void addToList(String serverName,StreamWriter writer)
+        public static void AddToList(String serverName,StreamWriter writer)
         {
             foreach (var pair in ServerList)
             {
@@ -120,7 +120,7 @@ namespace Ledybot
 
                     String serverName = host + ":" + port.ToString(); //create the name of the server for the serverList
                     f1.SendConsoleMessage("Adding to ServerList");
-                    Program.addToList(serverName, writer);
+                    Program.AddToList(serverName, writer);
 
 
                     f1.SendConsoleMessage("Connection Received."); 
