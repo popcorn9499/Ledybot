@@ -53,7 +53,7 @@ namespace Ledybot
 
         public static void createGTSBot(string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue)
         {
-            gtsBot = new GTSBot7(ntrClient,szIP, iP, iPtF, iPtFGender, iPtFLevel, bBlacklist, bReddit, iSearchDirection, waittime, consoleName, useLedySync, ledySyncIp, ledySyncPort, game, tradeQueue, helper, PKTable, data, scriptHelper);
+            gtsBot = new GTSBot7(ntrClient, szIP, iP, iPtF, iPtFGender, iPtFLevel, bBlacklist, bReddit, iSearchDirection, waittime, consoleName, useLedySync, ledySyncIp, ledySyncPort, game, tradeQueue, helper, PKTable, data, scriptHelper);
             gtsBot.onChangeStatus += f1.ChangeStatus;
             gtsBot.onItemDetails += f1.ReceiveItemDetails;
             Data.GtsBot7 = gtsBot;
@@ -76,10 +76,25 @@ namespace Ledybot
             int timeout = 5000;
 
             TcpClient client = new TcpClient();
-            await client.ConnectAsync(host, port);
-            var netstream = client.GetStream();
-            StreamReader reader = new StreamReader(netstream);
-            StreamWriter writer = new StreamWriter(netstream);
+
+            NetworkStream netstream;
+            StreamReader reader;
+            StreamWriter writer;
+            while (true)
+            {
+                try
+                {
+                    await client.ConnectAsync(host, port);
+                    netstream = client.GetStream();
+                    reader = new StreamReader(netstream);
+                    writer = new StreamWriter(netstream);
+                    break;
+                }
+                catch
+                {
+
+                }
+            }
 
             writer.AutoFlush = true;
 
@@ -115,3 +130,4 @@ namespace Ledybot
 
         }
 }
+
