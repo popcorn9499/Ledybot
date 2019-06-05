@@ -905,10 +905,16 @@ namespace Ledybot
 
         public async void Writer(StreamWriter stream, String str)
         {
-            rtb_Console.AppendText("\n" + "Writing Start");
-            await stream.WriteAsync(str);
-            await stream.FlushAsync();
-            rtb_Console.AppendText("\n" + "Writing End");
+            try
+            {
+                rtb_Console.AppendText("\n" + "Writing Start");
+                await stream.WriteAsync(str);
+                await stream.FlushAsync();
+                rtb_Console.AppendText("\n" + "Writing End");
+            } catch
+            {
+                rtb_Console.AppendText("\n" + "Connection Error");
+            }
 
         }
 
