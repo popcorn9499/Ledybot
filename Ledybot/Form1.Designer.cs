@@ -49,6 +49,7 @@
             this.cb_Blacklist = new System.Windows.Forms.CheckBox();
             this.tc_Control = new System.Windows.Forms.TabControl();
             this.tp_GTS = new System.Windows.Forms.TabPage();
+            this.cb_Tradequeue = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cb_Reddit = new System.Windows.Forms.CheckBox();
             this.tb_thread = new System.Windows.Forms.TextBox();
@@ -102,6 +103,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tb_Subreddit = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_removeConnection = new System.Windows.Forms.Button();
+            this.lv_ServerList = new System.Windows.Forms.ListView();
+            this.col_hostname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_port = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.col_connectionStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tb_Console = new System.Windows.Forms.TabPage();
             this.btn_SendCommand = new System.Windows.Forms.Button();
             this.tb_ConsoleCommand = new System.Windows.Forms.TextBox();
@@ -113,8 +120,12 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.btn_tradeQueueToggle = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
+            this.gb_connectionBox = new System.Windows.Forms.GroupBox();
+            this.tb_apiPort = new System.Windows.Forms.TextBox();
+            this.tb_apiIP = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,7 +139,9 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.tb_Console.SuspendLayout();
+            this.gb_connectionBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -276,6 +289,7 @@
             this.tc_Control.Controls.Add(this.tp_Injection);
             this.tc_Control.Controls.Add(this.tp_Breeding);
             this.tc_Control.Controls.Add(this.tb_Settings);
+            this.tc_Control.Controls.Add(this.tabPage1);
             this.tc_Control.Controls.Add(this.tb_Console);
             this.tc_Control.Location = new System.Drawing.Point(1, 33);
             this.tc_Control.Name = "tc_Control";
@@ -286,8 +300,7 @@
             // tp_GTS
             // 
             this.tp_GTS.AllowDrop = true;
-            this.tp_GTS.Controls.Add(this.label15);
-            this.tp_GTS.Controls.Add(this.btn_tradeQueueToggle);
+            this.tp_GTS.Controls.Add(this.cb_Tradequeue);
             this.tp_GTS.Controls.Add(this.groupBox3);
             this.tp_GTS.Controls.Add(this.combo_levelrange);
             this.tp_GTS.Controls.Add(this.combo_gender);
@@ -309,6 +322,17 @@
             this.tp_GTS.TabIndex = 0;
             this.tp_GTS.Text = "GTS";
             this.tp_GTS.UseVisualStyleBackColor = true;
+            // 
+            // cb_Tradequeue
+            // 
+            this.cb_Tradequeue.AccessibleName = "TradeQueue";
+            this.cb_Tradequeue.AutoSize = true;
+            this.cb_Tradequeue.Location = new System.Drawing.Point(5, 130);
+            this.cb_Tradequeue.Name = "cb_Tradequeue";
+            this.cb_Tradequeue.Size = new System.Drawing.Size(86, 17);
+            this.cb_Tradequeue.TabIndex = 38;
+            this.cb_Tradequeue.Text = "TradeQueue";
+            this.cb_Tradequeue.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -975,6 +999,65 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Subreddit:";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.gb_connectionBox);
+            this.tabPage1.Controls.Add(this.btn_removeConnection);
+            this.tabPage1.Controls.Add(this.lv_ServerList);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(369, 536);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "API Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_removeConnection
+            // 
+            this.btn_removeConnection.Location = new System.Drawing.Point(33, 460);
+            this.btn_removeConnection.Name = "btn_removeConnection";
+            this.btn_removeConnection.Size = new System.Drawing.Size(102, 50);
+            this.btn_removeConnection.TabIndex = 20;
+            this.btn_removeConnection.Text = "Remove Checked Connections";
+            this.btn_removeConnection.UseVisualStyleBackColor = true;
+            this.btn_removeConnection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button1_MouseClick);
+            // 
+            // lv_ServerList
+            // 
+            this.lv_ServerList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_ServerList.CheckBoxes = true;
+            this.lv_ServerList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.col_hostname,
+            this.col_port,
+            this.col_connectionStatus});
+            this.lv_ServerList.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lv_ServerList.FullRowSelect = true;
+            this.lv_ServerList.GridLines = true;
+            this.lv_ServerList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_ServerList.Location = new System.Drawing.Point(8, 6);
+            this.lv_ServerList.Name = "lv_ServerList";
+            this.lv_ServerList.Size = new System.Drawing.Size(353, 428);
+            this.lv_ServerList.TabIndex = 19;
+            this.lv_ServerList.UseCompatibleStateImageBehavior = false;
+            this.lv_ServerList.View = System.Windows.Forms.View.Details;
+            // 
+            // col_hostname
+            // 
+            this.col_hostname.Text = "Hostname";
+            this.col_hostname.Width = 150;
+            // 
+            // col_port
+            // 
+            this.col_port.Text = "Port";
+            this.col_port.Width = 80;
+            // 
+            // col_connectionStatus
+            // 
+            this.col_connectionStatus.Text = "Connection Status";
+            this.col_connectionStatus.Width = 120;
+            // 
             // tb_Console
             // 
             this.tb_Console.Controls.Add(this.btn_SendCommand);
@@ -1060,24 +1143,69 @@
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // btn_tradeQueueToggle
+            // gb_connectionBox
             // 
-            this.btn_tradeQueueToggle.Location = new System.Drawing.Point(97, 124);
-            this.btn_tradeQueueToggle.Name = "btn_tradeQueueToggle";
-            this.btn_tradeQueueToggle.Size = new System.Drawing.Size(75, 23);
-            this.btn_tradeQueueToggle.TabIndex = 31;
-            this.btn_tradeQueueToggle.Text = "Trade Toggle";
-            this.btn_tradeQueueToggle.UseVisualStyleBackColor = true;
-            this.btn_tradeQueueToggle.Click += new System.EventHandler(this.btn_tradeQueueToggle_Click);
+            this.gb_connectionBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gb_connectionBox.Controls.Add(this.button1);
+            this.gb_connectionBox.Controls.Add(this.tb_apiPort);
+            this.gb_connectionBox.Controls.Add(this.tb_apiIP);
+            this.gb_connectionBox.Controls.Add(this.label16);
+            this.gb_connectionBox.Controls.Add(this.label17);
+            this.gb_connectionBox.Location = new System.Drawing.Point(176, 440);
+            this.gb_connectionBox.Name = "gb_connectionBox";
+            this.gb_connectionBox.Size = new System.Drawing.Size(197, 93);
+            this.gb_connectionBox.TabIndex = 21;
+            this.gb_connectionBox.TabStop = false;
+            this.gb_connectionBox.Text = "New Connection Settings";
+            this.gb_connectionBox.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
-            // label15
+            // tb_apiPort
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 129);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(84, 13);
-            this.label15.TabIndex = 37;
-            this.label15.Text = "Queue Enabled:";
+            this.tb_apiPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_apiPort.Location = new System.Drawing.Point(42, 43);
+            this.tb_apiPort.Name = "tb_apiPort";
+            this.tb_apiPort.Size = new System.Drawing.Size(148, 20);
+            this.tb_apiPort.TabIndex = 10;
+            this.tb_apiPort.Text = "10000";
+            // 
+            // tb_apiIP
+            // 
+            this.tb_apiIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_apiIP.Location = new System.Drawing.Point(42, 17);
+            this.tb_apiIP.Name = "tb_apiIP";
+            this.tb_apiIP.Size = new System.Drawing.Size(149, 20);
+            this.tb_apiIP.TabIndex = 9;
+            this.tb_apiIP.Text = "127.0.0.1";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 50);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(29, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Port:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 20);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(20, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "IP:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(42, 70);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Add Connection";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1116,8 +1244,11 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).EndInit();
+            this.tabPage1.ResumeLayout(false);
             this.tb_Console.ResumeLayout(false);
             this.tb_Console.PerformLayout();
+            this.gb_connectionBox.ResumeLayout(false);
+            this.gb_connectionBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1208,8 +1339,19 @@
         private System.Windows.Forms.RichTextBox rtb_Console;
         private System.Windows.Forms.Button btn_SendCommand;
         private System.Windows.Forms.TextBox tb_ConsoleCommand;
-        private System.Windows.Forms.Button btn_tradeQueueToggle;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox cb_Tradequeue;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ListView lv_ServerList;
+        private System.Windows.Forms.Button btn_removeConnection;
+        private System.Windows.Forms.ColumnHeader col_hostname;
+        private System.Windows.Forms.ColumnHeader col_port;
+        private System.Windows.Forms.ColumnHeader col_connectionStatus;
+        private System.Windows.Forms.GroupBox gb_connectionBox;
+        private System.Windows.Forms.TextBox tb_apiPort;
+        private System.Windows.Forms.TextBox tb_apiIP;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.Pipes;
+using System.IO;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 using LedyLib;
@@ -23,6 +24,10 @@ namespace Ledybot
         public static BanlistDetails bld;
         public static List<KeyValuePair<string, ArrayList>> ServerList = new List<KeyValuePair<string, ArrayList>>();
 
+
+        public static String ConnectionAttempting = "Connecting";
+        public static String ConnectionOk = "Connected";
+        public static String ConnectionError = "Error";
 
         /// <summary>
         /// The main entry point for the application.
@@ -52,7 +57,7 @@ namespace Ledybot
 
         public static void createGTSBot(string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue)
         {
-            gtsBot = new GTSBot7(ntrClient,szIP, iP, iPtF, iPtFGender, iPtFLevel, bBlacklist, bReddit, iSearchDirection, waittime, consoleName, useLedySync, ledySyncIp, ledySyncPort, game, tradeQueue, helper, PKTable, data, scriptHelper);
+            gtsBot = new GTSBot7(ntrClient, szIP, iP, iPtF, iPtFGender, iPtFLevel, bBlacklist, bReddit, iSearchDirection, waittime, consoleName, useLedySync, ledySyncIp, ledySyncPort, game, tradeQueue, helper, PKTable, data, scriptHelper);
             gtsBot.onChangeStatus += f1.ChangeStatus;
             gtsBot.onItemDetails += f1.ReceiveItemDetails;
             Data.GtsBot7 = gtsBot;
@@ -68,75 +73,98 @@ namespace Ledybot
             f1.dumpedPKHeX.Data = data;
         }
 
-        public static void createPipe(string pipename)
+
+        public static void AddToList(String serverName,StreamWriter writer)
         {
-            NamedPipeServerStream server = new NamedPipeServerStream(pipename, PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances,
-                PipeTransmissionMode.Message,
-                PipeOptions.Asynchronous);
-
-            f1.SendConsoleMessage("Awaiting connection from client...");
-
-            server.WaitForConnectionAsync().ContinueWith(t =>
+            foreach (var pair in ServerList)
             {
-                f1.SendConsoleMessage("Connection Received.");
-                StartReadingAsync(server);
-
-                foreach (var pair in ServerList)
+                if (pair.Key == serverName)
                 {
-                    if (pair.Key == pipename)
-                    {
-                        pair.Value.Add(server);
-                        return;
-                    }
+                    pair.Value.Add(writer);
+                    return;
                 }
+            }
+            f1.SendConsoleMessage("done adding to the server list");
+            ArrayList newClient = new ArrayList
+                    {
+                        writer
+                    };
 
-                ArrayList newPipeName = new ArrayList
-                {
-                    server
-                };
-
-                ServerList.Add(new KeyValuePair<string, ArrayList>(pipename, newPipeName));
-            });
-            
+            ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
 
         }
 
-        public static void StartReadingAsync(NamedPipeServerStream PipeServer)
+        public static async void createTcpClient(String host,Int32 port, ListViewItem connectionItem)
         {
-            // Debug.WriteLine("Pipe " + FullPipeNameDebug() + " calling ReadAsync");
+            //string host = "127.0.0.1";
+            int timeout = 5000;
 
-            // okay we're connected, now immediately listen for incoming buffers
-            //
-            byte[] pBuffer = new byte[500];
-            PipeServer.ReadAsync(pBuffer, 0, 500).ContinueWith(t =>
+            while (true) //continuously trys to reconnect
             {
-                // Debug.WriteLine("Pipe " + FullPipeNameDebug() + " finished a read request");
-
-                // before we call the user back, start reading ANOTHER buffer, so the network stack
-                // will have something to deliver into and we don't keep it waiting.
-                // We're called on the "anonymous task" thread. if we queue another call to
-                // the pipe's read, that request goes down into the kernel, onto a different thread
-                // and this will be called back again, later. it's not recursive, and perfectly legal.
-
-                int ReadLen = t.Result;
-                if (ReadLen == 0)
+                try //catches any errors that may occur
                 {
-                    return;
+                    connectionItem.SubItems[2].Text = Program.ConnectionAttempting;
+                    TcpClient client = new TcpClient();
+
+                    NetworkStream netstream;
+                    StreamReader reader;
+                    StreamWriter writer;
+
+                    await client.ConnectAsync(host, port); //connects to the host on port specified
+                    netstream = client.GetStream();
+
+                    //gets the stream reader and writer
+                    reader = new StreamReader(netstream);
+                    writer = new StreamWriter(netstream);
+
+
+                    //sets details for the connection
+                    writer.AutoFlush = true;
+
+                    netstream.ReadTimeout = timeout;
+
+                    String serverName = host + ":" + port.ToString(); //create the name of the server for the serverList
+                    f1.SendConsoleMessage("Adding to ServerList");
+                    Program.AddToList(serverName, writer);
+
+                    //create this as a async task so it can be canceled if the connection has been ended or use another method to remove it
+                    f1.SendConsoleMessage("Connection Received.");
+                    connectionItem.SubItems[2].Text = Program.ConnectionOk;
+                    while (true) //start reading for messages
+                    {
+                        String response = await reader.ReadLineAsync();
+                        if (!checkIfConnected(serverName))
+                        {
+                            break;
+                        }
+                        f1.ExecuteCommand(response, false, writer);
+                        f1.SendConsoleMessage("Message Received: " + response);
+                    }
+
+
                 }
+                catch (Exception e)
+                {
+                    f1.SendConsoleMessage(e.StackTrace);
+                    f1.SendConsoleMessage("Reconnecting");
+                    connectionItem.SubItems[2].Text = Program.ConnectionError;
+                }
+            }
+        }
 
-                // lodge ANOTHER read request BEFORE calling the user back. Doing this ensures
-                // the read is ready before we call the user back, which may cause a write request to happen,
-                // which will zip over to the other end of the pipe, cause a write to happen THERE, and we won't be ready to receive it
-                // (perhaps it will stay stuck in a kernel queue, and it's not necessary to do this)
-                //
-                StartReadingAsync(PipeServer);
+        public static Boolean checkIfConnected(String serverName) //handles checking if this should be connected
+        {
+            foreach (var pair in ServerList)
+            {
+                if (pair.Key == serverName)
+                {
+                    return true;
+                }
+            }
 
-                string message = Encoding.Unicode.GetString(pBuffer).TrimEnd('\0').Trim(' ');
-
-                f1.ExecuteCommand(message, false, PipeServer);
-
-            });
+            return false;
         }
 
     }
+
 }
