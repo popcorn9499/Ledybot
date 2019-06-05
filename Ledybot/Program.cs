@@ -75,9 +75,9 @@ namespace Ledybot
             string host = "127.0.0.1";
             int timeout = 5000;
 
-            while (true)
+            while (true) //continuously trys to reconnect
             {
-                try
+                try //catches any errors that may occur
                 {
                     TcpClient client = new TcpClient();
 
@@ -85,18 +85,21 @@ namespace Ledybot
                     StreamReader reader;
                     StreamWriter writer;
 
-                    await client.ConnectAsync(host, port);
+                    await client.ConnectAsync(host, port); //connects to the host on port specified
                     netstream = client.GetStream();
+
+                    //gets the stream reader and writer
                     reader = new StreamReader(netstream);
                     writer = new StreamWriter(netstream);
 
 
+                    //sets details for the connection
                     writer.AutoFlush = true;
 
                     netstream.ReadTimeout = timeout;
 
-                    String serverName = host + ":" + port.ToString();
-
+                    String serverName = host + ":" + port.ToString(); //create the name of the server for the serverList
+                    
                     foreach (var pair in ServerList)
                     {
                         if (pair.Key == serverName)
@@ -107,15 +110,15 @@ namespace Ledybot
                     }
 
                     ArrayList newClient = new ArrayList
-                {
-                    writer
-                };
+                    {
+                        writer
+                    };
 
                     ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
 
 
-                    f1.SendConsoleMessage("Connection Received.");
-                    while (true)
+                    f1.SendConsoleMessage("Connection Received."); 
+                    while (true) //start reading for messages
                     {
                         String response = await reader.ReadLineAsync();
 
