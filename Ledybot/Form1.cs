@@ -292,8 +292,8 @@ namespace Ledybot
                     }
                     break;
                 case "togglequeue":
-                    tradeQueue = !tradeQueue;
-                    if (tradeQueue)
+                    cb_Tradequeue.Checked = !cb_Tradequeue.Checked;
+                    if (cb_Tradequeue.Checked)
                     {
                         SendConsoleMessage("Trade Queue Enabled.");
                         string msg12 = "command:togglequeue Trade Queue Enabled.";
@@ -650,6 +650,7 @@ namespace Ledybot
             Properties.Settings.Default.DepositedIndex = combo_pkmnList.SelectedIndex;
             Properties.Settings.Default.DepositedGender = combo_gender.SelectedIndex;
             Properties.Settings.Default.DepositedLevel = combo_levelrange.SelectedIndex;
+            Properties.Settings.Default.TradeQueue = cb_Tradequeue.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -671,6 +672,7 @@ namespace Ledybot
             combo_pkmnList.SelectedIndex = Properties.Settings.Default.DepositedIndex;
             combo_gender.SelectedIndex = Properties.Settings.Default.DepositedGender;
             combo_levelrange.SelectedIndex = Properties.Settings.Default.DepositedLevel;
+            cb_Tradequeue.Checked = Properties.Settings.Default.TradeQueue;
         }
 
         private void btn_BrowseInject_Click(object sender, EventArgs e)

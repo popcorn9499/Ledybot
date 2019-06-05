@@ -113,8 +113,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.btn_tradeQueueToggle = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
+            this.cb_Tradequeue = new System.Windows.Forms.CheckBox();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -286,8 +285,7 @@
             // tp_GTS
             // 
             this.tp_GTS.AllowDrop = true;
-            this.tp_GTS.Controls.Add(this.label15);
-            this.tp_GTS.Controls.Add(this.btn_tradeQueueToggle);
+            this.tp_GTS.Controls.Add(this.cb_Tradequeue);
             this.tp_GTS.Controls.Add(this.groupBox3);
             this.tp_GTS.Controls.Add(this.combo_levelrange);
             this.tp_GTS.Controls.Add(this.combo_gender);
@@ -1060,24 +1058,16 @@
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // btn_tradeQueueToggle
+            // cb_Tradequeue
             // 
-            this.btn_tradeQueueToggle.Location = new System.Drawing.Point(97, 124);
-            this.btn_tradeQueueToggle.Name = "btn_tradeQueueToggle";
-            this.btn_tradeQueueToggle.Size = new System.Drawing.Size(75, 23);
-            this.btn_tradeQueueToggle.TabIndex = 31;
-            this.btn_tradeQueueToggle.Text = "Trade Toggle";
-            this.btn_tradeQueueToggle.UseVisualStyleBackColor = true;
-            this.btn_tradeQueueToggle.Click += new System.EventHandler(this.btn_tradeQueueToggle_Click);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 129);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(84, 13);
-            this.label15.TabIndex = 37;
-            this.label15.Text = "Queue Enabled:";
+            this.cb_Tradequeue.AccessibleName = "TradeQueue";
+            this.cb_Tradequeue.AutoSize = true;
+            this.cb_Tradequeue.Location = new System.Drawing.Point(5, 130);
+            this.cb_Tradequeue.Name = "cb_Tradequeue";
+            this.cb_Tradequeue.Size = new System.Drawing.Size(86, 17);
+            this.cb_Tradequeue.TabIndex = 38;
+            this.cb_Tradequeue.Text = "TradeQueue";
+            this.cb_Tradequeue.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1208,8 +1198,7 @@
         private System.Windows.Forms.RichTextBox rtb_Console;
         private System.Windows.Forms.Button btn_SendCommand;
         private System.Windows.Forms.TextBox tb_ConsoleCommand;
-        private System.Windows.Forms.Button btn_tradeQueueToggle;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox cb_Tradequeue;
     }
 }
 
