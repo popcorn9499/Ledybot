@@ -117,6 +117,26 @@ namespace Ledybot
             writer.AutoFlush = true;
 
             netstream.ReadTimeout = timeout;
+
+            String serverName = host + ":" + port.ToString();
+
+            foreach (var pair in ServerList)
+            {
+                if (pair.Key == serverName)
+                {
+                    pair.Value.Add(writer);
+                    return;
+                }
+            }
+
+            ArrayList newClient = new ArrayList
+            {
+                writer
+            };
+
+            ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
+
+
             f1.SendConsoleMessage("Connection Received.");
             while (true)
             {
