@@ -133,7 +133,10 @@ namespace Ledybot
                     while (true) //start reading for messages
                     {
                         String response = await reader.ReadLineAsync();
-
+                        if (!checkIfConnected(serverName))
+                        {
+                            break;
+                        }
                         f1.ExecuteCommand(response, false, writer);
                         f1.SendConsoleMessage("Message Received: " + response);
                     }
@@ -147,6 +150,19 @@ namespace Ledybot
                     connectionItem.SubItems[2].Text = Program.ConnectionError;
                 }
             }
+        }
+
+        public static Boolean checkIfConnected(String serverName) //handles checking if this should be connected
+        {
+            foreach (var pair in ServerList)
+            {
+                if (pair.Key == serverName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
     }
