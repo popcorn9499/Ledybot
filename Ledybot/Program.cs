@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Pipes;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
@@ -70,40 +69,6 @@ namespace Ledybot
             f1.dumpedPKHeX.Data = data;
         }
 
-        public static void createPipe(string pipename)
-        {
-            NamedPipeServerStream server = new NamedPipeServerStream(pipename, PipeDirection.InOut, NamedPipeServerStream.MaxAllowedServerInstances,
-                PipeTransmissionMode.Message,
-                PipeOptions.Asynchronous);
-
-            f1.SendConsoleMessage("Awaiting connection from client...");
-
-            server.WaitForConnectionAsync().ContinueWith(t =>
-            {
-                f1.SendConsoleMessage("Connection Received.");
-                StartReadingAsync(server);
-
-                /*
-                foreach (var pair in ServerList)
-                {
-                    if (pair.Key == pipename)
-                    {
-                        pair.Value.Add(server);
-                        return;
-                    }
-                }
-
-                ArrayList newPipeName = new ArrayList
-                {
-                    server
-                };
-
-                ServerList.Add(new KeyValuePair<string, ArrayList>(pipename, newPipeName));
-                */
-            });
-            
-
-        }
 
         public static async void createTcpClient(Int32 port)
         {
@@ -149,43 +114,4 @@ namespace Ledybot
             }
 
         }
-
-        public static void StartReadingAsync(NamedPipeServerStream PipeServer)
-        {
-            // Debug.WriteLine("Pipe " + FullPipeNameDebug() + " calling ReadAsync");
-
-            // okay we're connected, now immediately listen for incoming buffers
-            //
-            byte[] pBuffer = new byte[500];
-            PipeServer.ReadAsync(pBuffer, 0, 500).ContinueWith(t =>
-            {
-                // Debug.WriteLine("Pipe " + FullPipeNameDebug() + " finished a read request");
-
-                // before we call the user back, start reading ANOTHER buffer, so the network stack
-                // will have something to deliver into and we don't keep it waiting.
-                // We're called on the "anonymous task" thread. if we queue another call to
-                // the pipe's read, that request goes down into the kernel, onto a different thread
-                // and this will be called back again, later. it's not recursive, and perfectly legal.
-
-                int ReadLen = t.Result;
-                if (ReadLen == 0)
-                {
-                    return;
-                }
-
-                // lodge ANOTHER read request BEFORE calling the user back. Doing this ensures
-                // the read is ready before we call the user back, which may cause a write request to happen,
-                // which will zip over to the other end of the pipe, cause a write to happen THERE, and we won't be ready to receive it
-                // (perhaps it will stay stuck in a kernel queue, and it's not necessary to do this)
-                //
-                StartReadingAsync(PipeServer);
-
-                string message = Encoding.Unicode.GetString(pBuffer).TrimEnd('\0').Trim(' ');
-
-                //f1.ExecuteCommand(message, false, PipeServer);
-
-            });
-        }
-
-    }
 }

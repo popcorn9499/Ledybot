@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Pipes;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
@@ -913,44 +912,6 @@ namespace Ledybot
 
         }
 
-
-        /*
-        public void Writer(NamedPipeServerStream stream,String str)
-        {
-            Tuple<String, NamedPipeServerStream> writerData = Tuple.Create(str,stream);
-            ParameterizedThreadStart thready = new ParameterizedThreadStart(writeThread);
-            Thread  newThread = new Thread(thready);
-            //rtb_Console.AppendText("\n" + "Writing Start");
-            newThread.Start(writerData);
-            //rtb_Console.AppendText("\n" + "Writing End");
-
-        }
-
-    */
-
-        public void writeThread(object x)
-		{
-			try //catches any exceptions that may crash the pipe
-			{
-				string str = ((Tuple<String, NamedPipeServerStream>)x).Item1;
-				NamedPipeServerStream stream = ((Tuple<String, NamedPipeServerStream>)x).Item2;
-				if (stream != null) //solves the bot crashing when sending to a null pipe
-				{
-					byte[] bytes = Encoding.Unicode.GetBytes(str);
-					stream.Write(bytes, 0, bytes.Length);
-					stream.WaitForPipeDrain();
-					Console.WriteLine("Wrote: \"{0}\"", str);
-				}
-				else
-				{
-					Console.WriteLine("\r\n Error nothing worked PIPE ERROR \r\n");
-				}
-			}
-			catch
-			{
-				Console.WriteLine("\r\n Bad pipe. Bad BAD! *SPANKS* \r\n");
-			}
-        }
 
         private void tb_ConsoleCommand_KeyUp(object sender, KeyEventArgs e)
         {
