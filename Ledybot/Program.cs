@@ -70,6 +70,26 @@ namespace Ledybot
         }
 
 
+        public static async void addToList(String serverName,StreamWriter writer)
+        {
+            foreach (var pair in ServerList)
+            {
+                if (pair.Key == serverName)
+                {
+                    pair.Value.Add(writer);
+                    return;
+                }
+            }
+            f1.SendConsoleMessage("done adding to the server list");
+            ArrayList newClient = new ArrayList
+                    {
+                        writer
+                    };
+
+            ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
+
+        }
+
         public static async void createTcpClient(Int32 port)
         {
             string host = "127.0.0.1";
@@ -99,22 +119,8 @@ namespace Ledybot
                     netstream.ReadTimeout = timeout;
 
                     String serverName = host + ":" + port.ToString(); //create the name of the server for the serverList
-                    
-                    foreach (var pair in ServerList)
-                    {
-                        if (pair.Key == serverName)
-                        {
-                            pair.Value.Add(writer);
-                            return;
-                        }
-                    }
-
-                    ArrayList newClient = new ArrayList
-                    {
-                        writer
-                    };
-
-                    ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
+                    f1.SendConsoleMessage("Adding to ServerList");
+                    Program.addToList(serverName, writer);
 
 
                     f1.SendConsoleMessage("Connection Received."); 
