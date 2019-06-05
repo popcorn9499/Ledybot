@@ -1018,7 +1018,7 @@
             this.btn_removeConnection.Name = "btn_removeConnection";
             this.btn_removeConnection.Size = new System.Drawing.Size(102, 50);
             this.btn_removeConnection.TabIndex = 20;
-            this.btn_removeConnection.Text = "Remove Connections checked";
+            this.btn_removeConnection.Text = "Remove Checked Connections";
             this.btn_removeConnection.UseVisualStyleBackColor = true;
             this.btn_removeConnection.MouseClick += new System.Windows.Forms.MouseEventHandler(this.button1_MouseClick);
             // 
