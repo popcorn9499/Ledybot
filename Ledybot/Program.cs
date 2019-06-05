@@ -75,60 +75,63 @@ namespace Ledybot
             string host = "127.0.0.1";
             int timeout = 5000;
 
-            TcpClient client = new TcpClient();
-
-            NetworkStream netstream;
-            StreamReader reader;
-            StreamWriter writer;
             while (true)
             {
                 try
                 {
+                    TcpClient client = new TcpClient();
+
+                    NetworkStream netstream;
+                    StreamReader reader;
+                    StreamWriter writer;
+
                     await client.ConnectAsync(host, port);
                     netstream = client.GetStream();
                     reader = new StreamReader(netstream);
                     writer = new StreamWriter(netstream);
-                    break;
+
+
+                    writer.AutoFlush = true;
+
+                    netstream.ReadTimeout = timeout;
+
+                    String serverName = host + ":" + port.ToString();
+
+                    foreach (var pair in ServerList)
+                    {
+                        if (pair.Key == serverName)
+                        {
+                            pair.Value.Add(writer);
+                            return;
+                        }
+                    }
+
+                    ArrayList newClient = new ArrayList
+                {
+                    writer
+                };
+
+                    ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
+
+
+                    f1.SendConsoleMessage("Connection Received.");
+                    while (true)
+                    {
+                        String response = await reader.ReadLineAsync();
+                        // string message = Encoding.Unicode.GetString(response).TrimEnd('\0').Trim(' ');
+                        f1.ExecuteCommand(response, false, writer);
+                        f1.SendConsoleMessage("Message Received.");
+                    }
+
+
                 }
                 catch
                 {
-
+                    f1.SendConsoleMessage("Reconnecting");
                 }
             }
-
-            writer.AutoFlush = true;
-
-            netstream.ReadTimeout = timeout;
-
-            String serverName = host + ":" + port.ToString();
-
-            foreach (var pair in ServerList)
-            {
-                if (pair.Key == serverName)
-                {
-                    pair.Value.Add(writer);
-                    return;
-                }
-            }
-
-            ArrayList newClient = new ArrayList
-            {
-                writer
-            };
-
-            ServerList.Add(new KeyValuePair<string, ArrayList>(serverName, newClient));
-
-
-            f1.SendConsoleMessage("Connection Received.");
-            while (true)
-            {
-                String response = await reader.ReadLineAsync();
-                // string message = Encoding.Unicode.GetString(response).TrimEnd('\0').Trim(' ');
-                f1.ExecuteCommand(response, false, writer);
-                f1.SendConsoleMessage("Message Received.");
-            }
-
         }
+
     }
 
 }
