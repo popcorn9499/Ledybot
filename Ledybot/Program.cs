@@ -83,6 +83,7 @@ namespace Ledybot
                 f1.SendConsoleMessage("Connection Received.");
                 StartReadingAsync(server);
 
+                /*
                 foreach (var pair in ServerList)
                 {
                     if (pair.Key == pipename)
@@ -98,6 +99,7 @@ namespace Ledybot
                 };
 
                 ServerList.Add(new KeyValuePair<string, ArrayList>(pipename, newPipeName));
+                */
             });
             
 
