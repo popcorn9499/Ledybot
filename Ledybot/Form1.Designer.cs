@@ -120,7 +120,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.gb_connectionBox = new System.Windows.Forms.GroupBox();
             this.tb_apiPort = new System.Windows.Forms.TextBox();
             this.tb_apiIP = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -141,7 +141,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.tb_Console.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.gb_connectionBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -1001,7 +1001,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox4);
+            this.tabPage1.Controls.Add(this.gb_connectionBox);
             this.tabPage1.Controls.Add(this.btn_removeConnection);
             this.tabPage1.Controls.Add(this.lv_ServerList);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -1143,22 +1143,22 @@
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // groupBox4
+            // gb_connectionBox
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.gb_connectionBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Controls.Add(this.tb_apiPort);
-            this.groupBox4.Controls.Add(this.tb_apiIP);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.label17);
-            this.groupBox4.Location = new System.Drawing.Point(176, 440);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(197, 93);
-            this.groupBox4.TabIndex = 21;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "New Connection Settings";
-            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
+            this.gb_connectionBox.Controls.Add(this.button1);
+            this.gb_connectionBox.Controls.Add(this.tb_apiPort);
+            this.gb_connectionBox.Controls.Add(this.tb_apiIP);
+            this.gb_connectionBox.Controls.Add(this.label16);
+            this.gb_connectionBox.Controls.Add(this.label17);
+            this.gb_connectionBox.Location = new System.Drawing.Point(176, 440);
+            this.gb_connectionBox.Name = "gb_connectionBox";
+            this.gb_connectionBox.Size = new System.Drawing.Size(197, 93);
+            this.gb_connectionBox.TabIndex = 21;
+            this.gb_connectionBox.TabStop = false;
+            this.gb_connectionBox.Text = "New Connection Settings";
+            this.gb_connectionBox.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
             // tb_apiPort
             // 
@@ -1247,8 +1247,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tb_Console.ResumeLayout(false);
             this.tb_Console.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.gb_connectionBox.ResumeLayout(false);
+            this.gb_connectionBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1346,7 +1346,7 @@
         private System.Windows.Forms.ColumnHeader col_hostname;
         private System.Windows.Forms.ColumnHeader col_port;
         private System.Windows.Forms.ColumnHeader col_connectionStatus;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox gb_connectionBox;
         private System.Windows.Forms.TextBox tb_apiPort;
         private System.Windows.Forms.TextBox tb_apiIP;
         private System.Windows.Forms.Label label16;
