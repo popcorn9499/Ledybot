@@ -119,7 +119,6 @@ namespace Ledybot
                     {
                         String response = await reader.ReadLineAsync();
 
-                        // string message = Encoding.Unicode.GetString(response).TrimEnd('\0').Trim(' ');
                         f1.ExecuteCommand(response, false, writer);
                         f1.SendConsoleMessage("Message Received: " + response);
                     }
