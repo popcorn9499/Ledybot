@@ -474,11 +474,12 @@ namespace Ledybot
             setupButtons();
             Program.ntrClient.isConnected = true;
 
-            List<NamedPipeServerStream> needToRemove = new List<NamedPipeServerStream>();
+            
+            List<StreamWriter> needToRemove = new List<StreamWriter>();
 
             foreach (var list in Program.ServerList)
             {
-                foreach (NamedPipeServerStream server in list.Value)
+                foreach (StreamWriter server in list.Value)
                 {
                     try
                     {
@@ -487,7 +488,7 @@ namespace Ledybot
                     }
                     catch
                     {
-                        server.Disconnect();
+                        server.Close();
                         server.Dispose();
                         needToRemove.Add(server);
                     }
@@ -500,6 +501,7 @@ namespace Ledybot
                 needToRemove.Clear();
 
             }
+            
         }
 
         private void btn_Start_Click(object sender, EventArgs e)
@@ -522,11 +524,11 @@ namespace Ledybot
             string[] row = { DateTime.Now.ToString("h:mm:ss"), szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc.Insert(4, "-").Insert(9, "-"), page, index };
             var listViewItem = new ListViewItem(row);
 
-            List<NamedPipeServerStream> needToRemove = new List<NamedPipeServerStream>();
+            List<StreamWriter> needToRemove = new List<StreamWriter>();
 
             foreach (var list in Program.ServerList)
             {
-                foreach (NamedPipeServerStream server in list.Value)
+                foreach (StreamWriter server in list.Value)
                 {
                     try
                     {
@@ -535,7 +537,7 @@ namespace Ledybot
                     }
                     catch
                     {
-                        server.Disconnect();
+                        server.Close();
                         server.Dispose();
                         needToRemove.Add(server);
                     }
@@ -912,7 +914,7 @@ namespace Ledybot
         }
 
 
-
+        /*
         public void Writer(NamedPipeServerStream stream,String str)
         {
             Tuple<String, NamedPipeServerStream> writerData = Tuple.Create(str,stream);
@@ -923,6 +925,8 @@ namespace Ledybot
             //rtb_Console.AppendText("\n" + "Writing End");
 
         }
+
+    */
 
         public void writeThread(object x)
 		{
