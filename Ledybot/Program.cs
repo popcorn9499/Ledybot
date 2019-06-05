@@ -118,15 +118,17 @@ namespace Ledybot
                     while (true)
                     {
                         String response = await reader.ReadLineAsync();
+
                         // string message = Encoding.Unicode.GetString(response).TrimEnd('\0').Trim(' ');
                         f1.ExecuteCommand(response, false, writer);
-                        f1.SendConsoleMessage("Message Received.");
+                        f1.SendConsoleMessage("Message Received: " + response);
                     }
 
 
                 }
-                catch
+                catch (Exception e)
                 {
+                    f1.SendConsoleMessage(e.StackTrace);
                     f1.SendConsoleMessage("Reconnecting");
                 }
             }
