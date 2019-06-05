@@ -121,8 +121,8 @@
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tb_apiPort = new System.Windows.Forms.TextBox();
+            this.tb_apiIP = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -1148,8 +1148,8 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.button1);
-            this.groupBox4.Controls.Add(this.textBox1);
-            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.tb_apiPort);
+            this.groupBox4.Controls.Add(this.tb_apiIP);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Location = new System.Drawing.Point(176, 440);
@@ -1160,25 +1160,25 @@
             this.groupBox4.Text = "New Connection Settings";
             this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
             // 
-            // textBox1
+            // tb_apiPort
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tb_apiPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(42, 43);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 20);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.Text = "10000";
+            this.tb_apiPort.Location = new System.Drawing.Point(42, 43);
+            this.tb_apiPort.Name = "tb_apiPort";
+            this.tb_apiPort.Size = new System.Drawing.Size(148, 20);
+            this.tb_apiPort.TabIndex = 10;
+            this.tb_apiPort.Text = "10000";
             // 
-            // textBox2
+            // tb_apiIP
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tb_apiIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(42, 17);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(149, 20);
-            this.textBox2.TabIndex = 9;
-            this.textBox2.Text = "127.0.0.1";
+            this.tb_apiIP.Location = new System.Drawing.Point(42, 17);
+            this.tb_apiIP.Name = "tb_apiIP";
+            this.tb_apiIP.Size = new System.Drawing.Size(149, 20);
+            this.tb_apiIP.TabIndex = 9;
+            this.tb_apiIP.Text = "127.0.0.1";
             // 
             // label16
             // 
@@ -1347,8 +1347,8 @@
         private System.Windows.Forms.ColumnHeader col_port;
         private System.Windows.Forms.ColumnHeader col_connectionStatus;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tb_apiPort;
+        private System.Windows.Forms.TextBox tb_apiIP;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button1;

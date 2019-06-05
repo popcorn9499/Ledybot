@@ -953,7 +953,7 @@ namespace Ledybot
                             try
                             {
                                 Int32 port = Int32.Parse(comStrings[1]);
-                                Program.createTcpClient(port);
+                                //Program.createTcpClient("127.0.0.1", port,null);
                             }
                             catch (FormatException e)
                             {
@@ -986,12 +986,47 @@ namespace Ledybot
                 {
 
                     lv_ServerList.Items.Remove(item);
+
+                    String hostname = item.SubItems[0].Text; //gathers all the item information and creates a serverName
+                    String port = item.SubItems[1].Text;
+
+                    String serverName = hostname + ":" + port;
+
+                    foreach (var pair in Program.ServerList) //cycles through every item in the serverlist to remove the item from the ServerList
+                    {
+                        if (pair.Key == serverName)
+                        {
+                            Program.ServerList.Remove(pair);
+                            return;
+                        }
+                    }
                 }
             }
         }
 
         private void groupBox4_Enter(object sender, EventArgs e)
         {
+            String hostname = tb_apiIP.Text;
+            Int32 port;
+
+            while (true)
+            {
+                try
+                {
+                    port = Int32.Parse(tb_apiPort.Text);
+                    MessageBox.Show("Connection Created");
+                    break;
+                }
+                catch
+                {
+                    MessageBox.Show("Please type a integer into the port field!!!");
+                }
+            }
+            string[] row = { hostname, port.ToString(), "Testname" };
+
+            var listViewItem = new ListViewItem(row);
+            lv_ServerList.Items.Add(listViewItem);
+            Program.createTcpClient(hostname, port, listViewItem);
 
         }
     }

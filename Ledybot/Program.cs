@@ -25,6 +25,10 @@ namespace Ledybot
         public static List<KeyValuePair<string, ArrayList>> ServerList = new List<KeyValuePair<string, ArrayList>>();
 
 
+        public static String ConnectionAttempting = "Connecting";
+        public static String ConnectionOk = "Connected";
+        public static String ConnectionError = "Error";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -90,15 +94,16 @@ namespace Ledybot
 
         }
 
-        public static async void createTcpClient(Int32 port)
+        public static async void createTcpClient(String host,Int32 port, ListViewItem connectionItem)
         {
-            string host = "127.0.0.1";
+            //string host = "127.0.0.1";
             int timeout = 5000;
 
             while (true) //continuously trys to reconnect
             {
                 try //catches any errors that may occur
                 {
+                    connectionItem.SubItems[2].Text = Program.ConnectionAttempting;
                     TcpClient client = new TcpClient();
 
                     NetworkStream netstream;
@@ -122,8 +127,9 @@ namespace Ledybot
                     f1.SendConsoleMessage("Adding to ServerList");
                     Program.AddToList(serverName, writer);
 
-
-                    f1.SendConsoleMessage("Connection Received."); 
+                    //create this as a async task so it can be canceled if the connection has been ended or use another method to remove it
+                    f1.SendConsoleMessage("Connection Received.");
+                    connectionItem.SubItems[2].Text = Program.ConnectionOk;
                     while (true) //start reading for messages
                     {
                         String response = await reader.ReadLineAsync();
@@ -138,6 +144,7 @@ namespace Ledybot
                 {
                     f1.SendConsoleMessage(e.StackTrace);
                     f1.SendConsoleMessage("Reconnecting");
+                    connectionItem.SubItems[2].Text = Program.ConnectionError;
                 }
             }
         }
