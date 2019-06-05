@@ -49,6 +49,7 @@
             this.cb_Blacklist = new System.Windows.Forms.CheckBox();
             this.tc_Control = new System.Windows.Forms.TabControl();
             this.tp_GTS = new System.Windows.Forms.TabPage();
+            this.cb_Tradequeue = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cb_Reddit = new System.Windows.Forms.CheckBox();
             this.tb_thread = new System.Windows.Forms.TextBox();
@@ -113,7 +114,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.cb_Tradequeue = new System.Windows.Forms.CheckBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -275,6 +276,7 @@
             this.tc_Control.Controls.Add(this.tp_Injection);
             this.tc_Control.Controls.Add(this.tp_Breeding);
             this.tc_Control.Controls.Add(this.tb_Settings);
+            this.tc_Control.Controls.Add(this.tabPage1);
             this.tc_Control.Controls.Add(this.tb_Console);
             this.tc_Control.Location = new System.Drawing.Point(1, 33);
             this.tc_Control.Name = "tc_Control";
@@ -307,6 +309,17 @@
             this.tp_GTS.TabIndex = 0;
             this.tp_GTS.Text = "GTS";
             this.tp_GTS.UseVisualStyleBackColor = true;
+            // 
+            // cb_Tradequeue
+            // 
+            this.cb_Tradequeue.AccessibleName = "TradeQueue";
+            this.cb_Tradequeue.AutoSize = true;
+            this.cb_Tradequeue.Location = new System.Drawing.Point(5, 130);
+            this.cb_Tradequeue.Name = "cb_Tradequeue";
+            this.cb_Tradequeue.Size = new System.Drawing.Size(86, 17);
+            this.cb_Tradequeue.TabIndex = 38;
+            this.cb_Tradequeue.Text = "TradeQueue";
+            this.cb_Tradequeue.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -1058,16 +1071,15 @@
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // cb_Tradequeue
+            // tabPage1
             // 
-            this.cb_Tradequeue.AccessibleName = "TradeQueue";
-            this.cb_Tradequeue.AutoSize = true;
-            this.cb_Tradequeue.Location = new System.Drawing.Point(5, 130);
-            this.cb_Tradequeue.Name = "cb_Tradequeue";
-            this.cb_Tradequeue.Size = new System.Drawing.Size(86, 17);
-            this.cb_Tradequeue.TabIndex = 38;
-            this.cb_Tradequeue.Text = "TradeQueue";
-            this.cb_Tradequeue.UseVisualStyleBackColor = true;
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(369, 536);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1199,6 +1211,7 @@
         private System.Windows.Forms.Button btn_SendCommand;
         private System.Windows.Forms.TextBox tb_ConsoleCommand;
         private System.Windows.Forms.CheckBox cb_Tradequeue;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
 
