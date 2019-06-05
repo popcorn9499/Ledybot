@@ -24,8 +24,6 @@ namespace Ledybot
 
         public uint wcOff;
 
-        private bool tradeQueue = false;
-
         private uint eggOff;
 
         private bool botWorking = false;
@@ -49,7 +47,6 @@ namespace Ledybot
             btn_Disconnect.Enabled = false;
             this.combo_pkmnList.Items.AddRange(Program.PKTable.Species7);
 
-            btn_tradeQueueToggle.Text = tradeQueue.ToString();
 
             touchfrm = new Form()
             {
@@ -184,7 +181,7 @@ namespace Ledybot
 					{
 						tradeDirection = 2;
 					}
-					Program.createGTSBot(tb_IP.Text, pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, tradeQueue);
+					Program.createGTSBot(tb_IP.Text, pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, cb_Tradequeue.Checked);
 					Task<int> Bot = Program.gtsBot.RunBot();
 					if (!button)
 					{
@@ -307,7 +304,7 @@ namespace Ledybot
                     }
                     break;
                 case "trade":
-                    if (tradeQueue)
+                    if (cb_Tradequeue.Checked)
                     {
                         if (commStrings.Length == 3)
                         {
@@ -327,7 +324,7 @@ namespace Ledybot
                     }
                     break;
                 case "remove":
-                    if (tradeQueue)
+                    if (cb_Tradequeue.Checked)
                     {
                         if (commStrings.Length == 2)
                         {
@@ -349,7 +346,7 @@ namespace Ledybot
                     break;
 
                 case "viewqueue":
-                    if (tradeQueue)
+                    if (cb_Tradequeue.Checked)
                     {
                         if (commStrings.Length == 1)
                         {
@@ -966,11 +963,6 @@ namespace Ledybot
             rtb_Console.AppendText("\n" + message);
         }
 
-        private void btn_tradeQueueToggle_Click(object sender, EventArgs e)
-        {
-            ExecuteCommand("togglequeue", true, null);
-            btn_tradeQueueToggle.Text = tradeQueue.ToString();
-        }
     }
 
 
