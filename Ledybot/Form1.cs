@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -649,6 +650,19 @@ namespace Ledybot
             Properties.Settings.Default.DepositedGender = combo_gender.SelectedIndex;
             Properties.Settings.Default.DepositedLevel = combo_levelrange.SelectedIndex;
             Properties.Settings.Default.TradeQueue = cb_Tradequeue.Checked;
+            StringCollection servers = new StringCollection();
+            foreach (ListViewItem item in lv_ServerList.Items)
+            {
+
+                String hostname = item.SubItems[0].Text; //gathers all the item information and creates a serverName
+                String port = item.SubItems[1].Text;
+
+                String serverName = hostname + ":" + port;
+                servers.Add(serverName); //adds the connection info to the config
+            }
+
+
+            Properties.Settings.Default.apiConnections = servers;
             Properties.Settings.Default.Save();
         }
 
@@ -673,15 +687,21 @@ namespace Ledybot
             cb_Tradequeue.Checked = Properties.Settings.Default.TradeQueue;
 
 
-            string[] row = { "hosty.host", "25565", "Testname" };
+            try
+            {
+                foreach (String item in Properties.Settings.Default.apiConnections)
+                {
+                    String hostname = item.Split(':')[0]; //gets the hostname and port from the config
+                    Int32 port = Int32.Parse(item.Split(':')[1]);
+                    string[] row = { hostname, port.ToString(), "Testname" };
 
-            var listViewItem = new ListViewItem(row);
-            lv_ServerList.Items.Add(listViewItem);
-            listViewItem = new ListViewItem(row);
-            lv_ServerList.Items.Add(listViewItem);
-            listViewItem = new ListViewItem(row);
-            lv_ServerList.Items.Add(listViewItem);
-            lv_ServerList.Items[lv_ServerList.Items.Count - 1].EnsureVisible();
+                    var listViewItem = new ListViewItem(row); //creates a new item for the list
+                    lv_ServerList.Items.Add(listViewItem); //adds to the listview object
+                    Program.createTcpClient(hostname, port, listViewItem); //creates the new tcp connection
+                }
+            }
+            catch {}
+
         }
 
         private void btn_BrowseInject_Click(object sender, EventArgs e)

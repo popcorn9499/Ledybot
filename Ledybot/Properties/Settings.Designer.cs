@@ -238,5 +238,16 @@ namespace Ledybot.Properties {
                 this["TradeQueue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection apiConnections {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["apiConnections"]));
+            }
+            set {
+                this["apiConnections"] = value;
+            }
+        }
     }
 }
