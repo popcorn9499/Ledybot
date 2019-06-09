@@ -25,10 +25,10 @@ namespace LedyLib
 
     public class GTSBot7
     {
-        
+
         //private System.IO.StreamWriter file = new StreamWriter(@"C:\Temp\ledylog.txt");
 
-        public enum gtsbotstates { botstart, startsearch, pressSeek, openpokemonwanted, openwhatpokemon, typepokemon, presssearch, startfind, findfromend, findfromstart, trade, research, botexit, updatecomments, quicksearch, panic, queueempty };
+        public enum gtsbotstates { botstart, startsearch, pressSeek, openpokemonwanted, openwhatpokemon, typepokemon, presssearch, startfind, findfromend, findfromstart, trade, research, botexit, updatecomments, quicksearch, panic, queueempty, FixSoftban };
 
         private string consoleName = "Ledybot";
 
@@ -107,9 +107,13 @@ namespace LedyLib
 
         public delegate void changeStatus(string msg);
 
-        public event EventHandler<ItemDetailsEventArgs> onItemDetails; 
+        public event EventHandler<ItemDetailsEventArgs> onItemDetails;
 
         public event changeStatus onChangeStatus;
+
+        public uint MapIDOffset = 0x33FAE0A4; // Map ID
+        public uint Map_Mount_Hokulani = 0x7B;
+        public uint Map_Festival_Plaza = 0xF1;
 
         private async Task<bool> isCorrectWindow(int expectedScreen)
         {
@@ -120,6 +124,25 @@ namespace LedyLib
             //file.WriteLine("Checkscreen: " + expectedScreen + " - " + screenID + " botstate:" + botState);
             //file.Flush();
             return expectedScreen == screenID;
+        }
+
+        private async Task<bool> ScreenDetector2(uint Address, uint expectedScreen)
+        {
+            try
+            {
+                await _helper.waitNTRread(Address);
+                int screenID = (int)_helper.lastRead;
+
+                //file.WriteLine("Checkscreen: " + expectedScreen + " - " + screenID + " botstate:" + botState);
+                //file.Flush();
+                await Task.Delay(450);
+                return expectedScreen == screenID;
+            }
+            catch
+            {
+                // In Case of a Connection Error Return False, Trigger Recovery or something
+                return false;
+            }
         }
 
         private Boolean canThisTrade(byte[] principal, string consoleName, string trainerName, string country, string region, string pokemon, string szFC, string page, string index)
@@ -151,7 +174,7 @@ namespace LedyLib
             }
         }
 
-        public GTSBot7(NTR ntr,string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue, RemoteControl helper, LookupTable pkTable, Data data, ScriptHelper scriptHelper)
+        public GTSBot7(NTR ntr, string szIP, int iP, int iPtF, int iPtFGender, int iPtFLevel, bool bBlacklist, bool bReddit, int iSearchDirection, string waittime, string consoleName, bool useLedySync, string ledySyncIp, string ledySyncPort, int game, bool tradeQueue, RemoteControl helper, LookupTable pkTable, Data data, ScriptHelper scriptHelper)
         {
             this._ntr = ntr;
             this.iPokemonToFind = iPtF;
@@ -258,7 +281,7 @@ namespace LedyLib
 
             if (tradeQueue)
             {
-                botState = (int) gtsbotstates.queueempty;
+                botState = (int)gtsbotstates.queueempty;
             }
 
             while (!botstop)
@@ -275,7 +298,7 @@ namespace LedyLib
                         {
                             botState = (int)gtsbotstates.startsearch;
                         }
-                            
+
                         break;
                     case (int)gtsbotstates.botstart:
                         if (bReddit)
@@ -337,16 +360,16 @@ namespace LedyLib
                         }
                         break;
                     case (int)gtsbotstates.findfromstart:
-                            correctScreen = await isCorrectWindow(val_GTSListScreen);
-                            if (!correctScreen)
+                        correctScreen = await isCorrectWindow(val_GTSListScreen);
+                        if (!correctScreen)
+                        {
+                            //Hotfix for Only one Pokemon on List
+                            if (_helper.lastRead != 0x40C0)
                             {
-                                //Hotfix for Only one Pokemon on List
-                                if (_helper.lastRead != 0x40C0)
-                                {
-                                    botState = (int)gtsbotstates.panic;
-                                    break;
-                                }
+                                botState = (int)gtsbotstates.panic;
+                                break;
                             }
+                        }
                         //GTS entry list screen, cursor at position 1
                         await _helper.waitNTRread(addr_PageSize);
 
@@ -512,11 +535,11 @@ namespace LedyLib
                                     await Task.Delay(commandtime + delaytime + 500);
                                     if (tradeQueue)
                                     {
-                                        if(!_data.tradeQueueRec.Any())
-                                            botState = (int) gtsbotstates.queueempty;
+                                        if (!_data.tradeQueueRec.Any())
+                                            botState = (int)gtsbotstates.queueempty;
                                         else if (_data.tradeQueueRec[0].Item3 >= maxQueueAttempts)
                                         {
-                                            botState = (int) gtsbotstates.queueempty;
+                                            botState = (int)gtsbotstates.queueempty;
                                             _data.RemoveFromQueue(0);
                                         }
                                         else
@@ -547,16 +570,16 @@ namespace LedyLib
 
                         break;
                     case (int)gtsbotstates.findfromend:
-                            correctScreen = await isCorrectWindow(val_GTSListScreen);
-                            if (!correctScreen)
+                        correctScreen = await isCorrectWindow(val_GTSListScreen);
+                        if (!correctScreen)
+                        {
+                            //Hotfix for Only one Pokemon on List
+                            if (_helper.lastRead != 0x40C0)
                             {
-                                //Hotfix for Only one Pokemon on List
-                                if (_helper.lastRead != 0x40C0)
-                                {
-                                    botState = (int)gtsbotstates.panic;
-                                    break;
-                                }
+                                botState = (int)gtsbotstates.panic;
+                                break;
                             }
+                        }
                         //also GTS entry list screen, but cursor is at the end of the list in this case
                         await _helper.waitNTRread(addr_PageSize);
 
@@ -633,7 +656,7 @@ namespace LedyLib
                                             continue;
                                         }
                                     }
-                                    
+
                                     int gender = block[0xE];
                                     int level = block[0xF];
                                     if ((gender == 0 || gender == details.Item3) && (level == 0 || level == details.Item4))
@@ -781,7 +804,7 @@ namespace LedyLib
                             int subRegionIndex = BitConverter.ToInt16(block, 0x6A);
                             string subregion = "-";
                             _data.regions.TryGetValue(subRegionIndex, out subregion);
-                            
+
                             //Inject the Pokemon to box1slot1
                             _scriptHelper.write(addr_box1slot1, cloneshort, iPID);
                             //spam a to trade pokemon
@@ -798,7 +821,7 @@ namespace LedyLib
                             {
                                 details.Item6.Add(BitConverter.ToInt32(principal, 0));
                             }
-                            
+
                             //during the trade spam a/b to get back to the start screen in case of "this pokemon has been traded"
                             await Task.Delay(10250);
                             _helper.quickbuton(_pkTable.keyA, commandtime);
@@ -894,10 +917,10 @@ namespace LedyLib
                                 botState = (int)gtsbotstates.panic;
                                 break;
                             }
-                            
+
                             if (tradeQueue)
                             {
-                                botState = (int) gtsbotstates.queueempty;
+                                botState = (int)gtsbotstates.queueempty;
                             }
                             else if (bReddit)
                             {
@@ -923,7 +946,7 @@ namespace LedyLib
                         await Task.Delay(commandtime + delaytime + 1000);
                         await _helper.waittouch(160, 185);
                         await Task.Delay(2250);
-                        if(tradeQueue)
+                        if (tradeQueue)
                             _data.tradeQueueRec[0] = new Tuple<string, int, int>(_data.tradeQueueRec[0].Item1, _data.tradeQueueRec[0].Item2, _data.tradeQueueRec[0].Item3 + 1);
                         botState = (int)gtsbotstates.findfromstart;
                         break;
@@ -933,7 +956,14 @@ namespace LedyLib
                         break;
                     case (int)gtsbotstates.panic:
                         onChangeStatus?.Invoke("Recovery mode!");
-                        _helper.quicktouch(0,0, commandtime);
+                        _helper.quicktouch(0, 0, commandtime);
+
+
+                        if (panicAttempts > 20)
+                        {
+                            botState = (int)gtsbotstates.FixSoftban;
+                            break;
+                        }
 
                         //recover from weird state here
                         try
@@ -1032,18 +1062,175 @@ namespace LedyLib
                                 }
                                 else
                                 {
-                                    if (panicAttempts == 0)
-                                    {
-                                        panicAttempts++;
-                                        botState = (int)gtsbotstates.panic;
-                                        break;
-                                    }
-                                    botState = (int)gtsbotstates.botexit;
+                                    panicAttempts++;
+                                    botState = (int)gtsbotstates.panic;
                                     break;
                                 }
                             }
                         }
                         break;
+
+                    case (int)gtsbotstates.FixSoftban:
+                        //unlock prolly Stuck Input
+                        _helper.quicktouch(0, 0, 100);
+                        await Task.Delay(1000);
+                        // Press Power Button Short
+                        onChangeStatus?.Invoke("Pressing Power Button");
+                        bool ButtonSuccess = await _data.SendSpecialButtons(szIP, 2);
+                        if (!ButtonSuccess)
+                        {
+                            botState = (int)gtsbotstates.FixSoftban;
+                            break;
+                        }
+                        // wait 10 Seconds to Send to be safe
+                        await Task.Delay(3000);
+
+                        // Press Home Button
+                        onChangeStatus?.Invoke("Pressing Home Button");
+                        ButtonSuccess = await _data.SendSpecialButtons(szIP, 1);
+                        if (!ButtonSuccess)
+                        {
+                            botState = (int)gtsbotstates.FixSoftban;
+                            break;
+                        }
+                        // wait another 15 Seconds to Send to be safe
+                        await Task.Delay(5000);
+
+                        // Reopen the Game
+                        onChangeStatus?.Invoke("Reopen Game");
+
+                        _helper.quickbuton(_pkTable.keyA, 200);
+                        await Task.Delay(500);
+                        _helper.quickbuton(_pkTable.keyA, 200);
+                        await Task.Delay(500);
+                        _helper.quickbuton(_pkTable.keyA, 200);
+                        await Task.Delay(10000);
+
+                        //Reconnect for new PID
+
+                        await Task.Delay(2000);
+                        _scriptHelper.connect(szIP, 8000);
+                        await Task.Delay(4000);
+
+                        //int oldpid = iPid;
+                        //Program.f1.ChangeStatus("OLD PID:" + oldpid.ToString() + ", NEW PID: " + Program.helper.pid);
+
+
+                        onChangeStatus?.Invoke("Spam A to Overworld");
+
+                        //Spam a to Load Savegame
+                        for (int i = 0; i < 5; i++)
+                        {
+                            _helper.quickbuton(_pkTable.keyA, 200);
+                            await Task.Delay(1000);
+                        }
+
+                        await Task.Delay(2000);
+                        //Check if Overworld is Visible
+                        onChangeStatus?.Invoke("Check if overworld is Visible");
+                        if (!_ntr.isConnected)
+                        {
+                            _scriptHelper.connect(szIP, 8000);
+                            await Task.Delay(4000);
+                        }
+
+                        bool ValidScreen = await ScreenDetector2(MapIDOffset, Map_Mount_Hokulani);
+                        if (!ValidScreen)
+                        {
+                            onChangeStatus?.Invoke("Overworld isnt visible, retry Spamming A");
+                            for (int i = 0; i < 5; i++)
+                            {
+                                _helper.quickbuton(_pkTable.keyA, 200);
+                                await Task.Delay(1000);
+                            }
+                        }
+
+                        if (!_ntr.isConnected)
+                        {
+                            _scriptHelper.connect(szIP, 8000);
+                            await Task.Delay(4000);
+                        }
+
+                        ValidScreen = await ScreenDetector2(MapIDOffset, Map_Mount_Hokulani);
+                        if (!ValidScreen)
+                        {
+                            onChangeStatus?.Invoke("Overworld is still not visible, restart Softban Method");
+
+                            botState = (int)gtsbotstates.FixSoftban;
+                            break;
+                        }
+
+                        onChangeStatus?.Invoke("Overworld Detected!");
+                        await Task.Delay(1000);
+                        onChangeStatus?.Invoke("Open Menu");
+
+                        // Overworld, open Menu and enter Festival Plaza(Bottom right).
+                        _helper.quickbuton(_pkTable.keyX, 200);
+                        await Task.Delay(2000);
+                        onChangeStatus?.Invoke("Going to Festival Plaza");
+
+                        // Enter Festival Plaza
+
+                        _helper.quicktouch(280, 150, 100);
+                        _helper.quicktouch(280, 150, 100);
+
+                        await Task.Delay(5000);
+
+                        // Check if Plaza is Detected
+                        ValidScreen = await ScreenDetector2(MapIDOffset, Map_Festival_Plaza);
+                        if (ValidScreen)
+                        {
+                            onChangeStatus?.Invoke("Plaza Detected, Softban was fixed!");
+                            await Task.Delay(3000);
+                            botState = (int)gtsbotstates.panic;
+                            break;
+                        }
+                        else
+                        {
+                            onChangeStatus?.Invoke("Failed to go to Plaza, retry");
+                            _helper.quickbuton(_pkTable.keyB, 200);
+                            await Task.Delay(1000);
+                            ValidScreen = await ScreenDetector2(MapIDOffset, Map_Mount_Hokulani);
+                            if (ValidScreen)
+                            {
+                                _helper.quickbuton(_pkTable.keyX, 200);
+                                await Task.Delay(2000);
+                                onChangeStatus?.Invoke("Going to Festival Plaza");
+
+                                // Enter Festival Plaza
+
+                                _helper.quicktouch(280, 150, 100);
+                                _helper.quicktouch(280, 150, 100);
+                                _helper.quicktouch(280, 150, 100);
+                                await Task.Delay(5000);
+                                ValidScreen = await ScreenDetector2(MapIDOffset, Map_Festival_Plaza);
+                                if (ValidScreen)
+                                {
+                                    onChangeStatus?.Invoke("Plaza Detected, Softban was fixed!");
+                                    panicAttempts = 0;
+                                    iPID = _helper.pid;
+                                    await Task.Delay(3000);
+                                    botState = (int)gtsbotstates.panic;
+                                    break;
+                                }
+                                else
+                                {
+                                    onChangeStatus?.Invoke("No Plaza Detected, retry Softban fix!");
+
+                                    botState = (int)gtsbotstates.FixSoftban;
+                                    break;
+                                }
+
+                            }
+                            else
+                            {
+                                onChangeStatus?.Invoke("No Plaza Detected, retry Softban fix!");
+
+                                botState = (int)gtsbotstates.FixSoftban;
+                                break;
+                            }
+
+                        }
                     default:
                         botresult = -1;
                         botstop = true;
