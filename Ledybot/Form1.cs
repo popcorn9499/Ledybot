@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Text;
@@ -57,6 +58,7 @@ namespace Ledybot
             touchfrm.MouseDown += Touchfrm_MouseDown;
             touchfrm.MouseMove += Touchfrm_MouseMove;
             touchfrm.MouseUp += Touchfrm_MouseUp;
+            touchfrm.Text = "NTR TouchScreen";
             touchfrm.Show(this);
         }
 
@@ -631,6 +633,88 @@ namespace Ledybot
             srcSR.Close();
         }
 
+        public async Task<bool> SendSpecialButtons(string szIP, uint SpecialKey)
+        {
+            try
+            {
+                // Build Connection
+                IPEndPoint host = new IPEndPoint(IPAddress.Parse(szIP), 4950);
+
+                Socket socket = new Socket(host.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
+
+                //prepare Input States
+                ;
+                uint hid_state = 0xfff;
+                uint circle_state = 0x7ff7ff;
+                uint cstick_state = 0x80800081;
+                uint touch_state = 0x2000000;
+                uint special_state = SpecialKey;//;SpecialKey;
+
+                // Build Packet
+
+                byte[] packet = new byte[20];
+
+                BitConverter.GetBytes(hid_state).CopyTo(packet, 0);
+                BitConverter.GetBytes(touch_state).CopyTo(packet, 4);
+                BitConverter.GetBytes(circle_state).CopyTo(packet, 8);
+                BitConverter.GetBytes(cstick_state).CopyTo(packet, 12);
+                BitConverter.GetBytes(special_state).CopyTo(packet, 16);
+
+                // send packet
+
+                socket.SendTo(packet, host);
+                await Task.Delay(100);
+                socket.Close();
+                await SendEmptyButton(szIP);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> SendEmptyButton(string szIP)
+        {
+            try
+            {
+                // Build Connection
+                IPEndPoint host = new IPEndPoint(IPAddress.Parse(szIP), 4950);
+
+                Socket socket = new Socket(host.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
+
+                //prepare Input States
+                ;
+                uint hid_state = 0xfff;
+                uint circle_state = 0x7ff7ff;
+                uint cstick_state = 0x80800081;
+                uint touch_state = 0x2000000;
+                uint special_state = 0;//;SpecialKey;
+
+                // Build Packet
+
+                byte[] packet = new byte[20];
+
+                BitConverter.GetBytes(hid_state).CopyTo(packet, 0);
+                BitConverter.GetBytes(touch_state).CopyTo(packet, 4);
+                BitConverter.GetBytes(circle_state).CopyTo(packet, 8);
+                BitConverter.GetBytes(cstick_state).CopyTo(packet, 12);
+                BitConverter.GetBytes(special_state).CopyTo(packet, 16);
+
+                // send packet
+
+                socket.SendTo(packet, host);
+                await Task.Delay(100);
+                socket.Close();
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.IP = tb_IP.Text;
@@ -1048,6 +1132,24 @@ namespace Ledybot
             lv_ServerList.Items.Add(listViewItem);
             Program.createTcpClient(hostname, port, listViewItem);
 
+        }
+
+        private async void Button2_Click(object sender, EventArgs e)
+        {
+            bool result = await SendSpecialButtons(tb_IP.Text, 1);
+            if(result) { MessageBox.Show("Failed!"); }
+        }
+
+        private async void Button3_Click(object sender, EventArgs e)
+        {
+            bool result = await SendSpecialButtons(tb_IP.Text, 2);
+            if (result) { MessageBox.Show("Failed!"); }
+        }
+
+        private async void Button4_Click(object sender, EventArgs e)
+        {
+            bool result = await SendSpecialButtons(tb_IP.Text, 4);
+            if (result) { MessageBox.Show("Failed!"); }
         }
     }
 }
