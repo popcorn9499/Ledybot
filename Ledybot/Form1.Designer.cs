@@ -1,4 +1,4 @@
-﻿namespace Ledybot
+namespace Ledybot
 {
     partial class MainForm
     {
@@ -104,6 +104,12 @@
             this.tb_Subreddit = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gb_connectionBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tb_apiPort = new System.Windows.Forms.TextBox();
+            this.tb_apiIP = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.btn_removeConnection = new System.Windows.Forms.Button();
             this.lv_ServerList = new System.Windows.Forms.ListView();
             this.col_hostname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -120,12 +126,11 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.gb_connectionBox = new System.Windows.Forms.GroupBox();
-            this.tb_apiPort = new System.Windows.Forms.TextBox();
-            this.tb_apiIP = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -140,8 +145,10 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).BeginInit();
             this.tabPage1.SuspendLayout();
-            this.tb_Console.SuspendLayout();
             this.gb_connectionBox.SuspendLayout();
+            this.tb_Console.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -210,6 +217,7 @@
             this.index});
             this.lv_log.ForeColor = System.Drawing.SystemColors.WindowText;
             this.lv_log.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_log.HideSelection = false;
             this.lv_log.Location = new System.Drawing.Point(6, 153);
             this.lv_log.Name = "lv_log";
             this.lv_log.Size = new System.Drawing.Size(353, 282);
@@ -291,6 +299,7 @@
             this.tc_Control.Controls.Add(this.tb_Settings);
             this.tc_Control.Controls.Add(this.tabPage1);
             this.tc_Control.Controls.Add(this.tb_Console);
+            this.tc_Control.Controls.Add(this.tabPage2);
             this.tc_Control.Location = new System.Drawing.Point(1, 33);
             this.tc_Control.Name = "tc_Control";
             this.tc_Control.SelectedIndex = 0;
@@ -1012,6 +1021,70 @@
             this.tabPage1.Text = "API Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // gb_connectionBox
+            // 
+            this.gb_connectionBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gb_connectionBox.Controls.Add(this.button1);
+            this.gb_connectionBox.Controls.Add(this.tb_apiPort);
+            this.gb_connectionBox.Controls.Add(this.tb_apiIP);
+            this.gb_connectionBox.Controls.Add(this.label16);
+            this.gb_connectionBox.Controls.Add(this.label17);
+            this.gb_connectionBox.Location = new System.Drawing.Point(176, 440);
+            this.gb_connectionBox.Name = "gb_connectionBox";
+            this.gb_connectionBox.Size = new System.Drawing.Size(197, 93);
+            this.gb_connectionBox.TabIndex = 21;
+            this.gb_connectionBox.TabStop = false;
+            this.gb_connectionBox.Text = "New Connection Settings";
+            this.gb_connectionBox.Enter += new System.EventHandler(this.groupBox4_Enter);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(42, 70);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Add Connection";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // tb_apiPort
+            // 
+            this.tb_apiPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_apiPort.Location = new System.Drawing.Point(42, 43);
+            this.tb_apiPort.Name = "tb_apiPort";
+            this.tb_apiPort.Size = new System.Drawing.Size(148, 20);
+            this.tb_apiPort.TabIndex = 10;
+            this.tb_apiPort.Text = "10000";
+            // 
+            // tb_apiIP
+            // 
+            this.tb_apiIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_apiIP.Location = new System.Drawing.Point(42, 17);
+            this.tb_apiIP.Name = "tb_apiIP";
+            this.tb_apiIP.Size = new System.Drawing.Size(149, 20);
+            this.tb_apiIP.TabIndex = 9;
+            this.tb_apiIP.Text = "127.0.0.1";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 50);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(29, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Port:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 20);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(20, 13);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "IP:";
+            // 
             // btn_removeConnection
             // 
             this.btn_removeConnection.Location = new System.Drawing.Point(33, 460);
@@ -1036,6 +1109,7 @@
             this.lv_ServerList.FullRowSelect = true;
             this.lv_ServerList.GridLines = true;
             this.lv_ServerList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_ServerList.HideSelection = false;
             this.lv_ServerList.Location = new System.Drawing.Point(8, 6);
             this.lv_ServerList.Name = "lv_ServerList";
             this.lv_ServerList.Size = new System.Drawing.Size(353, 428);
@@ -1143,69 +1217,57 @@
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // gb_connectionBox
+            // tabPage2
             // 
-            this.gb_connectionBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gb_connectionBox.Controls.Add(this.button1);
-            this.gb_connectionBox.Controls.Add(this.tb_apiPort);
-            this.gb_connectionBox.Controls.Add(this.tb_apiIP);
-            this.gb_connectionBox.Controls.Add(this.label16);
-            this.gb_connectionBox.Controls.Add(this.label17);
-            this.gb_connectionBox.Location = new System.Drawing.Point(176, 440);
-            this.gb_connectionBox.Name = "gb_connectionBox";
-            this.gb_connectionBox.Size = new System.Drawing.Size(197, 93);
-            this.gb_connectionBox.TabIndex = 21;
-            this.gb_connectionBox.TabStop = false;
-            this.gb_connectionBox.Text = "New Connection Settings";
-            this.gb_connectionBox.Enter += new System.EventHandler(this.groupBox4_Enter);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(369, 536);
+            this.tabPage2.TabIndex = 6;
+            this.tabPage2.Text = "Special Buttons";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // tb_apiPort
+            // groupBox4
             // 
-            this.tb_apiPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_apiPort.Location = new System.Drawing.Point(42, 43);
-            this.tb_apiPort.Name = "tb_apiPort";
-            this.tb_apiPort.Size = new System.Drawing.Size(148, 20);
-            this.tb_apiPort.TabIndex = 10;
-            this.tb_apiPort.Text = "10000";
+            this.groupBox4.Controls.Add(this.button4);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Location = new System.Drawing.Point(8, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(127, 115);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Special Buttons";
             // 
-            // tb_apiIP
+            // button2
             // 
-            this.tb_apiIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_apiIP.Location = new System.Drawing.Point(42, 17);
-            this.tb_apiIP.Name = "tb_apiIP";
-            this.tb_apiIP.Size = new System.Drawing.Size(149, 20);
-            this.tb_apiIP.TabIndex = 9;
-            this.tb_apiIP.Text = "127.0.0.1";
+            this.button2.Location = new System.Drawing.Point(7, 20);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Home";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // label16
+            // button3
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(7, 50);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(29, 13);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "Port:";
+            this.button3.Location = new System.Drawing.Point(7, 49);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(107, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Power (Short)";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
-            // label17
+            // button4
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 20);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(20, 13);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "IP:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(42, 70);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Add Connection";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button4.Location = new System.Drawing.Point(6, 77);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(107, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Power (Long)";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // MainForm
             // 
@@ -1245,10 +1307,12 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DefaultCount)).EndInit();
             this.tabPage1.ResumeLayout(false);
-            this.tb_Console.ResumeLayout(false);
-            this.tb_Console.PerformLayout();
             this.gb_connectionBox.ResumeLayout(false);
             this.gb_connectionBox.PerformLayout();
+            this.tb_Console.ResumeLayout(false);
+            this.tb_Console.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1352,6 +1416,11 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
     }
 }
 
