@@ -294,11 +294,8 @@ namespace LedyLib
                 {
                     case (int)gtsbotstates.queueempty:
                         await Task.Delay(2000);
-                        if (_data.tradeQueueRec.Count > 0)
-                        {
-                            botState = (int)gtsbotstates.startsearch;
-                        }
-
+                        botState = (int)gtsbotstates.startsearch;
+                    
                         break;
                     case (int)gtsbotstates.botstart:
                         if (bReddit)
@@ -946,7 +943,9 @@ namespace LedyLib
                         await Task.Delay(commandtime + delaytime + 1000);
                         await _helper.waittouch(160, 185);
                         await Task.Delay(2250);
+
                         if (tradeQueue)
+
                             _data.tradeQueueRec[0] = new Tuple<string, int, int>(_data.tradeQueueRec[0].Item1, _data.tradeQueueRec[0].Item2, _data.tradeQueueRec[0].Item3 + 1);
                         botState = (int)gtsbotstates.findfromstart;
                         break;
