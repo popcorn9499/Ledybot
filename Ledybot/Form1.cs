@@ -99,286 +99,291 @@ namespace Ledybot
             //    this.Invoke(new Action<string, bool, NamedPipeServerStream>(ExecuteCommand), command, button, stream);
             //    return;
             //}
-
-            string[] commStrings = command.Split(' ');
-            switch (commStrings[0].Trim('\0'))
+            try
             {
-                case "connect3ds":
+                string[] commStrings = command.Split(' ');
+                switch (commStrings[0].Trim('\0'))
+                {
+                    case "connect3ds":
 
-                    string szIp = tb_IP.Text;
-                    if (!Program.ntrClient.isConnected)
-                    {
-                        Program.scriptHelper.connect(szIp, 8000);
-                        string msg = "command:connect3ds Ledybot is now connected.";
-                        Writer(stream, msg);
-                    }
-                    else
-                    {
-                        if (button)
-                            MessageBox.Show("You are already connected!");
-                        else
+                        string szIp = tb_IP.Text;
+                        if (!Program.ntrClient.isConnected)
                         {
-                            string msg = "command:connect3ds Ledybot is already connected.";
+                            Program.scriptHelper.connect(szIp, 8000);
+                            string msg = "command:connect3ds Ledybot is now connected.";
                             Writer(stream, msg);
                         }
-
-                    }
-                    break;
-                case "disconnect3ds":
-                    if (Program.ntrClient.isConnected)
-                    {
-                        Program.gtsBot?.RequestStop();
-
-                        Program.eggBot?.RequestStop();
-
-                        Program.scriptHelper.disconnect();
-
-                        if (Program.ntrClient.isConnected) return;
-                        if (button)
-                            MessageBox.Show("Successfully disconnected!");
                         else
                         {
-                            string msg = "command:disconnect3ds Ledybot successfully disconnected.";
-                            Writer(stream, msg);
+                            if (button)
+                                MessageBox.Show("You are already connected!");
+                            else
+                            {
+                                string msg = "command:connect3ds Ledybot is already connected.";
+                                Writer(stream, msg);
+                            }
+
                         }
-                        undoButtons();
-                    }
-                    else
-                    {
-                        if (button)
-                            MessageBox.Show("You are already disconnected!");
+                        break;
+                    case "disconnect3ds":
+                        if (Program.ntrClient.isConnected)
+                        {
+                            Program.gtsBot?.RequestStop();
+
+                            Program.eggBot?.RequestStop();
+
+                            Program.scriptHelper.disconnect();
+
+                            if (Program.ntrClient.isConnected) return;
+                            if (button)
+                                MessageBox.Show("Successfully disconnected!");
+                            else
+                            {
+                                string msg = "command:disconnect3ds Ledybot successfully disconnected.";
+                                Writer(stream, msg);
+                            }
+                            undoButtons();
+                        }
                         else
                         {
-                            string msg = "command:disconnect3ds Ledybot are already disconnected!";
-                            Writer(stream, msg);
+                            if (button)
+                                MessageBox.Show("You are already disconnected!");
+                            else
+                            {
+                                string msg = "command:disconnect3ds Ledybot are already disconnected!";
+                                Writer(stream, msg);
+                            }
+                            undoButtons();
                         }
-                        undoButtons();
-                    }
-                    break;
-                case "startgtsbot":
-                    if (!Program.data.giveawayDetails.Any())
-                    {
-                        if (button)
-                            MessageBox.Show("No details are set!", "GTS Bot", MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                        else
+                        break;
+                    case "startgtsbot":
+                        if (!Program.data.giveawayDetails.Any())
                         {
-                            string msg = "command:startgtsbot No details are set!";
-                            Writer(stream, msg);
+                            if (button)
+                                MessageBox.Show("No details are set!", "GTS Bot", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                            else
+                            {
+                                string msg = "command:startgtsbot No details are set!";
+                                Writer(stream, msg);
+                            }
+                            return;
                         }
-                        return;
-                    }
-                    btn_Stop.Enabled = true;
-                    btn_Start.Enabled = false;
-                    Program.gd.disableButtons();
-                    botWorking = true;
-                    botStop = false;
-                    botNumber = 3;
+                        btn_Stop.Enabled = true;
+                        btn_Start.Enabled = false;
+                        Program.gd.disableButtons();
+                        botWorking = true;
+                        botStop = false;
+                        botNumber = 3;
 
-                    int tradeDirection = 0;
-                    if (rb_frontfpo.Checked)
-                    {
-                        tradeDirection = 1;
-                    }
-                    else if (rb_front.Checked)
-                    {
-                        tradeDirection = 2;
-                    }
-                    Program.createGTSBot(tb_IP.Text, pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, cb_Tradequeue.Checked);
-                    Task<int> Bot = Program.gtsBot.RunBot();
-                    if (!button)
-                    {
-                        string msg2 = "command:startgtsbot Bot started!";
-                        Writer(stream, msg2);
-                    }
-                    SendConsoleMessage("Bot started.");
-                    int result = await Bot;
-                    if (botStop)
-                        result = 8;
-                    switch (result)
-                    {
-                        case 1:
-                            SendConsoleMessage("All Pokemon Traded.");
-                            string msg3 = "msg:info All Pokemon Traded.";
-                            Writer(stream, msg3);
-                            break;
-                        case 8:
-                            SendConsoleMessage("Bot Stopped by User");
-                            string msg4 = "msg:info Bot Stopped by User.";
-                            Writer(stream, msg4);
-                            break;
-                        default:
-                            SendConsoleMessage("An error has occured.");
-                            string msg5 = "msg:info An error has occured.";
-                            Writer(stream, msg5);
-                            break;
-                    }
+                        int tradeDirection = 0;
+                        if (rb_frontfpo.Checked)
+                        {
+                            tradeDirection = 1;
+                        }
+                        else if (rb_front.Checked)
+                        {
+                            tradeDirection = 2;
+                        }
+                        Program.createGTSBot(tb_IP.Text, pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, cb_Tradequeue.Checked);
+                        Task<int> Bot = Program.gtsBot.RunBot();
+                        if (!button)
+                        {
+                            string msg2 = "command:startgtsbot Bot started!";
+                            Writer(stream, msg2);
+                        }
+                        SendConsoleMessage("Bot started.");
+                        int result = await Bot;
+                        if (botStop)
+                            result = 8;
+                        switch (result)
+                        {
+                            case 1:
+                                SendConsoleMessage("All Pokemon Traded.");
+                                string msg3 = "msg:info All Pokemon Traded.";
+                                Writer(stream, msg3);
+                                break;
+                            case 8:
+                                SendConsoleMessage("Bot Stopped by User");
+                                string msg4 = "msg:info Bot Stopped by User.";
+                                Writer(stream, msg4);
+                                break;
+                            default:
+                                SendConsoleMessage("An error has occured.");
+                                string msg5 = "msg:info An error has occured.";
+                                Writer(stream, msg5);
+                                break;
+                        }
 
 
-                    Program.gd.enableButtons();
-                    btn_Stop.Enabled = false;
-                    btn_Start.Enabled = true;
-                    botWorking = false;
-                    botNumber = -1;
-                    break;
-
-
-                case "stopgtsbot":
-                    if (btn_Start.Enabled)
-                    {
-                        Program.gtsBot.RequestStop();
-                        btn_Start.Enabled = true;
+                        Program.gd.enableButtons();
                         btn_Stop.Enabled = false;
-                        botStop = true;
-                        SendConsoleMessage("Requested Bot Stop.");
-                        string msg6 = "command:stopgtsbot Requested to stop the bot.";
-                        Writer(stream, msg6);
-                    }
-                    else
-                    {
-                        string msg6 = "command:stopgtsbot Requested to stop the bot. But bot never started";
-                        Writer(stream, msg6);
-                    }
-                    break;
-                case "refresh":
-                    switch (commStrings.Length)
-                    {
-                        case 1:
-                            Program.data.refreshDetails();
-                            string msg7 = "command:refresh Ban list and giveaway details refreshed.";
-                            Writer(stream, msg7);
-                            break;
-                        case 2:
-                            switch (commStrings[1])
-                            {
-                                case "details":
-                                    Program.data.refreshDetails(true, false);
-                                    string msg8 = "command:refresh Giveaway details refreshed.";
-                                    Writer(stream, msg8);
-                                    break;
-                                case "bans":
-                                    Program.data.refreshDetails(false);
-                                    string msg9 = "command:refresh Ban list refreshed.";
-                                    Writer(stream, msg9);
-                                    break;
-                                default:
-                                    string msg91 = "command:refresh Invalid Something or Other";
-                                    Writer(stream, msg91);
-                                    break;
-                            }
-                            break;
-                        case 3:
-                            switch (commStrings[1])
-                            {
-                                case "details":
-                                    Program.data.refreshDetails(true, false, commStrings[2]);
-                                    string msg10 = "command:refresh Giveaway details refreshed from " + commStrings[2] + ".";
-                                    Writer(stream, msg10);
-                                    break;
-                                case "bans":
-                                    Program.data.refreshDetails(false, true, "", commStrings[2]);
-                                    string msg11 = "command:refresh Ban list refreshed from " + commStrings[2] + ".";
-                                    Writer(stream, msg11);
-                                    break;
-                                default:
-                                    string msg92 = "command:refresh Invalid Something or Other";
-                                    Writer(stream, msg92);
-                                    break;
-                            }
-                            break;
-                        default:
-                            string msg12 = "command:refresh I do not know what you want...";
+                        btn_Start.Enabled = true;
+                        botWorking = false;
+                        botNumber = -1;
+                        break;
+
+
+                    case "stopgtsbot":
+                        if (btn_Start.Enabled)
+                        {
+                            Program.gtsBot.RequestStop();
+                            btn_Start.Enabled = true;
+                            btn_Stop.Enabled = false;
+                            botStop = true;
+                            SendConsoleMessage("Requested Bot Stop.");
+                            string msg6 = "command:stopgtsbot Requested to stop the bot.";
+                            Writer(stream, msg6);
+                        }
+                        else
+                        {
+                            string msg6 = "command:stopgtsbot Requested to stop the bot. But bot never started";
+                            Writer(stream, msg6);
+                        }
+                        break;
+                    case "refresh":
+                        switch (commStrings.Length)
+                        {
+                            case 1:
+                                Program.data.refreshDetails();
+                                string msg7 = "command:refresh Ban list and giveaway details refreshed.";
+                                Writer(stream, msg7);
+                                break;
+                            case 2:
+                                switch (commStrings[1])
+                                {
+                                    case "details":
+                                        Program.data.refreshDetails(true, false);
+                                        string msg8 = "command:refresh Giveaway details refreshed.";
+                                        Writer(stream, msg8);
+                                        break;
+                                    case "bans":
+                                        Program.data.refreshDetails(false);
+                                        string msg9 = "command:refresh Ban list refreshed.";
+                                        Writer(stream, msg9);
+                                        break;
+                                    default:
+                                        string msg91 = "command:refresh Invalid Something or Other";
+                                        Writer(stream, msg91);
+                                        break;
+                                }
+                                break;
+                            case 3:
+                                switch (commStrings[1])
+                                {
+                                    case "details":
+                                        Program.data.refreshDetails(true, false, commStrings[2]);
+                                        string msg10 = "command:refresh Giveaway details refreshed from " + commStrings[2] + ".";
+                                        Writer(stream, msg10);
+                                        break;
+                                    case "bans":
+                                        Program.data.refreshDetails(false, true, "", commStrings[2]);
+                                        string msg11 = "command:refresh Ban list refreshed from " + commStrings[2] + ".";
+                                        Writer(stream, msg11);
+                                        break;
+                                    default:
+                                        string msg92 = "command:refresh Invalid Something or Other";
+                                        Writer(stream, msg92);
+                                        break;
+                                }
+                                break;
+                            default:
+                                string msg12 = "command:refresh I do not know what you want...";
+                                Writer(stream, msg12);
+                                break;
+                        }
+                        break;
+                    case "togglequeue":
+                        cb_Tradequeue.Checked = !cb_Tradequeue.Checked;
+                        if (cb_Tradequeue.Checked)
+                        {
+                            SendConsoleMessage("Trade Queue Enabled.");
+                            string msg12 = "command:togglequeue Trade Queue Enabled.";
                             Writer(stream, msg12);
-                            break;
-                    }
-                    break;
-                case "togglequeue":
-                    cb_Tradequeue.Checked = !cb_Tradequeue.Checked;
-                    if (cb_Tradequeue.Checked)
-                    {
-                        SendConsoleMessage("Trade Queue Enabled.");
-                        string msg12 = "command:togglequeue Trade Queue Enabled.";
-                        Writer(stream, msg12);
-                    }
-                    else
-                    {
-                        SendConsoleMessage("Trade Queue Disabled.");
-                        string msg13 = "command:togglequeue Trade Queue Disabled.";
-                        Writer(stream, msg13);
-                    }
-                    break;
-                case "trade":
-                    if (cb_Tradequeue.Checked)
-                    {
-                        if (commStrings.Length == 3)
-                        {
-                            Program.data.AddToQueue(int.Parse(commStrings[2]), commStrings[1]);
-                            SendConsoleMessage("Added FC " + commStrings[1] + " to queue with deposit of " + commStrings[2]);
-                            string msg15 = "command:trade Added FC " + commStrings[1] + " to queue with deposit of " + commStrings[2];
-                            Writer(stream, msg15);
-                            break;
                         }
-                        string msg16 = "command:trade Invalid Use. Usage: trade {fc} {dex}";
-                        Writer(stream, msg16);
-                    }
-                    else
-                    {
-                        string msg14 = "command:trade Trade Queue is not enabled.";
-                        Writer(stream, msg14);
-                    }
-                    break;
-                case "remove":
-                    if (cb_Tradequeue.Checked)
-                    {
-                        if (commStrings.Length == 2)
+                        else
                         {
-                            Program.data.RemoveFromQueue(int.Parse(commStrings[1]));
-                            SendConsoleMessage("Removed trade of index " + commStrings[1] + " from queue");
-                            string msg18 = "command:remove Removed trade of index " + commStrings[1] + " from queue.";
-                            Writer(stream, msg18);
-                            break;
+                            SendConsoleMessage("Trade Queue Disabled.");
+                            string msg13 = "command:togglequeue Trade Queue Disabled.";
+                            Writer(stream, msg13);
                         }
-                        string msg19 = "command:remove Invalid Use. Usage: remove {index}";
-                        Writer(stream, msg19);
-                    }
-                    else
-                    {
-                        string msg17 = "command:remove Trade Queue is not enabled.";
-                        Writer(stream, msg17);
-                    }
+                        break;
+                    case "trade":
+                        if (cb_Tradequeue.Checked)
+                        {
+                            if (commStrings.Length == 3)
+                            {
+                                Program.data.AddToQueue(int.Parse(commStrings[2]), commStrings[1]);
+                                SendConsoleMessage("Added FC " + commStrings[1] + " to queue with deposit of " + commStrings[2]);
+                                string msg15 = "command:trade Added FC " + commStrings[1] + " to queue with deposit of " + commStrings[2];
+                                Writer(stream, msg15);
+                                break;
+                            }
+                            string msg16 = "command:trade Invalid Use. Usage: trade {fc} {dex}";
+                            Writer(stream, msg16);
+                        }
+                        else
+                        {
+                            string msg14 = "command:trade Trade Queue is not enabled.";
+                            Writer(stream, msg14);
+                        }
+                        break;
+                    case "remove":
+                        if (cb_Tradequeue.Checked)
+                        {
+                            if (commStrings.Length == 2)
+                            {
+                                Program.data.RemoveFromQueue(int.Parse(commStrings[1]));
+                                SendConsoleMessage("Removed trade of index " + commStrings[1] + " from queue");
+                                string msg18 = "command:remove Removed trade of index " + commStrings[1] + " from queue.";
+                                Writer(stream, msg18);
+                                break;
+                            }
+                            string msg19 = "command:remove Invalid Use. Usage: remove {index}";
+                            Writer(stream, msg19);
+                        }
+                        else
+                        {
+                            string msg17 = "command:remove Trade Queue is not enabled.";
+                            Writer(stream, msg17);
+                        }
 
-                    break;
+                        break;
 
-                case "viewqueue":
-                    if (cb_Tradequeue.Checked)
-                    {
-                        if (commStrings.Length == 1)
+                    case "viewqueue":
+                        if (cb_Tradequeue.Checked)
                         {
-                            string msg21 = "command:viewqueue 1 " + Program.data.ViewQueue(1);
-                            SendConsoleMessage(msg21);
-                            Writer(stream, msg21);
-                            break;
+                            if (commStrings.Length == 1)
+                            {
+                                string msg21 = "command:viewqueue 1 " + Program.data.ViewQueue(1);
+                                SendConsoleMessage(msg21);
+                                Writer(stream, msg21);
+                                break;
+                            }
+                            if (commStrings.Length == 2)
+                            {
+                                string msg22 = "command:viewqueue " + commStrings[1] + " " + Program.data.ViewQueue(int.Parse(commStrings[1]));
+                                SendConsoleMessage(msg22);
+                                Writer(stream, msg22);
+                                break;
+                            }
+                            string msg19 = "command:remove Invalid Use. Usage: viewqueue {page}";
+                            Writer(stream, msg19);
                         }
-                        if (commStrings.Length == 2)
+                        else
                         {
-                            string msg22 = "command:viewqueue " + commStrings[1] + " " + Program.data.ViewQueue(int.Parse(commStrings[1]));
-                            SendConsoleMessage(msg22);
-                            Writer(stream, msg22);
-                            break;
+                            string msg20 = "command:viewqueue Trade Queue is not enabled.";
+                            Writer(stream, msg20);
                         }
-                        string msg19 = "command:remove Invalid Use. Usage: viewqueue {page}";
-                        Writer(stream, msg19);
-                    }
-                    else
-                    {
-                        string msg20 = "command:viewqueue Trade Queue is not enabled.";
-                        Writer(stream, msg20);
-                    }
-                    break;
-                default:
-                    string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');
-                    Writer(stream, msg201);
-                    break;
+                        break;
+                    default:
+                        string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');
+                        Writer(stream, msg201);
+                        break;
+                }
+            } catch (Exception)
+            {
+
             }
         }
 
