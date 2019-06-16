@@ -25,6 +25,7 @@ namespace LedyLib
         public DataTable bdetails = new DataTable();
         public ArrayList fcList = new ArrayList();
         public Dictionary<String, DateTime> tradeCoolDown = new Dictionary<String, DateTime>();
+        public int tradeCoolDownAmount = 10; //this is in minutes
 
         public List<Tuple<string, int, int>> tradeQueueRec = new List<Tuple<string, int, int>>();
 
@@ -361,7 +362,7 @@ namespace LedyLib
             {
                 DateTime fcTime = tradeCoolDown[fc];
 
-                if ((curTime-fcTime).TotalMinutes >= 20){
+                if ((curTime-fcTime).TotalMinutes >= tradeCoolDownAmount){
                     tradeCoolDown.Remove(fc);
                     return false;
                 } else

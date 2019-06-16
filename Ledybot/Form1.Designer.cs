@@ -119,6 +119,11 @@ namespace Ledybot
             this.btn_SendCommand = new System.Windows.Forms.Button();
             this.tb_ConsoleCommand = new System.Windows.Forms.TextBox();
             this.rtb_Console = new System.Windows.Forms.RichTextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.ofd_Injection = new System.Windows.Forms.OpenFileDialog();
             this.btn_Disconnect = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -126,11 +131,8 @@ namespace Ledybot
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.tb_tradeCooldown = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -309,6 +311,8 @@ namespace Ledybot
             // tp_GTS
             // 
             this.tp_GTS.AllowDrop = true;
+            this.tp_GTS.Controls.Add(this.label15);
+            this.tp_GTS.Controls.Add(this.tb_tradeCooldown);
             this.tp_GTS.Controls.Add(this.cb_Tradequeue);
             this.tp_GTS.Controls.Add(this.groupBox3);
             this.tp_GTS.Controls.Add(this.combo_levelrange);
@@ -1174,6 +1178,58 @@ namespace Ledybot
             this.rtb_Console.TabIndex = 0;
             this.rtb_Console.Text = "";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(369, 536);
+            this.tabPage2.TabIndex = 6;
+            this.tabPage2.Text = "Special Buttons";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button4);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Location = new System.Drawing.Point(8, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(127, 115);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Special Buttons";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(6, 77);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(107, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Power (Long)";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(7, 49);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(107, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Power (Short)";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(7, 20);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Home";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
             // ofd_Injection
             // 
             this.ofd_Injection.FileName = "Pokemon.pk7";
@@ -1217,57 +1273,22 @@ namespace Ledybot
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // tabPage2
+            // tb_tradeCooldown
             // 
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(369, 536);
-            this.tabPage2.TabIndex = 6;
-            this.tabPage2.Text = "Special Buttons";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tb_tradeCooldown.Location = new System.Drawing.Point(258, 130);
+            this.tb_tradeCooldown.Name = "tb_tradeCooldown";
+            this.tb_tradeCooldown.Size = new System.Drawing.Size(76, 20);
+            this.tb_tradeCooldown.TabIndex = 39;
+            this.tb_tradeCooldown.TextChanged += new System.EventHandler(this.tb_tradeCooldown_TextChanged);
             // 
-            // groupBox4
+            // label15
             // 
-            this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Location = new System.Drawing.Point(8, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(127, 115);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Special Buttons";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(7, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Home";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(7, 49);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(107, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Power (Short)";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(6, 77);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(107, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Power (Long)";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(122, 133);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(130, 13);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "Trade Cooldown (minutes)";
             // 
             // MainForm
             // 
@@ -1421,6 +1442,8 @@ namespace Ledybot
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tb_tradeCooldown;
     }
 }
 

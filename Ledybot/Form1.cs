@@ -778,7 +778,7 @@ namespace Ledybot
                 String serverName = hostname + ":" + port;
                 servers.Add(serverName); //adds the connection info to the config
             }
-
+            Properties.Settings.Default.tradeCooldownTimer = Program.data.tradeCoolDownAmount;
 
             Properties.Settings.Default.apiConnections = servers;
             Properties.Settings.Default.Save();
@@ -804,6 +804,8 @@ namespace Ledybot
             combo_levelrange.SelectedIndex = Properties.Settings.Default.DepositedLevel;
             cb_Tradequeue.Checked = Properties.Settings.Default.TradeQueue;
 
+            Program.data.tradeCoolDownAmount = Properties.Settings.Default.tradeCooldownTimer;
+            tb_tradeCooldown.Text = Program.data.tradeCoolDownAmount.ToString();
 
             try
             {
@@ -1184,6 +1186,19 @@ namespace Ledybot
         {
             bool result = await SendSpecialButtons(tb_IP.Text, 4);
             if (result) { MessageBox.Show("Failed!"); }
+        }
+
+        private void tb_tradeCooldown_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Int32 cooldown = Int32.Parse(tb_tradeCooldown.Text);
+                Program.data.tradeCoolDownAmount = cooldown;
+
+            } catch
+            {
+                MessageBox.Show("Please use a valid Integer. Example '1' ");
+            }
         }
     }
 }
