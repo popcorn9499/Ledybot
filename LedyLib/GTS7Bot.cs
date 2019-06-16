@@ -700,7 +700,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || _data.commented.Contains(szFC) && !cooldown && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || _data.commented.Contains(szFC) && !cooldown && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC)))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
