@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -375,6 +376,34 @@ namespace Ledybot
                             string msg20 = "command:viewqueue Trade Queue is not enabled.";
                             Writer(stream, msg20);
                         }
+                        break;
+                    case "listBanFCList":
+                        Int32 maxAmount = 5000;
+                        Int32 amount = 0;
+                        String cmdPrefix = "command:listBanFCList";
+                        String fcData = "";
+                        string msg42;
+                        foreach (DataRow data in Program.data.bdetails.Rows)
+                        {
+                            fcData += "&" + data["FC"].ToString();
+                            amount++;
+                            if (amount >= maxAmount)
+                            {
+                                msg42 = cmdPrefix + " " + fcData;
+                                Writer(stream, msg42);
+
+                            }
+                        }
+                        msg42 = cmdPrefix + " :Done " + fcData;
+                        Writer(stream, msg42);
+                        break;
+                    case "addFcTrade":
+                        String fcs = commStrings[1];
+                        foreach (String fc in fcs.Split('&')) {
+                            SendConsoleMessage("FC: " + fc);
+                            Program.data.fcList.Add(fc);
+                        }
+
                         break;
                     default:
                         string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');

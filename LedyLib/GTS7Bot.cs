@@ -459,7 +459,18 @@ namespace LedyLib
                                 fc[4] = checksum;
                                 long iFC = BitConverter.ToInt64(fc, 0);
                                 szFC = iFC.ToString().PadLeft(12, '0');
-                                if (tradeQueue)
+
+                                Boolean foundFC = false;
+                                foreach (String fcItem in _data.fcList)
+                                {
+                                    if (fcItem.Equals(szFC))
+                                    {
+                                        foundFC = true;
+                                        
+                                        break;
+                                    }
+                                }
+                                if (tradeQueue && !foundFC)
                                 {
                                     if (!_data.tradeQueueRec.Any())
                                     {
@@ -473,7 +484,7 @@ namespace LedyLib
                                         continue;
                                     }
                                 }
-                                if (_data.giveawayDetails.ContainsKey(dexnumber))
+                                if (_data.giveawayDetails.ContainsKey(dexnumber) && foundFC)
                                 {
 
                                     _data.giveawayDetails.TryGetValue(dexnumber, out details);
@@ -492,6 +503,7 @@ namespace LedyLib
                                     int level = block[0xF];
                                     if ((gender == 0 || gender == details.Item3) && (level == 0 || level == details.Item4))
                                     {
+                                        
                                         string szTrainerName = Encoding.Unicode.GetString(block, 0x4C, 24).Trim('\0');
                                         int countryIndex = BitConverter.ToInt16(block, 0x68);
                                         string country = "-";
@@ -501,7 +513,8 @@ namespace LedyLib
                                         string subregion = "-";
                                         _data.regions.TryGetValue(subRegionIndex, out subregion);
                                         int ipage = Convert.ToInt32(Math.Floor(startIndex / 100.0)) + 1;
-                                        if (useLedySync && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
+                                        Boolean cooldown = _data.isTradeCoolDown(szFC);
+                                        if (useLedySync && !cooldown && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
                                         {
                                             onChangeStatus?.Invoke("Found a pokemon to trade");
                                             tradeIndex = i - 1;
@@ -510,7 +523,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || !cooldown && _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
@@ -626,7 +639,17 @@ namespace LedyLib
                                 fc[4] = checksum;
                                 long iFC = BitConverter.ToInt64(fc, 0);
                                 szFC = iFC.ToString().PadLeft(12, '0');
-                                if (tradeQueue)
+                                Boolean foundFC = false;
+                                foreach (String fcItem in _data.fcList)
+                                {
+                                    if (fcItem.Equals(szFC))
+                                    {
+                                        foundFC = true;
+                                        
+                                        break;
+                                    }
+                                }
+                                if (tradeQueue && !foundFC)
                                 {
                                     if (!_data.tradeQueueRec.Any())
                                     {
@@ -640,7 +663,7 @@ namespace LedyLib
                                         continue;
                                     }
                                 }
-                                if (_data.giveawayDetails.ContainsKey(dexnumber))
+                                if (_data.giveawayDetails.ContainsKey(dexnumber) && foundFC)
                                 {
                                     _data.giveawayDetails.TryGetValue(dexnumber, out details);
                                     if (details.Item1 == "")
@@ -667,8 +690,9 @@ namespace LedyLib
                                         string subregion = "-";
                                         _data.regions.TryGetValue(subRegionIndex, out subregion);
                                         int ipage = Convert.ToInt32(Math.Floor(startIndex / 100.0)) + 1;
-                                        if (useLedySync && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
-                                        {
+                                        Boolean cooldown = _data.isTradeCoolDown(szFC);
+                                        if (useLedySync && !cooldown && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
+                                        { 
                                             onChangeStatus?.Invoke("Found a pokemon to trade");
                                             tradeIndex = i - 1;
                                             botState = (int)gtsbotstates.trade;
@@ -676,7 +700,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || !cooldown && _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
@@ -778,6 +802,7 @@ namespace LedyLib
                         {
                             string szNickname = Encoding.Unicode.GetString(block, 0x14, 24).Trim('\0'); //fix to prevent nickname clipping. Count should be 24, 2 bytes per letter, 2x12=24, not 20.
 
+                            _data.addTradeCoolDown(szFC); //initiate cooldown
 
                             string szPath = details.Item1;
                             string szFileToFind = details.Item2 + szNickname + ".pk7";
@@ -785,6 +810,14 @@ namespace LedyLib
                             {
                                 szPath = szFileToFind;
                             }
+                            if (!File.Exists(szPath))
+                            {
+                                onChangeStatus?.Invoke("File does not exist");
+                                botState = (int)gtsbotstates.panic;
+                                break;
+                            }
+
+
 
                             byte[] pkmEncrypted = System.IO.File.ReadAllBytes(szPath);
                             byte[] cloneshort = PKHeX.encryptArray(pkmEncrypted.Take(232).ToArray());

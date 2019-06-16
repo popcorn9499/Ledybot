@@ -23,6 +23,8 @@ namespace LedyLib
         public ArrayList banlist = new ArrayList();
         public DataTable gdetails = new DataTable();
         public DataTable bdetails = new DataTable();
+        public ArrayList fcList = new ArrayList();
+        public Dictionary<String, DateTime> tradeCoolDown = new Dictionary<String, DateTime>();
 
         public List<Tuple<string, int, int>> tradeQueueRec = new List<Tuple<string, int, int>>();
 
@@ -30,6 +32,7 @@ namespace LedyLib
 
         public string thread = "";
         public string subreddit = "PokemonPlaza";
+
 
         public Data()
         {
@@ -343,6 +346,31 @@ namespace LedyLib
             {
                 return false;
             }
+        }
+
+        public void addTradeCoolDown(String fc)
+        {
+            tradeCoolDown.Add(fc,DateTime.Now);
+        }
+
+        public Boolean isTradeCoolDown(String fc)
+        {
+            DateTime curTime = DateTime.Now;
+
+            if (tradeCoolDown.ContainsKey(fc))
+            {
+                DateTime fcTime = tradeCoolDown[fc];
+
+                if ((curTime-fcTime).TotalMinutes >= 20){
+                    tradeCoolDown.Remove(fc);
+                    return false;
+                } else
+                {
+                    return true;
+                }
+            }
+            return false;
+
         }
     }
 }
