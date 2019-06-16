@@ -543,7 +543,24 @@ namespace Ledybot
             ExecuteCommand("startgtsbot", true, null);
         }
 
-        public void ReceiveItemDetails(object sender, ItemDetailsEventArgs e)
+        public void ReceiveFailDetails(object sender, ItemDetailsFailReasonEventArgs e)
+        {
+            AppendListViewItemFailed(e.szTrainerName, e.szNickname, e.szCountry, e.szSubRegion, e.szSent, e.fc, e.page, e.index,e.failReason);
+        }
+
+        public void AppendListViewItemFailed(string szTrainerName, string szNickname, string szCountry, string szSubRegion, string szSent, string fc, string page, string index,string failReason)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string, string, string, string, string, string, string, string,string>(AppendListViewItemFailed), new object[] { szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc, page, index });
+                return;
+            }
+            string[] row = { DateTime.Now.ToString("h:mm:ss"), szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc.Insert(4, "-").Insert(9, "-"), page, index,failReason};
+            var listViewItem = new ListViewItem(row);
+
+        }
+
+            public void ReceiveItemDetails(object sender, ItemDetailsEventArgs e)
         {
             AppendListViewItem(e.szTrainerName, e.szNickname, e.szCountry, e.szSubRegion, e.szSent, e.fc, e.page, e.index);
         }

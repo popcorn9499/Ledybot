@@ -23,6 +23,19 @@ namespace LedyLib
         public string index { get; set; }
     }
 
+    public class ItemDetailsFailReasonEventArgs : EventArgs
+    {
+        public string szTrainerName { get; set; }
+        public string szNickname { get; set; }
+        public string szCountry { get; set; }
+        public string szSubRegion { get; set; }
+        public string szSent { get; set; }
+        public string fc { get; set; }
+        public string page { get; set; }
+        public string index { get; set; }
+        public string failReason { get; set; }
+    }
+
     public class GTSBot7
     {
 
@@ -108,6 +121,8 @@ namespace LedyLib
         public delegate void changeStatus(string msg);
 
         public event EventHandler<ItemDetailsEventArgs> onItemDetails;
+
+        public event EventHandler<ItemDetailsFailReasonEventArgs> onMissingFileFailingTrade;
 
         public event changeStatus onChangeStatus;
 
@@ -804,6 +819,19 @@ namespace LedyLib
 
                             _data.addTradeCoolDown(szFC); //initiate cooldown
 
+                            //optional: grab some trainer data
+                            string szTrainerName = Encoding.Unicode.GetString(block, 0x4C, 24).Trim('\0');
+                            
+
+                            int countryIndex = BitConverter.ToInt16(block, 0x68);
+                            string country = "-";
+                            _data.countries.TryGetValue(countryIndex, out country);
+                            _data.getSubRegions(countryIndex);
+                            int subRegionIndex = BitConverter.ToInt16(block, 0x6A);
+                            string subregion = "-";
+                            _data.regions.TryGetValue(subRegionIndex, out subregion);
+
+
                             string szPath = details.Item1;
                             string szFileToFind = details.Item2 + szNickname + ".pk7";
                             if (File.Exists(szFileToFind))
@@ -812,6 +840,21 @@ namespace LedyLib
                             }
                             if (!File.Exists(szPath))
                             {
+                                string failReason = "";
+                                var args1 = new ItemDetailsFailReasonEventArgs()
+                                {
+                                    fc = szFC,
+                                    index = tradeIndex + "",
+                                    page = page + "",
+                                    szCountry = country,
+                                    szNickname = szNickname,
+                                    szSent = _pkTable.Species7[dexnumber - 1],
+                                    szSubRegion = subregion,
+                                    szTrainerName = szTrainerName,
+                                    failReason = failReason
+                                };
+
+                                onMissingFileFailingTrade?.Invoke(this, args1);
                                 onChangeStatus?.Invoke("File does not exist");
                                 botState = (int)gtsbotstates.panic;
                                 break;
@@ -823,17 +866,9 @@ namespace LedyLib
                             byte[] cloneshort = PKHeX.encryptArray(pkmEncrypted.Take(232).ToArray());
                             string ek7 = BitConverter.ToString(cloneshort).Replace("-", ", 0x");
 
-                            //optional: grab some trainer data
-                            string szTrainerName = Encoding.Unicode.GetString(block, 0x4C, 24).Trim('\0');
+                            //save the last traded trainer optional with trainer data
                             File.WriteAllText(Directory.GetCurrentDirectory() + @"\LastTradedTrainer.txt", szTrainerName.ToString());
 
-                            int countryIndex = BitConverter.ToInt16(block, 0x68);
-                            string country = "-";
-                            _data.countries.TryGetValue(countryIndex, out country);
-                            _data.getSubRegions(countryIndex);
-                            int subRegionIndex = BitConverter.ToInt16(block, 0x6A);
-                            string subregion = "-";
-                            _data.regions.TryGetValue(subRegionIndex, out subregion);
 
                             //Inject the Pokemon to box1slot1
                             _scriptHelper.write(addr_box1slot1, cloneshort, iPID);
@@ -889,8 +924,9 @@ namespace LedyLib
                                     szSubRegion = subregion,
                                     szTrainerName = szTrainerName
                                 };
-
+                                
                                 onItemDetails?.Invoke(this, args);
+                                
                                 if (details.Item5 > 0)
                                 {
                                     _data.giveawayDetails[dexnumber] = new Tuple<string, string, int, int, int, ArrayList>(details.Item1, details.Item2, details.Item3, details.Item4, details.Item5 - 1, details.Item6);

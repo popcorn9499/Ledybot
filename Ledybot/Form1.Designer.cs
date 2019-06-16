@@ -133,6 +133,18 @@ namespace Ledybot
             this.rt_status = new System.Windows.Forms.RichTextBox();
             this.tb_tradeCooldown = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.tp_tradeErrors = new System.Windows.Forms.TabPage();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -151,6 +163,7 @@ namespace Ledybot
             this.tb_Console.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tp_tradeErrors.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -296,6 +309,7 @@ namespace Ledybot
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tc_Control.Controls.Add(this.tp_GTS);
+            this.tc_Control.Controls.Add(this.tp_tradeErrors);
             this.tc_Control.Controls.Add(this.tp_Injection);
             this.tc_Control.Controls.Add(this.tp_Breeding);
             this.tc_Control.Controls.Add(this.tb_Settings);
@@ -1290,6 +1304,89 @@ namespace Ledybot
             this.label15.TabIndex = 40;
             this.label15.Text = "Trade Cooldown (minutes)";
             // 
+            // tp_tradeErrors
+            // 
+            this.tp_tradeErrors.Controls.Add(this.listView1);
+            this.tp_tradeErrors.Location = new System.Drawing.Point(4, 22);
+            this.tp_tradeErrors.Name = "tp_tradeErrors";
+            this.tp_tradeErrors.Padding = new System.Windows.Forms.Padding(3);
+            this.tp_tradeErrors.Size = new System.Drawing.Size(369, 536);
+            this.tp_tradeErrors.TabIndex = 7;
+            this.tp_tradeErrors.Text = "Trade Errors";
+            this.tp_tradeErrors.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.listView1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(8, 6);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(353, 517);
+            this.listView1.TabIndex = 19;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Time";
+            this.columnHeader1.Width = 55;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Trainer";
+            this.columnHeader2.Width = 73;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 49;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Country";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Sub Region";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Pokemon Sent";
+            this.columnHeader6.Width = 62;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "FC";
+            this.columnHeader7.Width = 110;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Page";
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Index";
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Fail Reason";
+            this.columnHeader10.Width = 200;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1334,6 +1431,7 @@ namespace Ledybot
             this.tb_Console.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.tp_tradeErrors.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1444,6 +1542,18 @@ namespace Ledybot
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tb_tradeCooldown;
+        private System.Windows.Forms.TabPage tp_tradeErrors;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
     }
 }
 
