@@ -466,6 +466,7 @@ namespace LedyLib
                                     if (fcItem.Equals(szFC))
                                     {
                                         foundFC = true;
+                                        
                                         break;
                                     }
                                 }
@@ -483,7 +484,7 @@ namespace LedyLib
                                         continue;
                                     }
                                 }
-                                if (_data.giveawayDetails.ContainsKey(dexnumber))
+                                if (_data.giveawayDetails.ContainsKey(dexnumber) && foundFC)
                                 {
 
                                     _data.giveawayDetails.TryGetValue(dexnumber, out details);
@@ -643,6 +644,7 @@ namespace LedyLib
                                     if (fcItem.Equals(szFC))
                                     {
                                         foundFC = true;
+                                        
                                         break;
                                     }
                                 }
@@ -660,7 +662,7 @@ namespace LedyLib
                                         continue;
                                     }
                                 }
-                                if (_data.giveawayDetails.ContainsKey(dexnumber))
+                                if (_data.giveawayDetails.ContainsKey(dexnumber) && foundFC)
                                 {
                                     _data.giveawayDetails.TryGetValue(dexnumber, out details);
                                     if (details.Item1 == "")
