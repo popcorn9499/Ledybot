@@ -459,7 +459,17 @@ namespace LedyLib
                                 fc[4] = checksum;
                                 long iFC = BitConverter.ToInt64(fc, 0);
                                 szFC = iFC.ToString().PadLeft(12, '0');
-                                if (tradeQueue)
+
+                                Boolean foundFC = false;
+                                foreach (String fcItem in _data.fcList)
+                                {
+                                    if (fcItem.Equals(szFC))
+                                    {
+                                        foundFC = true;
+                                        break;
+                                    }
+                                }
+                                if (tradeQueue && !foundFC)
                                 {
                                     if (!_data.tradeQueueRec.Any())
                                     {
@@ -492,6 +502,7 @@ namespace LedyLib
                                     int level = block[0xF];
                                     if ((gender == 0 || gender == details.Item3) && (level == 0 || level == details.Item4))
                                     {
+                                        
                                         string szTrainerName = Encoding.Unicode.GetString(block, 0x4C, 24).Trim('\0');
                                         int countryIndex = BitConverter.ToInt16(block, 0x68);
                                         string country = "-";
@@ -626,7 +637,16 @@ namespace LedyLib
                                 fc[4] = checksum;
                                 long iFC = BitConverter.ToInt64(fc, 0);
                                 szFC = iFC.ToString().PadLeft(12, '0');
-                                if (tradeQueue)
+                                Boolean foundFC = false;
+                                foreach (String fcItem in _data.fcList)
+                                {
+                                    if (fcItem.Equals(szFC))
+                                    {
+                                        foundFC = true;
+                                        break;
+                                    }
+                                }
+                                if (tradeQueue && !foundFC)
                                 {
                                     if (!_data.tradeQueueRec.Any())
                                     {
