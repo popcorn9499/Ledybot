@@ -807,6 +807,14 @@ namespace LedyLib
                             {
                                 szPath = szFileToFind;
                             }
+                            if (!File.Exists(szPath))
+                            {
+                                onChangeStatus?.Invoke("File does not exist");
+                                botState = (int)gtsbotstates.panic;
+                                break;
+                            }
+
+
 
                             byte[] pkmEncrypted = System.IO.File.ReadAllBytes(szPath);
                             byte[] cloneshort = PKHeX.encryptArray(pkmEncrypted.Take(232).ToArray());
