@@ -1385,7 +1385,7 @@ namespace Ledybot
             // columnHeader10
             // 
             this.columnHeader10.Text = "Fail Reason";
-            this.columnHeader10.Width = 200;
+            this.columnHeader10.Width = 1000;
             // 
             // MainForm
             // 

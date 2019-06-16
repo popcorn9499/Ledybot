@@ -840,7 +840,7 @@ namespace LedyLib
                             }
                             if (!File.Exists(szPath))
                             {
-                                string failReason = "";
+                                string failReason = "Could not find path: " + szPath;
                                 var args1 = new ItemDetailsFailReasonEventArgs()
                                 {
                                     fc = szFC,
