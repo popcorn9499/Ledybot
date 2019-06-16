@@ -351,7 +351,8 @@ namespace LedyLib
 
         public void addTradeCoolDown(String fc)
         {
-            tradeCoolDown.Add(fc,DateTime.Now);
+            if (!tradeCoolDown.ContainsKey(fc))
+                tradeCoolDown.Add(fc, DateTime.Now);
         }
 
         public Boolean isTradeCoolDown(String fc)
@@ -362,11 +363,11 @@ namespace LedyLib
             {
                 DateTime fcTime = tradeCoolDown[fc];
 
-                if ((curTime-fcTime).TotalMinutes >= tradeCoolDownAmount){
+                if ((curTime - fcTime).TotalMinutes >= tradeCoolDownAmount)
+                {
                     tradeCoolDown.Remove(fc);
                     return false;
-                } else
-                {
+                } else {
                     return true;
                 }
             }
