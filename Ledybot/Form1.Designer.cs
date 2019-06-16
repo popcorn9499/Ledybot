@@ -134,7 +134,7 @@ namespace Ledybot
             this.tb_tradeCooldown = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tp_tradeErrors = new System.Windows.Forms.TabPage();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lv_failedList = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1306,7 +1306,7 @@ namespace Ledybot
             // 
             // tp_tradeErrors
             // 
-            this.tp_tradeErrors.Controls.Add(this.listView1);
+            this.tp_tradeErrors.Controls.Add(this.lv_failedList);
             this.tp_tradeErrors.Location = new System.Drawing.Point(4, 22);
             this.tp_tradeErrors.Name = "tp_tradeErrors";
             this.tp_tradeErrors.Padding = new System.Windows.Forms.Padding(3);
@@ -1315,12 +1315,12 @@ namespace Ledybot
             this.tp_tradeErrors.Text = "Trade Errors";
             this.tp_tradeErrors.UseVisualStyleBackColor = true;
             // 
-            // listView1
+            // lv_failedList
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lv_failedList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lv_failedList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
@@ -1331,15 +1331,15 @@ namespace Ledybot
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
-            this.listView1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(8, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(353, 517);
-            this.listView1.TabIndex = 19;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lv_failedList.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lv_failedList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_failedList.HideSelection = false;
+            this.lv_failedList.Location = new System.Drawing.Point(8, 6);
+            this.lv_failedList.Name = "lv_failedList";
+            this.lv_failedList.Size = new System.Drawing.Size(353, 517);
+            this.lv_failedList.TabIndex = 19;
+            this.lv_failedList.UseCompatibleStateImageBehavior = false;
+            this.lv_failedList.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -1543,7 +1543,7 @@ namespace Ledybot
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tb_tradeCooldown;
         private System.Windows.Forms.TabPage tp_tradeErrors;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lv_failedList;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;

@@ -557,7 +557,8 @@ namespace Ledybot
             }
             string[] row = { DateTime.Now.ToString("h:mm:ss"), szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc.Insert(4, "-").Insert(9, "-"), page, index,failReason};
             var listViewItem = new ListViewItem(row);
-
+            lv_failedList.Items.Add(listViewItem);
+            lv_failedList.Items[lv_failedList.Items.Count - 1].EnsureVisible();
         }
 
             public void ReceiveItemDetails(object sender, ItemDetailsEventArgs e)
