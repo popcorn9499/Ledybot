@@ -513,7 +513,8 @@ namespace LedyLib
                                         string subregion = "-";
                                         _data.regions.TryGetValue(subRegionIndex, out subregion);
                                         int ipage = Convert.ToInt32(Math.Floor(startIndex / 100.0)) + 1;
-                                        if (useLedySync && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
+                                        Boolean cooldown = _data.isTradeCoolDown(szFC);
+                                        if (useLedySync && !cooldown && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
                                         {
                                             onChangeStatus?.Invoke("Found a pokemon to trade");
                                             tradeIndex = i - 1;
@@ -522,7 +523,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || !cooldown && _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
@@ -689,8 +690,9 @@ namespace LedyLib
                                         string subregion = "-";
                                         _data.regions.TryGetValue(subRegionIndex, out subregion);
                                         int ipage = Convert.ToInt32(Math.Floor(startIndex / 100.0)) + 1;
-                                        if (useLedySync && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
-                                        {
+                                        Boolean cooldown = _data.isTradeCoolDown(szFC);
+                                        if (useLedySync && !cooldown && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
+                                        { 
                                             onChangeStatus?.Invoke("Found a pokemon to trade");
                                             tradeIndex = i - 1;
                                             botState = (int)gtsbotstates.trade;
@@ -698,7 +700,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || !cooldown && _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
@@ -800,6 +802,7 @@ namespace LedyLib
                         {
                             string szNickname = Encoding.Unicode.GetString(block, 0x14, 24).Trim('\0'); //fix to prevent nickname clipping. Count should be 24, 2 bytes per letter, 2x12=24, not 20.
 
+                            _data.addTradeCoolDown(szFC); //initiate cooldown
 
                             string szPath = details.Item1;
                             string szFileToFind = details.Item2 + szNickname + ".pk7";
