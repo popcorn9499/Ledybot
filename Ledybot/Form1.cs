@@ -397,6 +397,14 @@ namespace Ledybot
                         msg42 = cmdPrefix + " :Done " + fcData;
                         Writer(stream, msg42);
                         break;
+                    case "addFcTrade":
+                        String fcs = commStrings[1];
+                        foreach (String fc in fcs.Split('&')) {
+                            SendConsoleMessage("FC: " + fc);
+                            Program.data.fcList.Add(fc);
+                        }
+
+                        break;
                     default:
                         string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');
                         Writer(stream, msg201);

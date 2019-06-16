@@ -23,6 +23,7 @@ namespace LedyLib
         public ArrayList banlist = new ArrayList();
         public DataTable gdetails = new DataTable();
         public DataTable bdetails = new DataTable();
+        public ArrayList fcList = new ArrayList();
 
         public List<Tuple<string, int, int>> tradeQueueRec = new List<Tuple<string, int, int>>();
 
