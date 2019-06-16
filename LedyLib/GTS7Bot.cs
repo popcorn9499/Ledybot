@@ -295,7 +295,7 @@ namespace LedyLib
                     case (int)gtsbotstates.queueempty:
                         await Task.Delay(2000);
                         botState = (int)gtsbotstates.startsearch;
-                    
+
                         break;
                     case (int)gtsbotstates.botstart:
                         if (bReddit)
@@ -466,7 +466,7 @@ namespace LedyLib
                                     if (fcItem.Equals(szFC))
                                     {
                                         foundFC = true;
-                                        
+
                                         break;
                                     }
                                 }
@@ -503,7 +503,7 @@ namespace LedyLib
                                     int level = block[0xF];
                                     if ((gender == 0 || gender == details.Item3) && (level == 0 || level == details.Item4))
                                     {
-                                        
+
                                         string szTrainerName = Encoding.Unicode.GetString(block, 0x4C, 24).Trim('\0');
                                         int countryIndex = BitConverter.ToInt16(block, 0x68);
                                         string country = "-";
@@ -523,7 +523,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || !cooldown && _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || _data.commented.Contains(szFC)) && !cooldown && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
@@ -645,7 +645,7 @@ namespace LedyLib
                                     if (fcItem.Equals(szFC))
                                     {
                                         foundFC = true;
-                                        
+
                                         break;
                                     }
                                 }
@@ -692,7 +692,7 @@ namespace LedyLib
                                         int ipage = Convert.ToInt32(Math.Floor(startIndex / 100.0)) + 1;
                                         Boolean cooldown = _data.isTradeCoolDown(szFC);
                                         if (useLedySync && !cooldown && !_data.banlist.Contains(szFC) && canThisTrade(principal, consoleName, szTrainerName, country, subregion, _pkTable.Species7[dexnumber - 1], szFC, ipage + "", (i - 1) + ""))
-                                        { 
+                                        {
                                             onChangeStatus?.Invoke("Found a pokemon to trade");
                                             tradeIndex = i - 1;
                                             botState = (int)gtsbotstates.trade;
@@ -700,7 +700,7 @@ namespace LedyLib
                                         }
                                         if (!useLedySync)
                                         {
-                                            if ((!bReddit || !cooldown && _data.commented.Contains(szFC)) && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
+                                            if ((!bReddit || _data.commented.Contains(szFC) && !cooldown && !details.Item6.Contains(BitConverter.ToInt32(principal, 0)) && !_data.banlist.Contains(szFC))
                                             {
                                                 tradeIndex = i - 1;
                                                 botState = (int)gtsbotstates.trade;
