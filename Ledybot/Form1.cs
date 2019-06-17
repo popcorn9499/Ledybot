@@ -294,7 +294,7 @@ namespace Ledybot
                                 break;
                         }
                         break;
-                    case "togglequeue":
+                    case "togglequeue": //unsure the entire point of this...
                         cb_Tradequeue.Checked = !cb_Tradequeue.Checked;
                         if (cb_Tradequeue.Checked)
                         {
@@ -309,7 +309,7 @@ namespace Ledybot
                             Writer(stream, msg13);
                         }
                         break;
-                    case "trade":
+                    case "trade": //not sure why this exists at all
                         if (cb_Tradequeue.Checked)
                         {
                             if (commStrings.Length == 3)
@@ -329,7 +329,7 @@ namespace Ledybot
                             Writer(stream, msg14);
                         }
                         break;
-                    case "remove":
+                    case "remove": //not sure why this exists at all
                         if (cb_Tradequeue.Checked)
                         {
                             if (commStrings.Length == 2)
@@ -351,7 +351,7 @@ namespace Ledybot
 
                         break;
 
-                    case "viewqueue":
+                    case "viewqueue": //dont know what this was ment for... you can only see the current trade anyways...
                         if (cb_Tradequeue.Checked)
                         {
                             if (commStrings.Length == 1)
@@ -377,34 +377,34 @@ namespace Ledybot
                             Writer(stream, msg20);
                         }
                         break;
-                    case "listBanFCList":
+                    case "listBanFCList": //generic listing of banned fcs
                         Int32 maxAmount = 5000;
                         Int32 amount = 0;
                         String cmdPrefix = "command:listBanFCList";
                         String fcData = "";
                         string msg42;
-                        foreach (DataRow data in Program.data.bdetails.Rows)
+                        foreach (DataRow data in Program.data.bdetails.Rows) //cycles through the list creating a packed string of bannedFCs
                         {
                             fcData += "&" + data["FC"].ToString();
                             amount++;
-                            if (amount >= maxAmount)
+                            if (amount >= maxAmount) //sends when we reach the right amount
                             {
                                 msg42 = cmdPrefix + " " + fcData;
                                 Writer(stream, msg42);
 
                             }
                         }
-                        msg42 = cmdPrefix + " :Done " + fcData;
+                        msg42 = cmdPrefix + " :Done " + fcData; // ":Done" indicates this is the last set of banned fcs
                         Writer(stream, msg42);
                         break;
-                    case "addFcTrade":
+                    case "addFcTrade": //this adds a fc to trade as added by another bot say ledychat
                         String fcs = commStrings[1];
                         foreach (String fc in fcs.Split('&')) {
                             SendConsoleMessage("FC: " + fc);
                             Program.data.fcList.Add(fc);
                         }
-
                         break;
+
                     default:
                         string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');
                         Writer(stream, msg201);
