@@ -119,6 +119,11 @@ namespace Ledybot
             this.btn_SendCommand = new System.Windows.Forms.Button();
             this.tb_ConsoleCommand = new System.Windows.Forms.TextBox();
             this.rtb_Console = new System.Windows.Forms.RichTextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.ofd_Injection = new System.Windows.Forms.OpenFileDialog();
             this.btn_Disconnect = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -126,11 +131,20 @@ namespace Ledybot
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.tb_tradeCooldown = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tp_tradeErrors = new System.Windows.Forms.TabPage();
+            this.lv_failedList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -149,6 +163,7 @@ namespace Ledybot
             this.tb_Console.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tp_tradeErrors.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -294,6 +309,7 @@ namespace Ledybot
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tc_Control.Controls.Add(this.tp_GTS);
+            this.tc_Control.Controls.Add(this.tp_tradeErrors);
             this.tc_Control.Controls.Add(this.tp_Injection);
             this.tc_Control.Controls.Add(this.tp_Breeding);
             this.tc_Control.Controls.Add(this.tb_Settings);
@@ -309,6 +325,8 @@ namespace Ledybot
             // tp_GTS
             // 
             this.tp_GTS.AllowDrop = true;
+            this.tp_GTS.Controls.Add(this.label15);
+            this.tp_GTS.Controls.Add(this.tb_tradeCooldown);
             this.tp_GTS.Controls.Add(this.cb_Tradequeue);
             this.tp_GTS.Controls.Add(this.groupBox3);
             this.tp_GTS.Controls.Add(this.combo_levelrange);
@@ -1174,6 +1192,58 @@ namespace Ledybot
             this.rtb_Console.TabIndex = 0;
             this.rtb_Console.Text = "";
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(369, 536);
+            this.tabPage2.TabIndex = 6;
+            this.tabPage2.Text = "Special Buttons";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button4);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Location = new System.Drawing.Point(8, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(127, 115);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Special Buttons";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(6, 77);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(107, 23);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Power (Long)";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(7, 49);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(107, 23);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "Power (Short)";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(7, 20);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(107, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Home";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            // 
             // ofd_Injection
             // 
             this.ofd_Injection.FileName = "Pokemon.pk7";
@@ -1217,57 +1287,105 @@ namespace Ledybot
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // tabPage2
+            // tb_tradeCooldown
             // 
-            this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(369, 536);
-            this.tabPage2.TabIndex = 6;
-            this.tabPage2.Text = "Special Buttons";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tb_tradeCooldown.Location = new System.Drawing.Point(258, 130);
+            this.tb_tradeCooldown.Name = "tb_tradeCooldown";
+            this.tb_tradeCooldown.Size = new System.Drawing.Size(76, 20);
+            this.tb_tradeCooldown.TabIndex = 39;
+            this.tb_tradeCooldown.TextChanged += new System.EventHandler(this.tb_tradeCooldown_TextChanged);
             // 
-            // groupBox4
+            // label15
             // 
-            this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Location = new System.Drawing.Point(8, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(127, 115);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Special Buttons";
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(122, 133);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(130, 13);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "Trade Cooldown (minutes)";
             // 
-            // button2
+            // tp_tradeErrors
             // 
-            this.button2.Location = new System.Drawing.Point(7, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Home";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.tp_tradeErrors.Controls.Add(this.lv_failedList);
+            this.tp_tradeErrors.Location = new System.Drawing.Point(4, 22);
+            this.tp_tradeErrors.Name = "tp_tradeErrors";
+            this.tp_tradeErrors.Padding = new System.Windows.Forms.Padding(3);
+            this.tp_tradeErrors.Size = new System.Drawing.Size(369, 536);
+            this.tp_tradeErrors.TabIndex = 7;
+            this.tp_tradeErrors.Text = "Trade Errors";
+            this.tp_tradeErrors.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // lv_failedList
             // 
-            this.button3.Location = new System.Drawing.Point(7, 49);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(107, 23);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Power (Short)";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.lv_failedList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_failedList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.lv_failedList.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lv_failedList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_failedList.HideSelection = false;
+            this.lv_failedList.Location = new System.Drawing.Point(8, 6);
+            this.lv_failedList.Name = "lv_failedList";
+            this.lv_failedList.Size = new System.Drawing.Size(353, 517);
+            this.lv_failedList.TabIndex = 19;
+            this.lv_failedList.UseCompatibleStateImageBehavior = false;
+            this.lv_failedList.View = System.Windows.Forms.View.Details;
             // 
-            // button4
+            // columnHeader1
             // 
-            this.button4.Location = new System.Drawing.Point(6, 77);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(107, 23);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Power (Long)";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.columnHeader1.Text = "Time";
+            this.columnHeader1.Width = 55;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Trainer";
+            this.columnHeader2.Width = 73;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 49;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Country";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Sub Region";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Pokemon Sent";
+            this.columnHeader6.Width = 62;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "FC";
+            this.columnHeader7.Width = 110;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Page";
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Index";
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Fail Reason";
+            this.columnHeader10.Width = 1000;
             // 
             // MainForm
             // 
@@ -1313,6 +1431,7 @@ namespace Ledybot
             this.tb_Console.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.tp_tradeErrors.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1421,6 +1540,20 @@ namespace Ledybot
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tb_tradeCooldown;
+        private System.Windows.Forms.TabPage tp_tradeErrors;
+        private System.Windows.Forms.ListView lv_failedList;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
     }
 }
 

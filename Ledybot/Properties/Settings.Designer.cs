@@ -249,5 +249,17 @@ namespace Ledybot.Properties {
                 this["apiConnections"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int tradeCooldownTimer {
+            get {
+                return ((int)(this["tradeCooldownTimer"]));
+            }
+            set {
+                this["tradeCooldownTimer"] = value;
+            }
+        }
     }
 }

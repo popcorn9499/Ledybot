@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -60,6 +60,7 @@ namespace Ledybot
             gtsBot = new GTSBot7(ntrClient, szIP, iP, iPtF, iPtFGender, iPtFLevel, bBlacklist, bReddit, iSearchDirection, waittime, consoleName, useLedySync, ledySyncIp, ledySyncPort, game, tradeQueue, helper, PKTable, data, scriptHelper);
             gtsBot.onChangeStatus += f1.ChangeStatus;
             gtsBot.onItemDetails += f1.ReceiveItemDetails;
+            gtsBot.onMissingFileFailingTrade += f1.ReceiveFailDetails;
             Data.GtsBot7 = gtsBot;
         }
 

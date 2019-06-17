@@ -543,7 +543,25 @@ namespace Ledybot
             ExecuteCommand("startgtsbot", true, null);
         }
 
-        public void ReceiveItemDetails(object sender, ItemDetailsEventArgs e)
+        public void ReceiveFailDetails(object sender, ItemDetailsFailReasonEventArgs e)
+        {
+            AppendListViewItemFailed(e.szTrainerName, e.szNickname, e.szCountry, e.szSubRegion, e.szSent, e.fc, e.page, e.index,e.failReason);
+        }
+
+        public void AppendListViewItemFailed(string szTrainerName, string szNickname, string szCountry, string szSubRegion, string szSent, string fc, string page, string index,string failReason)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string, string, string, string, string, string, string, string,string>(AppendListViewItemFailed), new object[] { szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc, page, index });
+                return;
+            }
+            string[] row = { DateTime.Now.ToString("h:mm:ss"), szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc.Insert(4, "-").Insert(9, "-"), page, index,failReason};
+            var listViewItem = new ListViewItem(row);
+            lv_failedList.Items.Add(listViewItem);
+            lv_failedList.Items[lv_failedList.Items.Count - 1].EnsureVisible();
+        }
+
+            public void ReceiveItemDetails(object sender, ItemDetailsEventArgs e)
         {
             AppendListViewItem(e.szTrainerName, e.szNickname, e.szCountry, e.szSubRegion, e.szSent, e.fc, e.page, e.index);
         }
@@ -778,7 +796,7 @@ namespace Ledybot
                 String serverName = hostname + ":" + port;
                 servers.Add(serverName); //adds the connection info to the config
             }
-
+            Properties.Settings.Default.tradeCooldownTimer = Program.data.tradeCoolDownAmount;
 
             Properties.Settings.Default.apiConnections = servers;
             Properties.Settings.Default.Save();
@@ -804,6 +822,8 @@ namespace Ledybot
             combo_levelrange.SelectedIndex = Properties.Settings.Default.DepositedLevel;
             cb_Tradequeue.Checked = Properties.Settings.Default.TradeQueue;
 
+            Program.data.tradeCoolDownAmount = Properties.Settings.Default.tradeCooldownTimer;
+            tb_tradeCooldown.Text = Program.data.tradeCoolDownAmount.ToString();
 
             try
             {
@@ -1184,6 +1204,19 @@ namespace Ledybot
         {
             bool result = await SendSpecialButtons(tb_IP.Text, 4);
             if (result) { MessageBox.Show("Failed!"); }
+        }
+
+        private void tb_tradeCooldown_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Int32 cooldown = Int32.Parse(tb_tradeCooldown.Text);
+                Program.data.tradeCoolDownAmount = cooldown;
+
+            } catch
+            {
+                MessageBox.Show("Please use a valid Integer. Example '1' ");
+            }
         }
     }
 }
