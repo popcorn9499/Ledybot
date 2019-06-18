@@ -404,7 +404,20 @@ namespace Ledybot
                             Program.data.fcList.Add(fc);
                         }
                         break;
-
+                    case "unbanFC":
+                        String unbanFC = commStrings[1];
+                        for (int i = Program.data.bdetails.Rows.Count - 1; i >= 0; i--)
+                        {
+                            DataRow dr = Program.data.bdetails.Rows[i];
+                            if (dr[0].ToString() == unbanFC)
+                            {
+                                dr.Delete();
+                                Writer(stream, "command:unbanFC " + unbanFC + " fcFound");
+                                break;
+                            }
+                        }
+                        Writer(stream, "command:unbanFC " + unbanFC + " fcNotFound");
+                        break;
                     default:
                         string msg201 = "command:viewqueue Invalid Something or Other.. This is not Intended.. " + commStrings[0].Trim('\0');
                         Writer(stream, msg201);
