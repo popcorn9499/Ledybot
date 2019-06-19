@@ -400,8 +400,15 @@ namespace Ledybot
                     case "addFcTrade": //this adds a fc to trade as added by another bot say ledychat
                         String fcs = commStrings[1];
                         foreach (String fc in fcs.Split('&')) {
-                            SendConsoleMessage("FC: " + fc);
-                            Program.data.fcList.Add(fc);
+                            if (!inFCList(fc)) //if fc doesnt already exist add it
+                            {
+                                SendConsoleMessage("FC: " + fc);
+                                Program.data.fcList.Add(fc);
+                                string[] row = { fc };
+                                var listViewItem = new ListViewItem(row);
+                                lv_fc.Items.Add(listViewItem);
+                            }
+
                         }
                         break;
                     case "unbanFC":
@@ -427,6 +434,18 @@ namespace Ledybot
             {
 
             }
+        }
+
+        public Boolean inFCList(String fc) //checks if the fc already exists in the fc list
+        {
+            foreach (String xFC in Program.data.fcList)
+            {
+                if (fc.Equals(xFC))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void startAutoDisconnect()
@@ -561,18 +580,44 @@ namespace Ledybot
             AppendListViewItemFailed(e.szTrainerName, e.szNickname, e.szCountry, e.szSubRegion, e.szSent, e.fc, e.page, e.index,e.failReason);
         }
 
-        public void AppendListViewItemFailed(string szTrainerName, string szNickname, string szCountry, string szSubRegion, string szSent, string fc, string page, string index,string failReason)
+        public void AppendListViewItemFailed(string szTrainerName, string szNickname, string szCountry, string szSubRegion, string szSent, string fc, string page, string index, string failReason)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new Action<string, string, string, string, string, string, string, string,string>(AppendListViewItemFailed), new object[] { szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc, page, index });
+                this.Invoke(new Action<string, string, string, string, string, string, string, string, string>(AppendListViewItemFailed), new object[] { szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc, page, index });
                 return;
             }
-            string[] row = { DateTime.Now.ToString("h:mm:ss"), szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc.Insert(4, "-").Insert(9, "-"), page, index,failReason};
+            string[] row = { DateTime.Now.ToString("h:mm:ss"), szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc.Insert(4, "-").Insert(9, "-"), page, index, failReason };
             var listViewItem = new ListViewItem(row);
             lv_failedList.Items.Add(listViewItem);
             lv_failedList.Items[lv_failedList.Items.Count - 1].EnsureVisible();
+            List<StreamWriter> needToRemove = new List<StreamWriter>();
+
+            foreach (var list in Program.ServerList)
+            {
+                foreach (StreamWriter server in list.Value)
+                {
+                    try
+                    {
+                        string msg = "msg:failedTrades " + string.Join("|", szTrainerName, szNickname, szCountry, szSubRegion, szSent, fc, page, index, failReason);
+                        Writer(server, msg);
+                    }
+                    catch
+                    {
+                        server.Close();
+                        server.Dispose();
+                        needToRemove.Add(server);
+                    }
+                }
+
+                foreach (var server in needToRemove)
+                {
+                    list.Value.Remove(server);
+                }
+                needToRemove.Clear();
+            }
         }
+
 
             public void ReceiveItemDetails(object sender, ItemDetailsEventArgs e)
         {
