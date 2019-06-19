@@ -402,6 +402,9 @@ namespace Ledybot
                         foreach (String fc in fcs.Split('&')) {
                             SendConsoleMessage("FC: " + fc);
                             Program.data.fcList.Add(fc);
+                            string[] row = {fc};
+                            var listViewItem = new ListViewItem(row);
+                            lv_fc.Items.Add(listViewItem);
                         }
                         break;
                     case "unbanFC":

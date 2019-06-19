@@ -49,6 +49,8 @@ namespace Ledybot
             this.cb_Blacklist = new System.Windows.Forms.CheckBox();
             this.tc_Control = new System.Windows.Forms.TabControl();
             this.tp_GTS = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tb_tradeCooldown = new System.Windows.Forms.TextBox();
             this.cb_Tradequeue = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cb_Reddit = new System.Windows.Forms.CheckBox();
@@ -60,6 +62,18 @@ namespace Ledybot
             this.btn_Import = new System.Windows.Forms.Button();
             this.btn_Banlist = new System.Windows.Forms.Button();
             this.btn_ShowPaths = new System.Windows.Forms.Button();
+            this.tp_tradeErrors = new System.Windows.Forms.TabPage();
+            this.lv_failedList = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tp_Injection = new System.Windows.Forms.TabPage();
             this.btn_WCDelete = new System.Windows.Forms.Button();
             this.btn_WCInject = new System.Windows.Forms.Button();
@@ -131,23 +145,13 @@ namespace Ledybot
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.tb_tradeCooldown = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tp_tradeErrors = new System.Windows.Forms.TabPage();
-            this.lv_failedList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.fcList = new System.Windows.Forms.TabPage();
+            this.lv_fc = new System.Windows.Forms.ListView();
+            this.cl_FC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tp_tradeErrors.SuspendLayout();
             this.tp_Injection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_SlotWCInjection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_CountInjection)).BeginInit();
@@ -163,7 +167,7 @@ namespace Ledybot
             this.tb_Console.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tp_tradeErrors.SuspendLayout();
+            this.fcList.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -316,6 +320,7 @@ namespace Ledybot
             this.tc_Control.Controls.Add(this.tabPage1);
             this.tc_Control.Controls.Add(this.tb_Console);
             this.tc_Control.Controls.Add(this.tabPage2);
+            this.tc_Control.Controls.Add(this.fcList);
             this.tc_Control.Location = new System.Drawing.Point(1, 33);
             this.tc_Control.Name = "tc_Control";
             this.tc_Control.SelectedIndex = 0;
@@ -349,6 +354,23 @@ namespace Ledybot
             this.tp_GTS.TabIndex = 0;
             this.tp_GTS.Text = "GTS";
             this.tp_GTS.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(122, 133);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(130, 13);
+            this.label15.TabIndex = 40;
+            this.label15.Text = "Trade Cooldown (minutes)";
+            // 
+            // tb_tradeCooldown
+            // 
+            this.tb_tradeCooldown.Location = new System.Drawing.Point(258, 130);
+            this.tb_tradeCooldown.Name = "tb_tradeCooldown";
+            this.tb_tradeCooldown.Size = new System.Drawing.Size(76, 20);
+            this.tb_tradeCooldown.TabIndex = 39;
+            this.tb_tradeCooldown.TextChanged += new System.EventHandler(this.tb_tradeCooldown_TextChanged);
             // 
             // cb_Tradequeue
             // 
@@ -474,6 +496,89 @@ namespace Ledybot
             this.btn_ShowPaths.Text = "Giveaway Details";
             this.btn_ShowPaths.UseVisualStyleBackColor = true;
             this.btn_ShowPaths.Click += new System.EventHandler(this.btn_ShowPaths_Click);
+            // 
+            // tp_tradeErrors
+            // 
+            this.tp_tradeErrors.Controls.Add(this.lv_failedList);
+            this.tp_tradeErrors.Location = new System.Drawing.Point(4, 22);
+            this.tp_tradeErrors.Name = "tp_tradeErrors";
+            this.tp_tradeErrors.Padding = new System.Windows.Forms.Padding(3);
+            this.tp_tradeErrors.Size = new System.Drawing.Size(369, 536);
+            this.tp_tradeErrors.TabIndex = 7;
+            this.tp_tradeErrors.Text = "Trade Errors";
+            this.tp_tradeErrors.UseVisualStyleBackColor = true;
+            // 
+            // lv_failedList
+            // 
+            this.lv_failedList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_failedList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
+            this.lv_failedList.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lv_failedList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lv_failedList.HideSelection = false;
+            this.lv_failedList.Location = new System.Drawing.Point(8, 6);
+            this.lv_failedList.Name = "lv_failedList";
+            this.lv_failedList.Size = new System.Drawing.Size(353, 517);
+            this.lv_failedList.TabIndex = 19;
+            this.lv_failedList.UseCompatibleStateImageBehavior = false;
+            this.lv_failedList.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Time";
+            this.columnHeader1.Width = 55;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Trainer";
+            this.columnHeader2.Width = 73;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 49;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Country";
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Sub Region";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Pokemon Sent";
+            this.columnHeader6.Width = 62;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "FC";
+            this.columnHeader7.Width = 110;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Page";
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Index";
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Fail Reason";
+            this.columnHeader10.Width = 1000;
             // 
             // tp_Injection
             // 
@@ -1287,105 +1392,34 @@ namespace Ledybot
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // tb_tradeCooldown
+            // fcList
             // 
-            this.tb_tradeCooldown.Location = new System.Drawing.Point(258, 130);
-            this.tb_tradeCooldown.Name = "tb_tradeCooldown";
-            this.tb_tradeCooldown.Size = new System.Drawing.Size(76, 20);
-            this.tb_tradeCooldown.TabIndex = 39;
-            this.tb_tradeCooldown.TextChanged += new System.EventHandler(this.tb_tradeCooldown_TextChanged);
+            this.fcList.AccessibleName = "";
+            this.fcList.Controls.Add(this.lv_fc);
+            this.fcList.Location = new System.Drawing.Point(4, 22);
+            this.fcList.Name = "fcList";
+            this.fcList.Padding = new System.Windows.Forms.Padding(3);
+            this.fcList.Size = new System.Drawing.Size(369, 536);
+            this.fcList.TabIndex = 8;
+            this.fcList.Text = "FC List";
+            this.fcList.UseVisualStyleBackColor = true;
             // 
-            // label15
+            // lv_fc
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(122, 133);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(130, 13);
-            this.label15.TabIndex = 40;
-            this.label15.Text = "Trade Cooldown (minutes)";
+            this.lv_fc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.cl_FC});
+            this.lv_fc.HideSelection = false;
+            this.lv_fc.Location = new System.Drawing.Point(8, 6);
+            this.lv_fc.Name = "lv_fc";
+            this.lv_fc.Size = new System.Drawing.Size(358, 524);
+            this.lv_fc.TabIndex = 0;
+            this.lv_fc.UseCompatibleStateImageBehavior = false;
+            this.lv_fc.View = System.Windows.Forms.View.Details;
             // 
-            // tp_tradeErrors
+            // cl_FC
             // 
-            this.tp_tradeErrors.Controls.Add(this.lv_failedList);
-            this.tp_tradeErrors.Location = new System.Drawing.Point(4, 22);
-            this.tp_tradeErrors.Name = "tp_tradeErrors";
-            this.tp_tradeErrors.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_tradeErrors.Size = new System.Drawing.Size(369, 536);
-            this.tp_tradeErrors.TabIndex = 7;
-            this.tp_tradeErrors.Text = "Trade Errors";
-            this.tp_tradeErrors.UseVisualStyleBackColor = true;
-            // 
-            // lv_failedList
-            // 
-            this.lv_failedList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lv_failedList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
-            this.lv_failedList.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.lv_failedList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lv_failedList.HideSelection = false;
-            this.lv_failedList.Location = new System.Drawing.Point(8, 6);
-            this.lv_failedList.Name = "lv_failedList";
-            this.lv_failedList.Size = new System.Drawing.Size(353, 517);
-            this.lv_failedList.TabIndex = 19;
-            this.lv_failedList.UseCompatibleStateImageBehavior = false;
-            this.lv_failedList.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Time";
-            this.columnHeader1.Width = 55;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Trainer";
-            this.columnHeader2.Width = 73;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Name";
-            this.columnHeader3.Width = 49;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Country";
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Sub Region";
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Pokemon Sent";
-            this.columnHeader6.Width = 62;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "FC";
-            this.columnHeader7.Width = 110;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Page";
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Index";
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Fail Reason";
-            this.columnHeader10.Width = 1000;
+            this.cl_FC.Text = "FC";
+            this.cl_FC.Width = 100;
             // 
             // MainForm
             // 
@@ -1409,6 +1443,7 @@ namespace Ledybot
             this.tp_GTS.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tp_tradeErrors.ResumeLayout(false);
             this.tp_Injection.ResumeLayout(false);
             this.tp_Injection.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_SlotWCInjection)).EndInit();
@@ -1431,7 +1466,7 @@ namespace Ledybot
             this.tb_Console.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.tp_tradeErrors.ResumeLayout(false);
+            this.fcList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1554,6 +1589,9 @@ namespace Ledybot
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.TabPage fcList;
+        private System.Windows.Forms.ListView lv_fc;
+        private System.Windows.Forms.ColumnHeader cl_FC;
     }
 }
 
