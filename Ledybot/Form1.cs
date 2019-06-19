@@ -400,11 +400,15 @@ namespace Ledybot
                     case "addFcTrade": //this adds a fc to trade as added by another bot say ledychat
                         String fcs = commStrings[1];
                         foreach (String fc in fcs.Split('&')) {
-                            SendConsoleMessage("FC: " + fc);
-                            Program.data.fcList.Add(fc);
-                            string[] row = {fc};
-                            var listViewItem = new ListViewItem(row);
-                            lv_fc.Items.Add(listViewItem);
+                            if (!inFCList(fc)) //if fc doesnt already exist add it
+                            {
+                                SendConsoleMessage("FC: " + fc);
+                                Program.data.fcList.Add(fc);
+                                string[] row = { fc };
+                                var listViewItem = new ListViewItem(row);
+                                lv_fc.Items.Add(listViewItem);
+                            }
+
                         }
                         break;
                     case "unbanFC":
@@ -430,6 +434,18 @@ namespace Ledybot
             {
 
             }
+        }
+
+        public Boolean inFCList(String fc) //checks if the fc already exists in the fc list
+        {
+            foreach (String xFC in Program.data.fcList)
+            {
+                if (fc.Equals(xFC))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void startAutoDisconnect()
