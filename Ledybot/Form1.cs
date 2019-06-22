@@ -1178,7 +1178,7 @@ namespace Ledybot
 
         private async void Button4_Click(object sender, EventArgs e)
         {
-            bool result = await Program.data.SendSpecialButtons(tb_IP.Text, 3);
+            bool result = await Program.data.SendSpecialButtons(tb_IP.Text, 4);
             if (!result) { MessageBox.Show("Failed!"); }
         }
 
