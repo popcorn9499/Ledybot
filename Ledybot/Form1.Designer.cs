@@ -1455,7 +1455,7 @@ namespace Ledybot
             this.groupBox5.Size = new System.Drawing.Size(362, 266);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "groupBox5";
+            this.groupBox5.Text = "3DS Buttons";
             // 
             // btn_up
             // 
@@ -1539,7 +1539,7 @@ namespace Ledybot
             // 
             // btn_lBump
             // 
-            this.btn_lBump.Location = new System.Drawing.Point(6, 19);
+            this.btn_lBump.Location = new System.Drawing.Point(29, 19);
             this.btn_lBump.Name = "btn_lBump";
             this.btn_lBump.Size = new System.Drawing.Size(75, 23);
             this.btn_lBump.TabIndex = 8;
@@ -1549,9 +1549,9 @@ namespace Ledybot
             // 
             // btn_rBump
             // 
-            this.btn_rBump.Location = new System.Drawing.Point(251, 19);
+            this.btn_rBump.Location = new System.Drawing.Point(242, 19);
             this.btn_rBump.Name = "btn_rBump";
-            this.btn_rBump.Size = new System.Drawing.Size(75, 23);
+            this.btn_rBump.Size = new System.Drawing.Size(84, 23);
             this.btn_rBump.TabIndex = 9;
             this.btn_rBump.Text = "Right Bumper";
             this.btn_rBump.UseVisualStyleBackColor = true;
