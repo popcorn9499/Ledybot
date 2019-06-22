@@ -1194,5 +1194,65 @@ namespace Ledybot
                 MessageBox.Show("Please use a valid Integer. Example '1' ");
             }
         }
+
+        private void btn_lBump_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keyL, 200);
+        }
+
+        private void btn_rBump_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keyL, 200);
+        }
+
+        private void btn_up_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.DpadUP, 200);
+        }
+
+        private void btn_left_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.DpadLEFT, 200);
+        }
+
+        private void btn_right_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.DpadRIGHT, 200);
+        }
+
+        private void btn_down_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.DpadDOWN, 200);
+        }
+
+        private void btn_x_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keyX, 200);
+        }
+
+        private void btn_a_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keyA, 200);
+        }
+
+        private void btn_y_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keyY, 200);
+        }
+
+        private void btn_b_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keyB, 200);
+        }
+
+        private void btnButtonStart_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keySTART, 200);
+        }
+
+        private void btn_select_Click(object sender, EventArgs e)
+        {
+            Program.helper.quickbuton(Program.PKTable.keySELECT, 200);
+        }
     }
 }

@@ -138,6 +138,9 @@ namespace Ledybot
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.fcList = new System.Windows.Forms.TabPage();
+            this.lv_fc = new System.Windows.Forms.ListView();
+            this.cl_FC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ofd_Injection = new System.Windows.Forms.OpenFileDialog();
             this.btn_Disconnect = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -145,9 +148,19 @@ namespace Ledybot
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.fcList = new System.Windows.Forms.TabPage();
-            this.lv_fc = new System.Windows.Forms.ListView();
-            this.cl_FC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_up = new System.Windows.Forms.Button();
+            this.btn_left = new System.Windows.Forms.Button();
+            this.btn_right = new System.Windows.Forms.Button();
+            this.btn_down = new System.Windows.Forms.Button();
+            this.btn_x = new System.Windows.Forms.Button();
+            this.btn_y = new System.Windows.Forms.Button();
+            this.btn_a = new System.Windows.Forms.Button();
+            this.btn_b = new System.Windows.Forms.Button();
+            this.btn_lBump = new System.Windows.Forms.Button();
+            this.btn_rBump = new System.Windows.Forms.Button();
+            this.btnButtonStart = new System.Windows.Forms.Button();
+            this.btn_select = new System.Windows.Forms.Button();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -168,6 +181,7 @@ namespace Ledybot
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.fcList.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -1299,6 +1313,7 @@ namespace Ledybot
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -1349,6 +1364,35 @@ namespace Ledybot
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
+            // fcList
+            // 
+            this.fcList.AccessibleName = "";
+            this.fcList.Controls.Add(this.lv_fc);
+            this.fcList.Location = new System.Drawing.Point(4, 22);
+            this.fcList.Name = "fcList";
+            this.fcList.Padding = new System.Windows.Forms.Padding(3);
+            this.fcList.Size = new System.Drawing.Size(369, 536);
+            this.fcList.TabIndex = 8;
+            this.fcList.Text = "FC List";
+            this.fcList.UseVisualStyleBackColor = true;
+            // 
+            // lv_fc
+            // 
+            this.lv_fc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.cl_FC});
+            this.lv_fc.HideSelection = false;
+            this.lv_fc.Location = new System.Drawing.Point(8, 6);
+            this.lv_fc.Name = "lv_fc";
+            this.lv_fc.Size = new System.Drawing.Size(358, 524);
+            this.lv_fc.TabIndex = 0;
+            this.lv_fc.UseCompatibleStateImageBehavior = false;
+            this.lv_fc.View = System.Windows.Forms.View.Details;
+            // 
+            // cl_FC
+            // 
+            this.cl_FC.Text = "FC";
+            this.cl_FC.Width = 100;
+            // 
             // ofd_Injection
             // 
             this.ofd_Injection.FileName = "Pokemon.pk7";
@@ -1392,34 +1436,146 @@ namespace Ledybot
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // fcList
+            // groupBox5
             // 
-            this.fcList.AccessibleName = "";
-            this.fcList.Controls.Add(this.lv_fc);
-            this.fcList.Location = new System.Drawing.Point(4, 22);
-            this.fcList.Name = "fcList";
-            this.fcList.Padding = new System.Windows.Forms.Padding(3);
-            this.fcList.Size = new System.Drawing.Size(369, 536);
-            this.fcList.TabIndex = 8;
-            this.fcList.Text = "FC List";
-            this.fcList.UseVisualStyleBackColor = true;
+            this.groupBox5.Controls.Add(this.btn_select);
+            this.groupBox5.Controls.Add(this.btnButtonStart);
+            this.groupBox5.Controls.Add(this.btn_rBump);
+            this.groupBox5.Controls.Add(this.btn_lBump);
+            this.groupBox5.Controls.Add(this.btn_b);
+            this.groupBox5.Controls.Add(this.btn_a);
+            this.groupBox5.Controls.Add(this.btn_y);
+            this.groupBox5.Controls.Add(this.btn_x);
+            this.groupBox5.Controls.Add(this.btn_down);
+            this.groupBox5.Controls.Add(this.btn_right);
+            this.groupBox5.Controls.Add(this.btn_left);
+            this.groupBox5.Controls.Add(this.btn_up);
+            this.groupBox5.Location = new System.Drawing.Point(4, 125);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(362, 266);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "groupBox5";
             // 
-            // lv_fc
+            // btn_up
             // 
-            this.lv_fc.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.cl_FC});
-            this.lv_fc.HideSelection = false;
-            this.lv_fc.Location = new System.Drawing.Point(8, 6);
-            this.lv_fc.Name = "lv_fc";
-            this.lv_fc.Size = new System.Drawing.Size(358, 524);
-            this.lv_fc.TabIndex = 0;
-            this.lv_fc.UseCompatibleStateImageBehavior = false;
-            this.lv_fc.View = System.Windows.Forms.View.Details;
+            this.btn_up.Location = new System.Drawing.Point(42, 71);
+            this.btn_up.Name = "btn_up";
+            this.btn_up.Size = new System.Drawing.Size(75, 23);
+            this.btn_up.TabIndex = 0;
+            this.btn_up.Text = "Up";
+            this.btn_up.UseVisualStyleBackColor = true;
+            this.btn_up.Click += new System.EventHandler(this.btn_up_Click);
             // 
-            // cl_FC
+            // btn_left
             // 
-            this.cl_FC.Text = "FC";
-            this.cl_FC.Width = 100;
+            this.btn_left.Location = new System.Drawing.Point(6, 105);
+            this.btn_left.Name = "btn_left";
+            this.btn_left.Size = new System.Drawing.Size(75, 23);
+            this.btn_left.TabIndex = 1;
+            this.btn_left.Text = "Left";
+            this.btn_left.UseVisualStyleBackColor = true;
+            this.btn_left.Click += new System.EventHandler(this.btn_left_Click);
+            // 
+            // btn_right
+            // 
+            this.btn_right.Location = new System.Drawing.Point(87, 105);
+            this.btn_right.Name = "btn_right";
+            this.btn_right.Size = new System.Drawing.Size(75, 23);
+            this.btn_right.TabIndex = 2;
+            this.btn_right.Text = "Right";
+            this.btn_right.UseVisualStyleBackColor = true;
+            this.btn_right.Click += new System.EventHandler(this.btn_right_Click);
+            // 
+            // btn_down
+            // 
+            this.btn_down.Location = new System.Drawing.Point(42, 135);
+            this.btn_down.Name = "btn_down";
+            this.btn_down.Size = new System.Drawing.Size(75, 23);
+            this.btn_down.TabIndex = 3;
+            this.btn_down.Text = "Down";
+            this.btn_down.UseVisualStyleBackColor = true;
+            this.btn_down.Click += new System.EventHandler(this.btn_down_Click);
+            // 
+            // btn_x
+            // 
+            this.btn_x.Location = new System.Drawing.Point(212, 76);
+            this.btn_x.Name = "btn_x";
+            this.btn_x.Size = new System.Drawing.Size(75, 23);
+            this.btn_x.TabIndex = 4;
+            this.btn_x.Text = "X";
+            this.btn_x.UseVisualStyleBackColor = true;
+            this.btn_x.Click += new System.EventHandler(this.btn_x_Click);
+            // 
+            // btn_y
+            // 
+            this.btn_y.Location = new System.Drawing.Point(169, 105);
+            this.btn_y.Name = "btn_y";
+            this.btn_y.Size = new System.Drawing.Size(75, 23);
+            this.btn_y.TabIndex = 5;
+            this.btn_y.Text = "Y";
+            this.btn_y.UseVisualStyleBackColor = true;
+            this.btn_y.Click += new System.EventHandler(this.btn_y_Click);
+            // 
+            // btn_a
+            // 
+            this.btn_a.Location = new System.Drawing.Point(251, 104);
+            this.btn_a.Name = "btn_a";
+            this.btn_a.Size = new System.Drawing.Size(75, 23);
+            this.btn_a.TabIndex = 6;
+            this.btn_a.Text = "A";
+            this.btn_a.UseVisualStyleBackColor = true;
+            this.btn_a.Click += new System.EventHandler(this.btn_a_Click);
+            // 
+            // btn_b
+            // 
+            this.btn_b.Location = new System.Drawing.Point(212, 135);
+            this.btn_b.Name = "btn_b";
+            this.btn_b.Size = new System.Drawing.Size(75, 23);
+            this.btn_b.TabIndex = 7;
+            this.btn_b.Text = "B";
+            this.btn_b.UseVisualStyleBackColor = true;
+            this.btn_b.Click += new System.EventHandler(this.btn_b_Click);
+            // 
+            // btn_lBump
+            // 
+            this.btn_lBump.Location = new System.Drawing.Point(6, 19);
+            this.btn_lBump.Name = "btn_lBump";
+            this.btn_lBump.Size = new System.Drawing.Size(75, 23);
+            this.btn_lBump.TabIndex = 8;
+            this.btn_lBump.Text = "Left Bumper";
+            this.btn_lBump.UseVisualStyleBackColor = true;
+            this.btn_lBump.Click += new System.EventHandler(this.btn_lBump_Click);
+            // 
+            // btn_rBump
+            // 
+            this.btn_rBump.Location = new System.Drawing.Point(251, 19);
+            this.btn_rBump.Name = "btn_rBump";
+            this.btn_rBump.Size = new System.Drawing.Size(75, 23);
+            this.btn_rBump.TabIndex = 9;
+            this.btn_rBump.Text = "Right Bumper";
+            this.btn_rBump.UseVisualStyleBackColor = true;
+            this.btn_rBump.Click += new System.EventHandler(this.btn_rBump_Click);
+            // 
+            // btnButtonStart
+            // 
+            this.btnButtonStart.Location = new System.Drawing.Point(130, 189);
+            this.btnButtonStart.Name = "btnButtonStart";
+            this.btnButtonStart.Size = new System.Drawing.Size(75, 23);
+            this.btnButtonStart.TabIndex = 10;
+            this.btnButtonStart.Text = "Start";
+            this.btnButtonStart.UseVisualStyleBackColor = true;
+            this.btnButtonStart.Click += new System.EventHandler(this.btnButtonStart_Click);
+            // 
+            // btn_select
+            // 
+            this.btn_select.Location = new System.Drawing.Point(130, 218);
+            this.btn_select.Name = "btn_select";
+            this.btn_select.Size = new System.Drawing.Size(75, 23);
+            this.btn_select.TabIndex = 11;
+            this.btn_select.Text = "Select";
+            this.btn_select.UseVisualStyleBackColor = true;
+            this.btn_select.Click += new System.EventHandler(this.btn_select_Click);
             // 
             // MainForm
             // 
@@ -1467,6 +1623,7 @@ namespace Ledybot
             this.tabPage2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.fcList.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1592,6 +1749,19 @@ namespace Ledybot
         private System.Windows.Forms.TabPage fcList;
         private System.Windows.Forms.ListView lv_fc;
         private System.Windows.Forms.ColumnHeader cl_FC;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btn_b;
+        private System.Windows.Forms.Button btn_a;
+        private System.Windows.Forms.Button btn_y;
+        private System.Windows.Forms.Button btn_x;
+        private System.Windows.Forms.Button btn_down;
+        private System.Windows.Forms.Button btn_right;
+        private System.Windows.Forms.Button btn_left;
+        private System.Windows.Forms.Button btn_up;
+        private System.Windows.Forms.Button btn_select;
+        private System.Windows.Forms.Button btnButtonStart;
+        private System.Windows.Forms.Button btn_rBump;
+        private System.Windows.Forms.Button btn_lBump;
     }
 }
 
