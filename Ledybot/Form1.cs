@@ -226,7 +226,7 @@ namespace Ledybot
 
 
                     case "stopgtsbot":
-                        if (btn_Start.Enabled)
+                        if (!btn_Start.Enabled)
                         {
                             Program.gtsBot.RequestStop();
                             btn_Start.Enabled = true;
