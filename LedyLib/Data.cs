@@ -310,43 +310,7 @@ namespace LedyLib
 
         public async Task<bool> SendEmptyButton(string szIP)
         {
-            try
-            {
-                // Build Connection
-                IPEndPoint host = new IPEndPoint(IPAddress.Parse(szIP), 4950);
-
-                Socket socket = new Socket(host.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
-
-                //prepare Input States
-                ;
-                uint hid_state = 0xfff;
-                uint circle_state = 0x7ff7ff;
-                uint cstick_state = 0x80800081;
-                uint touch_state = 0x2000000;
-                uint special_state = 0;//;SpecialKey;
-
-                // Build Packet
-
-                byte[] packet = new byte[20];
-
-                BitConverter.GetBytes(hid_state).CopyTo(packet, 0);
-                BitConverter.GetBytes(touch_state).CopyTo(packet, 4);
-                BitConverter.GetBytes(circle_state).CopyTo(packet, 8);
-                BitConverter.GetBytes(cstick_state).CopyTo(packet, 12);
-                BitConverter.GetBytes(special_state).CopyTo(packet, 16);
-
-                // send packet
-
-                socket.SendTo(packet, host);
-                await Task.Delay(100);
-                socket.Close();
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return await SendSpecialButtons(szIP, 0);
         }
 
         public void addTradeCoolDown(String fc)
