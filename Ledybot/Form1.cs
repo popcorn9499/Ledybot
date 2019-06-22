@@ -1249,19 +1249,19 @@ namespace Ledybot
         private async void Button2_Click(object sender, EventArgs e)
         {
             bool result = await SendSpecialButtons(tb_IP.Text, 1);
-            if(result) { MessageBox.Show("Failed!"); }
+            if(!result) { MessageBox.Show("Failed!"); }
         }
 
         private async void Button3_Click(object sender, EventArgs e)
         {
             bool result = await SendSpecialButtons(tb_IP.Text, 2);
-            if (result) { MessageBox.Show("Failed!"); }
+            if (!result) { MessageBox.Show("Failed!"); }
         }
 
         private async void Button4_Click(object sender, EventArgs e)
         {
             bool result = await SendSpecialButtons(tb_IP.Text, 4);
-            if (result) { MessageBox.Show("Failed!"); }
+            if (!result) { MessageBox.Show("Failed!"); }
         }
 
         private void tb_tradeCooldown_TextChanged(object sender, EventArgs e)
