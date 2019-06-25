@@ -344,6 +344,9 @@ namespace LedyLib
                             botState = (int)gtsbotstates.panic;
                             break;
                         }
+                        
+                        panicAttempts = 0; // Reset panicAttempts
+                        
                         await _helper.waittouch(160, 80);
                         await Task.Delay(commandtime + delaytime);
                         botState = (int)gtsbotstates.presssearch;
@@ -1025,8 +1028,9 @@ namespace LedyLib
                     case (int)gtsbotstates.panic:
                         onChangeStatus?.Invoke("Recovery mode!");
                         _helper.quicktouch(0, 0, commandtime);
-
-
+                        
+                        panicAttempts++;
+                        
                         if (panicAttempts > 20)
                         {
                             botState = (int)gtsbotstates.FixSoftban;
@@ -1130,7 +1134,6 @@ namespace LedyLib
                                 }
                                 else
                                 {
-                                    panicAttempts++;
                                     botState = (int)gtsbotstates.panic;
                                     break;
                                 }
@@ -1151,7 +1154,7 @@ namespace LedyLib
                             break;
                         }
                         // wait 10 Seconds to Send to be safe
-                        await Task.Delay(3000);
+                        await Task.Delay(10000);
 
                         // Press Home Button
                         onChangeStatus?.Invoke("Pressing Home Button");
@@ -1162,7 +1165,7 @@ namespace LedyLib
                             break;
                         }
                         // wait another 15 Seconds to Send to be safe
-                        await Task.Delay(5000);
+                        await Task.Delay(15000);
 
                         // Reopen the Game
                         onChangeStatus?.Invoke("Reopen Game");
@@ -1187,7 +1190,7 @@ namespace LedyLib
                         onChangeStatus?.Invoke("Spam A to Overworld");
 
                         //Spam a to Load Savegame
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 10; i++)
                         {
                             _helper.quickbuton(_pkTable.keyA, 200);
                             await Task.Delay(1000);
@@ -1206,7 +1209,7 @@ namespace LedyLib
                         if (!ValidScreen)
                         {
                             onChangeStatus?.Invoke("Overworld isnt visible, retry Spamming A");
-                            for (int i = 0; i < 5; i++)
+                            for (int i = 0; i < 10; i++)
                             {
                                 _helper.quickbuton(_pkTable.keyA, 200);
                                 await Task.Delay(1000);
@@ -1278,7 +1281,7 @@ namespace LedyLib
                                     panicAttempts = 0;
                                     iPID = _helper.pid;
                                     await Task.Delay(3000);
-                                    botState = (int)gtsbotstates.panic;
+                                    botState = (int)gtsbotstates.startsearch;
                                     break;
                                 }
                                 else
