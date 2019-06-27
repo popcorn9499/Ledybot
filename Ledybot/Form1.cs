@@ -187,6 +187,12 @@ namespace Ledybot
                             tradeDirection = 2;
                         }
                         Program.createGTSBot(tb_IP.Text, pid, combo_pkmnList.SelectedIndex + 1, combo_gender.SelectedIndex, combo_levelrange.SelectedIndex, cb_Blacklist.Checked, cb_Reddit.Checked, tradeDirection, tb_waittime.Text, tb_consoleName.Text, cb_UseLedySync.Checked, tb_LedySyncIP.Text, tb_LedySyncPort.Text, game, false);
+
+                        //debug only for forcing softban
+                        if (cb_softbanTrigger.Checked)
+                            Program.gtsBot.ForceSoftBan();
+                        
+
                         Task<int> Bot = Program.gtsBot.RunBot();
                         if (!button)
                         {

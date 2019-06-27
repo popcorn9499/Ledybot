@@ -1320,5 +1320,10 @@ namespace LedyLib
             botstop = true;
         }
 
+        public void ForceSoftBan()
+        {
+            botState = (int)gtsbotstates.FixSoftban;
+        }
+
     }
 }

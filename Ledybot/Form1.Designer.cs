@@ -134,6 +134,19 @@ namespace Ledybot
             this.tb_ConsoleCommand = new System.Windows.Forms.TextBox();
             this.rtb_Console = new System.Windows.Forms.RichTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btn_select = new System.Windows.Forms.Button();
+            this.btnButtonStart = new System.Windows.Forms.Button();
+            this.btn_rBump = new System.Windows.Forms.Button();
+            this.btn_lBump = new System.Windows.Forms.Button();
+            this.btn_b = new System.Windows.Forms.Button();
+            this.btn_a = new System.Windows.Forms.Button();
+            this.btn_y = new System.Windows.Forms.Button();
+            this.btn_x = new System.Windows.Forms.Button();
+            this.btn_down = new System.Windows.Forms.Button();
+            this.btn_right = new System.Windows.Forms.Button();
+            this.btn_left = new System.Windows.Forms.Button();
+            this.btn_up = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -148,19 +161,8 @@ namespace Ledybot
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.ofd_WCInjection = new System.Windows.Forms.OpenFileDialog();
             this.rt_status = new System.Windows.Forms.RichTextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.btn_up = new System.Windows.Forms.Button();
-            this.btn_left = new System.Windows.Forms.Button();
-            this.btn_right = new System.Windows.Forms.Button();
-            this.btn_down = new System.Windows.Forms.Button();
-            this.btn_x = new System.Windows.Forms.Button();
-            this.btn_y = new System.Windows.Forms.Button();
-            this.btn_a = new System.Windows.Forms.Button();
-            this.btn_b = new System.Windows.Forms.Button();
-            this.btn_lBump = new System.Windows.Forms.Button();
-            this.btn_rBump = new System.Windows.Forms.Button();
-            this.btnButtonStart = new System.Windows.Forms.Button();
-            this.btn_select = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cb_softbanTrigger = new System.Windows.Forms.CheckBox();
             this.tc_Control.SuspendLayout();
             this.tp_GTS.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -179,9 +181,10 @@ namespace Ledybot
             this.gb_connectionBox.SuspendLayout();
             this.tb_Console.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.fcList.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tb_IP
@@ -1313,8 +1316,8 @@ namespace Ledybot
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(369, 536);
@@ -1322,12 +1325,154 @@ namespace Ledybot
             this.tabPage2.Text = "Special Buttons";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.btn_select);
+            this.groupBox5.Controls.Add(this.groupBox4);
+            this.groupBox5.Controls.Add(this.btnButtonStart);
+            this.groupBox5.Controls.Add(this.btn_rBump);
+            this.groupBox5.Controls.Add(this.btn_lBump);
+            this.groupBox5.Controls.Add(this.btn_b);
+            this.groupBox5.Controls.Add(this.btn_a);
+            this.groupBox5.Controls.Add(this.btn_y);
+            this.groupBox5.Controls.Add(this.btn_x);
+            this.groupBox5.Controls.Add(this.btn_down);
+            this.groupBox5.Controls.Add(this.btn_right);
+            this.groupBox5.Controls.Add(this.btn_left);
+            this.groupBox5.Controls.Add(this.btn_up);
+            this.groupBox5.Location = new System.Drawing.Point(4, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(362, 266);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "3DS Buttons";
+            // 
+            // btn_select
+            // 
+            this.btn_select.Location = new System.Drawing.Point(133, 180);
+            this.btn_select.Name = "btn_select";
+            this.btn_select.Size = new System.Drawing.Size(75, 23);
+            this.btn_select.TabIndex = 11;
+            this.btn_select.Text = "Select";
+            this.btn_select.UseVisualStyleBackColor = true;
+            this.btn_select.Click += new System.EventHandler(this.btn_select_Click);
+            // 
+            // btnButtonStart
+            // 
+            this.btnButtonStart.Location = new System.Drawing.Point(133, 151);
+            this.btnButtonStart.Name = "btnButtonStart";
+            this.btnButtonStart.Size = new System.Drawing.Size(75, 23);
+            this.btnButtonStart.TabIndex = 10;
+            this.btnButtonStart.Text = "Start";
+            this.btnButtonStart.UseVisualStyleBackColor = true;
+            this.btnButtonStart.Click += new System.EventHandler(this.btnButtonStart_Click);
+            // 
+            // btn_rBump
+            // 
+            this.btn_rBump.Location = new System.Drawing.Point(242, 19);
+            this.btn_rBump.Name = "btn_rBump";
+            this.btn_rBump.Size = new System.Drawing.Size(84, 23);
+            this.btn_rBump.TabIndex = 9;
+            this.btn_rBump.Text = "Right Bumper";
+            this.btn_rBump.UseVisualStyleBackColor = true;
+            this.btn_rBump.Click += new System.EventHandler(this.btn_rBump_Click);
+            // 
+            // btn_lBump
+            // 
+            this.btn_lBump.Location = new System.Drawing.Point(29, 19);
+            this.btn_lBump.Name = "btn_lBump";
+            this.btn_lBump.Size = new System.Drawing.Size(75, 23);
+            this.btn_lBump.TabIndex = 8;
+            this.btn_lBump.Text = "Left Bumper";
+            this.btn_lBump.UseVisualStyleBackColor = true;
+            this.btn_lBump.Click += new System.EventHandler(this.btn_lBump_Click);
+            // 
+            // btn_b
+            // 
+            this.btn_b.Location = new System.Drawing.Point(222, 112);
+            this.btn_b.Name = "btn_b";
+            this.btn_b.Size = new System.Drawing.Size(75, 23);
+            this.btn_b.TabIndex = 7;
+            this.btn_b.Text = "B";
+            this.btn_b.UseVisualStyleBackColor = true;
+            this.btn_b.Click += new System.EventHandler(this.btn_b_Click);
+            // 
+            // btn_a
+            // 
+            this.btn_a.Location = new System.Drawing.Point(261, 81);
+            this.btn_a.Name = "btn_a";
+            this.btn_a.Size = new System.Drawing.Size(75, 23);
+            this.btn_a.TabIndex = 6;
+            this.btn_a.Text = "A";
+            this.btn_a.UseVisualStyleBackColor = true;
+            this.btn_a.Click += new System.EventHandler(this.btn_a_Click);
+            // 
+            // btn_y
+            // 
+            this.btn_y.Location = new System.Drawing.Point(179, 82);
+            this.btn_y.Name = "btn_y";
+            this.btn_y.Size = new System.Drawing.Size(75, 23);
+            this.btn_y.TabIndex = 5;
+            this.btn_y.Text = "Y";
+            this.btn_y.UseVisualStyleBackColor = true;
+            this.btn_y.Click += new System.EventHandler(this.btn_y_Click);
+            // 
+            // btn_x
+            // 
+            this.btn_x.Location = new System.Drawing.Point(222, 53);
+            this.btn_x.Name = "btn_x";
+            this.btn_x.Size = new System.Drawing.Size(75, 23);
+            this.btn_x.TabIndex = 4;
+            this.btn_x.Text = "X";
+            this.btn_x.UseVisualStyleBackColor = true;
+            this.btn_x.Click += new System.EventHandler(this.btn_x_Click);
+            // 
+            // btn_down
+            // 
+            this.btn_down.Location = new System.Drawing.Point(52, 112);
+            this.btn_down.Name = "btn_down";
+            this.btn_down.Size = new System.Drawing.Size(75, 23);
+            this.btn_down.TabIndex = 3;
+            this.btn_down.Text = "Down";
+            this.btn_down.UseVisualStyleBackColor = true;
+            this.btn_down.Click += new System.EventHandler(this.btn_down_Click);
+            // 
+            // btn_right
+            // 
+            this.btn_right.Location = new System.Drawing.Point(97, 82);
+            this.btn_right.Name = "btn_right";
+            this.btn_right.Size = new System.Drawing.Size(75, 23);
+            this.btn_right.TabIndex = 2;
+            this.btn_right.Text = "Right";
+            this.btn_right.UseVisualStyleBackColor = true;
+            this.btn_right.Click += new System.EventHandler(this.btn_right_Click);
+            // 
+            // btn_left
+            // 
+            this.btn_left.Location = new System.Drawing.Point(16, 82);
+            this.btn_left.Name = "btn_left";
+            this.btn_left.Size = new System.Drawing.Size(75, 23);
+            this.btn_left.TabIndex = 1;
+            this.btn_left.Text = "Left";
+            this.btn_left.UseVisualStyleBackColor = true;
+            this.btn_left.Click += new System.EventHandler(this.btn_left_Click);
+            // 
+            // btn_up
+            // 
+            this.btn_up.Location = new System.Drawing.Point(52, 48);
+            this.btn_up.Name = "btn_up";
+            this.btn_up.Size = new System.Drawing.Size(75, 23);
+            this.btn_up.TabIndex = 0;
+            this.btn_up.Text = "Up";
+            this.btn_up.UseVisualStyleBackColor = true;
+            this.btn_up.Click += new System.EventHandler(this.btn_up_Click);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Controls.Add(this.button3);
             this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Location = new System.Drawing.Point(8, 3);
+            this.groupBox4.Location = new System.Drawing.Point(3, 151);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(127, 115);
             this.groupBox4.TabIndex = 0;
@@ -1436,146 +1581,25 @@ namespace Ledybot
             this.rt_status.TabIndex = 30;
             this.rt_status.Text = "Bot Status: ";
             // 
-            // groupBox5
+            // groupBox6
             // 
-            this.groupBox5.Controls.Add(this.btn_select);
-            this.groupBox5.Controls.Add(this.btnButtonStart);
-            this.groupBox5.Controls.Add(this.btn_rBump);
-            this.groupBox5.Controls.Add(this.btn_lBump);
-            this.groupBox5.Controls.Add(this.btn_b);
-            this.groupBox5.Controls.Add(this.btn_a);
-            this.groupBox5.Controls.Add(this.btn_y);
-            this.groupBox5.Controls.Add(this.btn_x);
-            this.groupBox5.Controls.Add(this.btn_down);
-            this.groupBox5.Controls.Add(this.btn_right);
-            this.groupBox5.Controls.Add(this.btn_left);
-            this.groupBox5.Controls.Add(this.btn_up);
-            this.groupBox5.Location = new System.Drawing.Point(4, 125);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(362, 266);
-            this.groupBox5.TabIndex = 1;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "3DS Buttons";
+            this.groupBox6.Controls.Add(this.cb_softbanTrigger);
+            this.groupBox6.Location = new System.Drawing.Point(7, 276);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(354, 232);
+            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "DEBUG!!! Touch at your own peril!!";
             // 
-            // btn_up
+            // cb_softbanTrigger
             // 
-            this.btn_up.Location = new System.Drawing.Point(42, 71);
-            this.btn_up.Name = "btn_up";
-            this.btn_up.Size = new System.Drawing.Size(75, 23);
-            this.btn_up.TabIndex = 0;
-            this.btn_up.Text = "Up";
-            this.btn_up.UseVisualStyleBackColor = true;
-            this.btn_up.Click += new System.EventHandler(this.btn_up_Click);
-            // 
-            // btn_left
-            // 
-            this.btn_left.Location = new System.Drawing.Point(6, 105);
-            this.btn_left.Name = "btn_left";
-            this.btn_left.Size = new System.Drawing.Size(75, 23);
-            this.btn_left.TabIndex = 1;
-            this.btn_left.Text = "Left";
-            this.btn_left.UseVisualStyleBackColor = true;
-            this.btn_left.Click += new System.EventHandler(this.btn_left_Click);
-            // 
-            // btn_right
-            // 
-            this.btn_right.Location = new System.Drawing.Point(87, 105);
-            this.btn_right.Name = "btn_right";
-            this.btn_right.Size = new System.Drawing.Size(75, 23);
-            this.btn_right.TabIndex = 2;
-            this.btn_right.Text = "Right";
-            this.btn_right.UseVisualStyleBackColor = true;
-            this.btn_right.Click += new System.EventHandler(this.btn_right_Click);
-            // 
-            // btn_down
-            // 
-            this.btn_down.Location = new System.Drawing.Point(42, 135);
-            this.btn_down.Name = "btn_down";
-            this.btn_down.Size = new System.Drawing.Size(75, 23);
-            this.btn_down.TabIndex = 3;
-            this.btn_down.Text = "Down";
-            this.btn_down.UseVisualStyleBackColor = true;
-            this.btn_down.Click += new System.EventHandler(this.btn_down_Click);
-            // 
-            // btn_x
-            // 
-            this.btn_x.Location = new System.Drawing.Point(212, 76);
-            this.btn_x.Name = "btn_x";
-            this.btn_x.Size = new System.Drawing.Size(75, 23);
-            this.btn_x.TabIndex = 4;
-            this.btn_x.Text = "X";
-            this.btn_x.UseVisualStyleBackColor = true;
-            this.btn_x.Click += new System.EventHandler(this.btn_x_Click);
-            // 
-            // btn_y
-            // 
-            this.btn_y.Location = new System.Drawing.Point(169, 105);
-            this.btn_y.Name = "btn_y";
-            this.btn_y.Size = new System.Drawing.Size(75, 23);
-            this.btn_y.TabIndex = 5;
-            this.btn_y.Text = "Y";
-            this.btn_y.UseVisualStyleBackColor = true;
-            this.btn_y.Click += new System.EventHandler(this.btn_y_Click);
-            // 
-            // btn_a
-            // 
-            this.btn_a.Location = new System.Drawing.Point(251, 104);
-            this.btn_a.Name = "btn_a";
-            this.btn_a.Size = new System.Drawing.Size(75, 23);
-            this.btn_a.TabIndex = 6;
-            this.btn_a.Text = "A";
-            this.btn_a.UseVisualStyleBackColor = true;
-            this.btn_a.Click += new System.EventHandler(this.btn_a_Click);
-            // 
-            // btn_b
-            // 
-            this.btn_b.Location = new System.Drawing.Point(212, 135);
-            this.btn_b.Name = "btn_b";
-            this.btn_b.Size = new System.Drawing.Size(75, 23);
-            this.btn_b.TabIndex = 7;
-            this.btn_b.Text = "B";
-            this.btn_b.UseVisualStyleBackColor = true;
-            this.btn_b.Click += new System.EventHandler(this.btn_b_Click);
-            // 
-            // btn_lBump
-            // 
-            this.btn_lBump.Location = new System.Drawing.Point(29, 19);
-            this.btn_lBump.Name = "btn_lBump";
-            this.btn_lBump.Size = new System.Drawing.Size(75, 23);
-            this.btn_lBump.TabIndex = 8;
-            this.btn_lBump.Text = "Left Bumper";
-            this.btn_lBump.UseVisualStyleBackColor = true;
-            this.btn_lBump.Click += new System.EventHandler(this.btn_lBump_Click);
-            // 
-            // btn_rBump
-            // 
-            this.btn_rBump.Location = new System.Drawing.Point(242, 19);
-            this.btn_rBump.Name = "btn_rBump";
-            this.btn_rBump.Size = new System.Drawing.Size(84, 23);
-            this.btn_rBump.TabIndex = 9;
-            this.btn_rBump.Text = "Right Bumper";
-            this.btn_rBump.UseVisualStyleBackColor = true;
-            this.btn_rBump.Click += new System.EventHandler(this.btn_rBump_Click);
-            // 
-            // btnButtonStart
-            // 
-            this.btnButtonStart.Location = new System.Drawing.Point(130, 189);
-            this.btnButtonStart.Name = "btnButtonStart";
-            this.btnButtonStart.Size = new System.Drawing.Size(75, 23);
-            this.btnButtonStart.TabIndex = 10;
-            this.btnButtonStart.Text = "Start";
-            this.btnButtonStart.UseVisualStyleBackColor = true;
-            this.btnButtonStart.Click += new System.EventHandler(this.btnButtonStart_Click);
-            // 
-            // btn_select
-            // 
-            this.btn_select.Location = new System.Drawing.Point(130, 218);
-            this.btn_select.Name = "btn_select";
-            this.btn_select.Size = new System.Drawing.Size(75, 23);
-            this.btn_select.TabIndex = 11;
-            this.btn_select.Text = "Select";
-            this.btn_select.UseVisualStyleBackColor = true;
-            this.btn_select.Click += new System.EventHandler(this.btn_select_Click);
+            this.cb_softbanTrigger.AutoSize = true;
+            this.cb_softbanTrigger.Location = new System.Drawing.Point(6, 20);
+            this.cb_softbanTrigger.Name = "cb_softbanTrigger";
+            this.cb_softbanTrigger.Size = new System.Drawing.Size(99, 17);
+            this.cb_softbanTrigger.TabIndex = 0;
+            this.cb_softbanTrigger.Text = "Softban Trigger";
+            this.cb_softbanTrigger.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -1621,9 +1645,11 @@ namespace Ledybot
             this.tb_Console.ResumeLayout(false);
             this.tb_Console.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.fcList.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1762,6 +1788,8 @@ namespace Ledybot
         private System.Windows.Forms.Button btnButtonStart;
         private System.Windows.Forms.Button btn_rBump;
         private System.Windows.Forms.Button btn_lBump;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.CheckBox cb_softbanTrigger;
     }
 }
 
