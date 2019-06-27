@@ -269,6 +269,13 @@ namespace LedyLib
 
         public async Task<bool> SendSpecialButtons(string szIP, uint SpecialKey)
         {
+            bool result = await _SendSpecialButton(szIP, SpecialKey);
+            await _SendSpecialButton(szIP, 0);
+            return result;
+        }
+
+        public async Task<bool> _SendSpecialButton(string szIP, uint SpecialKey)
+        {
             try
             {
                 // Build Connection
@@ -299,18 +306,13 @@ namespace LedyLib
                 socket.SendTo(packet, host);
                 await Task.Delay(100);
                 socket.Close();
-                await SendEmptyButton(szIP);
+                
                 return true;
             }
             catch
             {
                 return false;
             }
-        }
-
-        public async Task<bool> SendEmptyButton(string szIP)
-        {
-            return await SendSpecialButtons(szIP, 0);
         }
 
         public void addTradeCoolDown(String fc)
