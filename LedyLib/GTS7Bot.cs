@@ -1077,7 +1077,7 @@ namespace LedyLib
                                 await Task.Delay(15000);
                                 _helper.quickbuton(_pkTable.keyA, commandtime);
                                 await Task.Delay(15000);
-                                botState = (int)gtsbotstates.startsearch;
+                                botState = (int)gtsbotstates.startsearch; //assume its connected start searching awayyyyy!!!!
                                 break;
                             }
                         }
