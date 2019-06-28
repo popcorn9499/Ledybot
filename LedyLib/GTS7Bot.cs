@@ -1071,7 +1071,13 @@ namespace LedyLib
                             }
                             else
                             {
-                                botState = (int)gtsbotstates.botexit;
+                                _helper.quickbuton(_pkTable.keyA, commandtime); //reconnecting if the internet needs to be enabled
+                                await Task.Delay(2000);
+                                _helper.quickbuton(_pkTable.keyA, commandtime);
+                                await Task.Delay(15000);
+                                _helper.quickbuton(_pkTable.keyA, commandtime);
+                                await Task.Delay(15000);
+                                botState = (int)gtsbotstates.startsearch;
                                 break;
                             }
                         }
