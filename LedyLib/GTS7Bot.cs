@@ -1258,8 +1258,10 @@ namespace LedyLib
                         if (ValidScreen)
                         {
                             onChangeStatus?.Invoke("Plaza Detected, Softban was fixed!");
+                            panicAttempts = 0;
+                            iPID = _helper.pid;
                             await Task.Delay(3000);
-                            botState = (int)gtsbotstates.panic;
+                            botState = (int)gtsbotstates.startsearch;
                             break;
                         }
                         else
