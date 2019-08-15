@@ -146,8 +146,8 @@ namespace Ledybot
                 }
                 catch (Exception e)
                 {
-                    f1.SendConsoleMessage(e.StackTrace);
-                    f1.SendConsoleMessage("Reconnecting");
+                    //f1.SendConsoleMessage(e.StackTrace);
+                    //f1.SendConsoleMessage("Reconnecting");
                     connectionItem.SubItems[2].Text = Program.ConnectionError;
                 }
             }
