@@ -1111,12 +1111,14 @@ namespace Ledybot
 
         public void SendConsoleMessage(string message)
         {
+            String Time;
             if (rtb_Console.InvokeRequired)
             {
                 this.Invoke(new Action<string>(SendConsoleMessage), message);
                 return;
             }
-            rtb_Console.AppendText("\n" + message);
+            Time = DateTime.Now.ToString("[dddd , MMM dd yyyy,hh:mm:ss] ");
+            rtb_Console.AppendText("\n " + Time + message);
         }
 
         private void button1_MouseClick(object sender, MouseEventArgs e)
