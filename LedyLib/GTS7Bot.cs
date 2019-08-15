@@ -148,6 +148,7 @@ namespace LedyLib
         {
             try
             {
+                await Task.Delay(o3dswaittime + 1000);
                 await _helper.waitNTRread(Address);
                 int screenID = (int)_helper.lastRead;
 
@@ -1040,6 +1041,29 @@ namespace LedyLib
                             break;
                         }
 
+
+
+                            //recover from weird state here
+                            try
+                        {
+                            if (!_ntr.isConnected)
+                            {
+                                _scriptHelper.connect(szIP, 8000);
+                                await Task.Delay(5000);
+
+                            }
+                        }
+                        catch
+                        {
+                            await Task.Delay(5000);
+                            botState = (int)gtsbotstates.panic;
+                            break;
+                        }
+
+                        await _helper.waitNTRread(addr_currentScreen);
+                        int screenID = (int)_helper.lastRead;
+
+
                         // Alternate more accurate way to Detect the plaza Screen
                         bool ValidScreen = await ScreenDetector2(0x006A62E6, 0x3E98);
 
@@ -1092,52 +1116,6 @@ namespace LedyLib
                                 break;
                             }
 
-                        }
-
-
-                            //recover from weird state here
-                            try
-                        {
-                            if (!_ntr.isConnected)
-                            {
-                                _scriptHelper.connect(szIP, 8000);
-                                await Task.Delay(5000);
-
-                            }
-                        }
-                        catch
-                        {
-                            await Task.Delay(5000);
-                            botState = (int)gtsbotstates.panic;
-                            break;
-                        }
-
-                        await _helper.waitNTRread(addr_currentScreen);
-                        int screenID = (int)_helper.lastRead;
-
-                        if (screenID == val_PlazaScreen)
-                        {
-                            await _helper.waittouch(200, 120);
-                            await Task.Delay(1000);
-                            await _helper.waittouch(200, 120);
-                            await Task.Delay(8000);
-                            correctScreen = await isCorrectWindow(val_Quit_SeekScreen);
-                            if (correctScreen)
-                            {
-                                botState = (int)gtsbotstates.startsearch;
-                                break;
-                            }
-                            else
-                            {
-                                _helper.quickbuton(_pkTable.keyA, commandtime); //reconnecting if the internet needs to be enabled
-                                await Task.Delay(2000);
-                                _helper.quickbuton(_pkTable.keyA, commandtime);
-                                await Task.Delay(15000);
-                                _helper.quickbuton(_pkTable.keyA, commandtime);
-                                await Task.Delay(15000);
-                                botState = (int)gtsbotstates.startsearch; //assume its connected start searching awayyyyy!!!!
-                                break;
-                            }
                         }
                         else if (screenID == val_Quit_SeekScreen)
                         {
