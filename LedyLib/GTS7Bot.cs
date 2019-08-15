@@ -64,7 +64,8 @@ namespace LedyLib
 
         //private uint addr_SearchPokemonNameField = 0x301118D4; //Holds the currently typed in name in the "search pokemon" window
 
-        private uint addr_currentScreen; //Hopefully a address to tell us in what screen we are (roughly)
+        //was private
+        public uint addr_currentScreen; //Hopefully a address to tell us in what screen we are (roughly)
 
         private uint addr_pokemonToFind;
         private uint addr_pokemonToFindGender;
@@ -129,6 +130,8 @@ namespace LedyLib
         public uint MapIDOffset = 0x33FAE0A4; // Map ID
         public uint Map_Mount_Hokulani = 0x7B;
         public uint Map_Festival_Plaza = 0xF1;
+        
+        
 
         private async Task<bool> isCorrectWindow(int expectedScreen)
         {
@@ -1037,8 +1040,63 @@ namespace LedyLib
                             break;
                         }
 
-                        //recover from weird state here
-                        try
+                        // Alternate more accurate way to Detect the plaza Screen
+                        bool ValidScreen = await ScreenDetector2(0x006A62E6, 0x3E98);
+
+                        if (ValidScreen)
+                        {
+                            onChangeStatus?.Invoke("Recovery mode [PLAZA]");
+
+                            /*
+                            //Disconnect/Connect to reset the wifi clock (24h Wifi Runetime Issue)
+                            */
+                            await _helper.waittouch(300, 239);
+                            await Task.Delay(3000);
+                            _helper.quickbuton(_pkTable.keyA, commandtime);
+                            await Task.Delay(1000);
+                            _helper.quickbuton(_pkTable.keyA, commandtime);
+                            await Task.Delay(10000);
+                            await _helper.waittouch(300, 239);
+                            await Task.Delay(5000);
+                            //Re-Enter GTS
+
+                            await _helper.waittouch(200, 120);
+                            await Task.Delay(1000);
+                            await _helper.waittouch(200, 120);
+                            await Task.Delay(5000);
+
+                            // Connect to Wifi
+                            _helper.quickbuton(_pkTable.keyA, commandtime);
+                            await Task.Delay(1000);
+                            _helper.quickbuton(_pkTable.keyA, commandtime);
+                            await Task.Delay(10000);
+                            await _helper.waittouch(1, 1);
+                            await Task.Delay(2000);
+                            await _helper.waittouch(1, 1);
+                            await Task.Delay(10000);
+
+                            // Bypass screen stuck issues
+                            _helper.quickbuton(_pkTable.keyB, commandtime);
+                            await Task.Delay(500);
+                            _helper.quickbuton(_pkTable.keyB, commandtime);
+                            await Task.Delay(500);
+                            correctScreen = await isCorrectWindow(val_Quit_SeekScreen);
+                            if (correctScreen)
+                            {
+                                botState = (int)gtsbotstates.botstart;
+                                break;
+                            }
+                            else
+                            {
+                                botState = (int)gtsbotstates.panic;
+                                break;
+                            }
+
+                        }
+
+
+                            //recover from weird state here
+                            try
                         {
                             if (!_ntr.isConnected)
                             {
@@ -1211,7 +1269,7 @@ namespace LedyLib
                             await Task.Delay(4000);
                         }
 
-                        bool ValidScreen = await ScreenDetector2(MapIDOffset, Map_Mount_Hokulani);
+                        ValidScreen = await ScreenDetector2(MapIDOffset, Map_Mount_Hokulani);
                         if (!ValidScreen)
                         {
                             onChangeStatus?.Invoke("Overworld isnt visible, retry Spamming A");
