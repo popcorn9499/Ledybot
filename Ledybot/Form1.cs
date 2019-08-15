@@ -76,6 +76,7 @@ namespace Ledybot
         {
             if (Program.ntrClient.isConnected)
             {
+                //MessageBox.Show("X: " + e.X.ToString() + " Y: " + e.Y.ToString());
                 Program.helper.holdtouch(e.X, e.Y);
                 touchtouch = true;
             }
