@@ -198,7 +198,6 @@ namespace Ledybot
                         
 
                         Task<int> Bot = Program.gtsBot.RunBot();
-                        print_screen_stat();
                         if (!button)
                         {
                             string msg2 = "command:startgtsbot Bot started!";
@@ -827,23 +826,6 @@ namespace Ledybot
             }
             catch {}
 
-        }
-
-        async private void print_screen_stat()
-        {
-            string message;
-            while (Program.ntrClient.isConnected)
-            {
-                await Program.helper.waitNTRread(Program.gtsBot.addr_currentScreen);
-                int screenID = (int)Program.helper.lastRead;
-                if (!screenID.Equals(prevScreenID))
-                {
-                    message = "Current Screen " + screenID.ToString();
-                    SendConsoleMessage(message);
-                    prevScreenID = screenID;
-                }
-                await Task.Delay(100);
-            }
         }
 
         private void btn_BrowseInject_Click(object sender, EventArgs e)
