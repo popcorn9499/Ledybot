@@ -821,6 +821,8 @@ namespace LedyLib
                         waitTaskbool = _helper.waitNTRwrite(addr_PageCurrentView, BitConverter.GetBytes(tradeIndex), iPID);
                         if (await waitTaskbool)
                         {
+                            
+
                             string szNickname = Encoding.Unicode.GetString(block, 0x14, 24).Trim('\0'); //fix to prevent nickname clipping. Count should be 24, 2 bytes per letter, 2x12=24, not 20.
 
                             _data.addTradeCoolDown(szFC); //initiate cooldown
@@ -875,14 +877,6 @@ namespace LedyLib
                             //save the last traded trainer optional with trainer data
                             File.WriteAllText(Directory.GetCurrentDirectory() + @"\LastTradedTrainer.txt", szTrainerName.ToString());
 
-                            //ensures the box position will always be box position 1.
-                            uint CurrentBox = 0x32DE3448; // Current Box 0 - 31
-                            // Example for writing the Box Slot
-
-                            int Boxpos = 0; // ( Bos Slot 0-31 where 0 is Box 1 )
-
-                            await _helper.waitNTRwrite(CurrentBox, (uint)Boxpos, _helper.pid);
-                            /* use the above line before every trade to prevent Box Switching. */
 
 
                             //Inject the Pokemon to box1slot1
