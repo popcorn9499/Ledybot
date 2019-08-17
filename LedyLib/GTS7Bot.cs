@@ -64,8 +64,7 @@ namespace LedyLib
 
         //private uint addr_SearchPokemonNameField = 0x301118D4; //Holds the currently typed in name in the "search pokemon" window
 
-        //was private
-        public uint addr_currentScreen; //Hopefully a address to tell us in what screen we are (roughly)
+        private uint addr_currentScreen; //Hopefully a address to tell us in what screen we are (roughly)
 
         private uint addr_pokemonToFind;
         private uint addr_pokemonToFindGender;
